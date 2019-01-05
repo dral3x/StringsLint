@@ -1,0 +1,29 @@
+#included:
+#- Classes
+
+# Paths to ignore during linting. Takes precedence over `included`.
+excluded:
+  - UnitTests
+  - UITests
+  - Targets
+  - Screenshots
+  - Playgrounds
+  - fastlane
+  - Resources/settings/Settings.bundle
+
+# Customize parsers
+objc_parser:
+  implicit_macros:
+    - SPLocalizedString
+  explicit_macros:
+    - SPLocalizedStringFromTable
+
+xib_parser:
+  key_paths:
+    - textLocalized
+    - placeholderLocalized
+
+# Customize specific rules
+unused:
+  excluded:
+    - InfoPlist.strings

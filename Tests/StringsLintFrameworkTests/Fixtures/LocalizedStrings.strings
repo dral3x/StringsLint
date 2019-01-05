@@ -1,0 +1,12 @@
+/* 
+  LocalizedStrings.strings
+  StringsLint
+
+  Created by Alessandro "Sandro" Calzavara on 23/09/2018.
+*/
+
+/* Engineer comment 1 */
+"text_1" = "Text Example 1";
+
+/* Engineer comment 2 */
+"text_2" = "Text Example 2";

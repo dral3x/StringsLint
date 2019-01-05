@@ -1,0 +1,47 @@
+# Xcode
+#
+
+## Build generated
+build/
+DerivedData
+
+## Various settings
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+
+## Other
+*.xccheckout
+*.moved-aside
+*.xcuserstate
+*.xcscmblueprint
+
+## Obj-C/Swift specific
+*.hmap
+*.ipa
+
+# StringsLint
+
+StringsLint.pkg
+StringsLintFramework.framework.zip
+benchmark_*
+portable_stringslint.zip
+osscheck/
+
+# SPM
+.build
+Packages
+Package.pins
+
+# macOS
+.DS_Store
+
+# Bundler
+.bundle/
+bundle/
