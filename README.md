@@ -18,19 +18,15 @@ If you **want to contribute**, submit a pull request.
 
 ## Installation
 
-### Using [Homebrew](http://brew.sh/):
+### ⚠️ Not available yet: Using [Homebrew](http://brew.sh/):
 
 ```
 brew install stringslint
 ```
 
-### Using a pre-built package:
-
-You can also install StringsLint by downloading `StringsLint.pkg` from the [latest GitHub release](https://github.com/dral3x/StringsLint/releases/latest) and running it.
-
 ### Compiling from source:
 
-You can also build from source by cloning this project and running `make install` (Xcode 10.0 or later).
+You can build from source by cloning this project and running `make install` (Xcode 10.0 or later).
 
 ## Usage
 
@@ -66,16 +62,15 @@ Directories will be searched recursively.
 
 ## Rules
 
-There are very few rules included, but [Pull requests](CONTRIBUTING.md) are encouraged.
+There are few basic but important rules included.
+See [Rules.md](Rules.md) for more information.
 
-You can find an updated list of rules and more information about them in [Rules.md](Rules.md).
-
-You can also check [Sources/StringsLintFramework/Rules](Sources/StringsLintFramework/Rules) directory to see their implementation.
+You can also check [Sources/StringsLintFramework/Rules/Lint](Sources/StringsLintFramework/Rules/Lint) directory to see their implementation.
 
 ### Configuration
 
 Configure StringsLint by adding a `.stringslint.yml` file from the directory you'll run StringsLint from.
-The following parameters can be configured:
+You can configure included and excluded file paths, extends some parsers capabilities and even turn off rules or specific files for each rule:
 
 ```yaml
 
@@ -87,9 +82,22 @@ excluded: # paths to ignore during linting. Takes precedence over `included`.
 - Source/ExcludedFolder
 - Source/ExcludedFile.swift
 - Source/*/ExcludedFile.swift # Exclude files with a wildcard
-```
 
-You can also use environment variables in your configuration file, by using `${SOME_VARIABLE}` in a string.
+# Customize parsers
+objc_parser:
+  implicit_macros:
+    - SPKLocalizedString # detect this custom macro
+
+xib_parser:
+  key_paths:
+    - textLocalized # keyPath used to localized UI elements
+
+# Customize specific rules
+unused:
+  excluded:
+    - InfoPlist.strings # strings in here are used by iOS directly
+
+```
 
 ## License
 

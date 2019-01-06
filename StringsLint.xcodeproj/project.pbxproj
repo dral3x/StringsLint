@@ -446,6 +446,7 @@
 			isa = PBXGroup;
 			children = (
 				FAB28D48218B5103009E9542 /* Configuration */,
+				FA06C0522147AA4F00260ECD /* LintRule.swift */,
 				FAB28D47218B50F1009E9542 /* Lint */,
 			);
 			path = Rules;
@@ -521,7 +522,6 @@
 		FAB28D47218B50F1009E9542 /* Lint */ = {
 			isa = PBXGroup;
 			children = (
-				FA06C0522147AA4F00260ECD /* LintRule.swift */,
 				FA06C0562147AB8E00260ECD /* UnusedRule.swift */,
 				FA06C0582147ABD200260ECD /* MissingRule.swift */,
 				FA06C05A2147ABF200260ECD /* PartialRule.swift */,
