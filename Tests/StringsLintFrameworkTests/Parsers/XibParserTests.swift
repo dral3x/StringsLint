@@ -18,7 +18,7 @@ class XibParserTests: ParserTestCase {
         
         let file = try self.createTempFile("test1.xib", with: content)
         
-        let parser = XibParser()
+        let parser = XibParser(keyPaths: ["textLocalized"])
         let results = try parser.parse(file: file)
         
         XCTAssertEqual(results.count, 1)
@@ -94,7 +94,7 @@ class XibParserTests: ParserTestCase {
 """
         let file = try self.createTempFile("test2.xib", with: content)
         
-        let parser = XibParser()
+        let parser = XibParser(keyPaths: ["textLocalized"])
         let results = try parser.parse(file: file)
         
         XCTAssertEqual(results.count, 3)

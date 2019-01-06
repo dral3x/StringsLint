@@ -30,13 +30,18 @@ public struct Configuration: Hashable {
     public let rules: [LintRule]
     
     // MARK: Initializers
-    public init?(included: [String] = [],
+    public init(included: [String] = [],
                  excluded: [String] = [],
-                 rules: [LintRule]) {
+                 ruleList: RuleList = masterRuleList,
+                 rules: [LintRule]?) {
+        
+        let configuredRules = rules
+            ?? (try? ruleList.configuredRules(with: [:]))
+            ?? []
         
         self.init(included: included,
                   excluded: excluded,
-                  rules: rules,
+                  rules: configuredRules,
                   rootPath: nil)
     }
     
@@ -73,7 +78,7 @@ public struct Configuration: Hashable {
         }
         if path.isEmpty || !FileManager.default.fileExists(atPath: fullPath) {
             if !optional { fail("File not found.") }
-            self.init()
+            self.init(rules: nil)
             self.rootPath = rootPath
             return
         }
@@ -92,7 +97,7 @@ public struct Configuration: Hashable {
         } catch {
             fail("\(error)")
         }
-        self.init()
+        self.init(rules: nil)
     }
 }
 

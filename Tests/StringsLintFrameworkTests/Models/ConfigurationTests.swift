@@ -10,6 +10,15 @@ import XCTest
 
 class ConfigurationTests: ConfigurationTestCase {
 
+    func testDefaultInit() throws {
+        
+        let configuration = Configuration()
+        
+        XCTAssertEqual(configuration.included.count, 0)
+        XCTAssertEqual(configuration.excluded.count, 0)
+        XCTAssertFalse(configuration.rules.isEmpty)
+    }
+    
     func testEmpty() throws {
         
         let content = """

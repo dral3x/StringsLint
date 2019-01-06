@@ -67,5 +67,5 @@ func supportedFilesExtentions() -> Set<String> {
     // based on all the parsers implemented in the library
     let parsers: [LocalizableParser] = [ ObjcParser(), StringsParser(), SwiftParser(), XibParser() ]
     let extensions = parsers.flatMap { $0.supportedFileExtentions }
-    return Set(extensions)
+    return Set(extensions.map { ".\($0)" })
 }
