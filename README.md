@@ -18,9 +18,20 @@ If you **want to contribute**, submit a pull request.
 
 ## Installation
 
-### ⚠️ Not available yet: Using [Homebrew](http://brew.sh/):
+### Using [Homebrew](http://brew.sh/) ⚠️ Not available yet!
 
+In order to distribute this tool via Homebrew, we need to address these problems:
+
+```bash
+brew audit --new-formula --strict stringslint
+stringslint:
+  * GitHub repository not notable enough (<30 forks, <30 watchers and <75 stars)
+  * GitHub repository too new (<30 days old)
 ```
+
+Once these are knocked down, you will install it like so
+
+```bash
 brew install stringslint
 ```
 
