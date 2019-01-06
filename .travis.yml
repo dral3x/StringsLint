@@ -1,0 +1,5 @@
+language: objective-c
+osx_image: xcode10.1
+xcode_project: StringsLint.xcodeproj
+xcode_scheme: StringsLintFramework
+xcode_destination: platform=macOS
