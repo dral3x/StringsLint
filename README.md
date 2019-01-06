@@ -30,8 +30,7 @@ You can also install StringsLint by downloading `StringsLint.pkg` from the [late
 
 ### Compiling from source:
 
-You can also build from source by cloning this project and running
-`make install` (Xcode 9.4 or later).
+You can also build from source by cloning this project and running `make install` (Xcode 10.0 or later).
 
 ## Usage
 
@@ -62,7 +61,7 @@ lint            Print lint warnings and errors (default command)
 version         Display the current version of StringsLint
 ```
 
-Run `stringslint` in the directory containing the files to lint. 
+Run `stringslint` in the directory containing the files to lint.
 Directories will be searched recursively.
 
 ## Rules
@@ -75,7 +74,7 @@ You can also check [Sources/StringsLintFramework/Rules](Sources/StringsLintFrame
 
 ### Configuration
 
-Configure StringsLint by adding a `.stringslint.yml` file from the directory you'll run StringsLint from. 
+Configure StringsLint by adding a `.stringslint.yml` file from the directory you'll run StringsLint from.
 The following parameters can be configured:
 
 ```yaml
