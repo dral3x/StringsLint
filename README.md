@@ -18,6 +18,12 @@ If you **want to contribute**, submit a pull request.
 
 ## Installation
 
+### Using [Mint](https://github.com/yonaskolb/Mint):
+
+```bash
+mint install dral3x/stringslint
+```
+
 ### Using [Homebrew](http://brew.sh/) ⚠️ Not available yet!
 
 In order to distribute this tool via Homebrew, we need to address these problems:
