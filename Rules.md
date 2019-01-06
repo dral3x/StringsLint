@@ -14,7 +14,7 @@ Resolution: remove those strings.
 
 Identify localized strings that are used in code but does not appear in the `.strings` files.
 
-Resolution: aadd that strings and localize them.
+Resolution: add those strings and localize them.
 
 ## Partially Localized
 
