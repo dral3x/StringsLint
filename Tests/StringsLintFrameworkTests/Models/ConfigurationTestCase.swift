@@ -26,6 +26,16 @@ class ConfigurationTestCase: XCTestCase {
         return url.path
     }
     
+    func creareConfigFileAsDictionary(with content: String) throws -> Any {
+        
+        let file = try self.createTempConfigurationFile(with: content)
+        
+        let yamlContents = try String(contentsOfFile: file, encoding: .utf8)
+        let dict = try YamlParser.parse(yamlContents)
+        
+        return dict as Any
+    }
+    
     func cleanupTempFiles() {
         self.tempFiles.forEach { try? FileManager.default.removeItem(at: $0) }
         self.tempFiles.removeAll()

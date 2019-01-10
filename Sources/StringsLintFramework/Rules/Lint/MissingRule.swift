@@ -16,28 +16,40 @@ public class MissingRule: LintRule {
     
     private var declaredStrings = [LocalizedString]()
     private var usedStrings = [LocalizedString]()
+    var severity: ViolationSeverity
     
     private let declareParser: LocalizableParser
     private let usageParser: LocalizableParser
     
     public required convenience init(configuration: Any) throws {
+        var config = MissingRuleConfiguration()
+        do {
+            try config.apply(defaultDictionaryValue(configuration, for: MissingRule.self.description.identifier))
+        } catch {}
+        
         self.init(declareParser: try StringsParser.self.init(configuration: configuration),
                   usageParser: ComposedParser(parsers: [
                     try SwiftParser.self.init(configuration: configuration),
                     try ObjcParser.self.init(configuration: configuration),
                     try XibParser.self.init(configuration: configuration)
-                ])
+                    ]),
+                  severity: config.severity
         )
     }
     public required convenience init() {
+        let config = MissingRuleConfiguration()
+        
         self.init(declareParser: StringsParser(),
-                  usageParser: ComposedParser(parsers: [ SwiftParser(), ObjcParser(), XibParser() ]))
+                  usageParser: ComposedParser(parsers: [ SwiftParser(), ObjcParser(), XibParser() ]),
+                  severity: config.severity)
     }
     
     public init(declareParser: LocalizableParser,
-                usageParser: LocalizableParser) {
+                usageParser: LocalizableParser,
+                severity: ViolationSeverity) {
         self.declareParser = declareParser
         self.usageParser = usageParser
+        self.severity = severity
     }
     
     public func processFile(_ file: File) {
@@ -79,6 +91,6 @@ public class MissingRule: LintRule {
     }
     
     private func buildViolation(location: Location) -> Violation {
-        return Violation(ruleDescription: MissingRule.description, severity: .warning, location: location, reason: "Localized string is missing")
+        return Violation(ruleDescription: MissingRule.description, severity: self.severity, location: location, reason: "Localized string is missing")
     }
 }

@@ -8,7 +8,7 @@
 import XCTest
 @testable import StringsLintFramework
 
-class SwiftParserConfigurationTests: ParserConfigurationTestCase {
+class SwiftParserConfigurationTests: ConfigurationTestCase {
     
     func testImplicitMacros() throws {
         
