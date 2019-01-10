@@ -8,18 +8,8 @@
 import XCTest
 @testable import StringsLintFramework
 
-class ObjcParserConfigurationTests: ConfigurationTestCase {
+class ObjcParserConfigurationTests: ParserConfigurationTestCase {
 
-    func creareConfigFileAsDictionary(with content: String) throws -> Any {
-        
-        let file = try self.createTempConfigurationFile(with: content)
-        
-        let yamlContents = try String(contentsOfFile: file, encoding: .utf8)
-        let dict = try YamlParser.parse(yamlContents)
-        
-        return dict as Any
-    }
-    
     func testImplicitMacros() throws {
         
         let content = """

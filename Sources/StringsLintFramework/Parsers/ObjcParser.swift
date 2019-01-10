@@ -21,7 +21,8 @@ public struct ObjcParser: LocalizableParser {
     }
     
     public init() {
-        self.init(implicitMacros: [], explicitMacros: [])
+        let config = ObjcParserConfiguration()
+        self.init(implicitMacros: config.implicitMacros, explicitMacros: config.explicitMacros)
     }
     
     public init(configuration: Any) throws {

@@ -20,12 +20,17 @@ public struct SwiftParser: LocalizableParser {
     }
     
     public init() {
-        self.init(macros: [ "NSLocalizedString", "CFLocalizedString" ])
+        let config = SwiftParserConfiguration()
+        self.init(macros: config.macros)
     }
     
     public init(configuration: Any) throws {
-        // Parser does not support any configuration
-        self.init()
+        var config = SwiftParserConfiguration()
+        do {
+            try config.apply(defaultDictionaryValue(configuration, for: SwiftParser.self.identifier))
+        } catch {}
+        
+        self.init(macros: config.macros)
     }
     
     public init(macros: [String]) {
