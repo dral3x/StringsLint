@@ -14,65 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Yams::CYaml"
-               BuildableName = "CYaml.framework"
-               BlueprintName = "CYaml"
-               ReferencedContainer = "container:StringsLint.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Result::Result"
-               BuildableName = "Result.framework"
-               BlueprintName = "Result"
-               ReferencedContainer = "container:StringsLint.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Yams::Yams"
-               BuildableName = "Yams.framework"
-               BlueprintName = "Yams"
-               ReferencedContainer = "container:StringsLint.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "StringsLint::StringsLintFramework"
                BuildableName = "StringsLintFramework.framework"
                BlueprintName = "StringsLintFramework"
-               ReferencedContainer = "container:StringsLint.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Commandant::Commandant"
-               BuildableName = "Commandant.framework"
-               BlueprintName = "Commandant"
                ReferencedContainer = "container:StringsLint.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -125,9 +69,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "Yams::CYaml"
-            BuildableName = "CYaml.framework"
-            BlueprintName = "CYaml"
+            BlueprintIdentifier = "StringsLint::StringsLintFramework"
+            BuildableName = "StringsLintFramework.framework"
+            BlueprintName = "StringsLintFramework"
             ReferencedContainer = "container:StringsLint.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
