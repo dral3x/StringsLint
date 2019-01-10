@@ -65,33 +65,12 @@ uninstall:
 	rm -rf "$(FRAMEWORKS_FOLDER)/StringsLintFramework.framework"
 	rm -f "$(BINARIES_FOLDER)/stringslint"
 
-installables: clean build
-	install -d "$(TEMPORARY_FOLDER)$(BINARIES_FOLDER)"
-	install "$(STRINGSLINT_EXECUTABLE)" "$(TEMPORARY_FOLDER)$(BINARIES_FOLDER)"
-
 prefix_install: clean build_with_disable_sandbox
 	install -d "$(PREFIX)/bin/"
 	install "$(STRINGSLINT_EXECUTABLE)" "$(PREFIX)/bin/"
 
-portable_zip: installables
-	cp -f "$(TEMPORARY_FOLDER)$(BINARIES_FOLDER)/stringslint" "$(TEMPORARY_FOLDER)"
-	cp -f "$(LICENSE_PATH)" "$(TEMPORARY_FOLDER)"
-	(cd "$(TEMPORARY_FOLDER)"; zip -yr - "stringslint" "LICENSE") > "./portable_stringslint.zip"
-
-package: installables
-	pkgbuild \
-		--identifier "com.alessandrocalzavara.stringslint" \
-		--install-location "/" \
-		--root "$(TEMPORARY_FOLDER)" \
-		--version "$(VERSION_STRING)" \
-		"$(OUTPUT_PACKAGE)"
-
-release: package portable_zip
-
 publish:
 	brew update && brew bump-formula-pr --tag=$(shell git describe --tags) --revision=$(shell git rev-parse HEAD) stringslint
-	pod trunk push StringsLintFramework.podspec --swift-version=4.0
-	pod trunk push StringsLint.podspec --swift-version=4.0
 
 get_version:
 	@echo $(VERSION_STRING)
