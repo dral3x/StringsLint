@@ -9,10 +9,10 @@ import Foundation
 
 public struct UnusedRuleConfiguration: RuleConfiguration {
     public var description: String {
-        return "enabled: \(self.enabled), ignored: \(self.ignored)"
+        return "severity: \(self.severity), ignored: \(self.ignored)"
     }
     
-    public var enabled: Bool = true
+    public var severity: ViolationSeverity = .warning
     
     // strings to always consider as used
     public var ignored: [String] = [
@@ -28,7 +28,7 @@ public struct UnusedRuleConfiguration: RuleConfiguration {
             throw ConfigurationError.unknownConfiguration
         }
 
-        self.enabled = configuration["enabled"] as? Bool ?? self.enabled
+        self.severity = ViolationSeverity(rawValue: configuration["severity"] as! String) ?? self.severity
         self.ignored += defaultStringArray(configuration["ignored"])
     }
     

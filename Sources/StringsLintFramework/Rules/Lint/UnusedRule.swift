@@ -18,6 +18,7 @@ public class UnusedRule: LintRule {
     private var declaredStrings = [LocalizedString]()
     private var usedStrings = [LocalizedString]()
     private let ignoredStrings: [String]
+    var severity: ViolationSeverity
     
     private let declareParser: LocalizableParser
     private let usageParser: LocalizableParser
@@ -26,7 +27,8 @@ public class UnusedRule: LintRule {
         let config = UnusedRuleConfiguration()
         self.init(declareParser: StringsParser(),
                   usageParser: ComposedParser(parsers: [ SwiftParser(), ObjcParser(), XibParser() ]),
-                  ignoredStrings: config.ignored)
+                  ignoredStrings: config.ignored,
+                  severity: config.severity)
     }
     
     public required convenience init(configuration: Any) throws {
@@ -41,15 +43,18 @@ public class UnusedRule: LintRule {
                     try ObjcParser.self.init(configuration: configuration),
                     try XibParser.self.init(configuration: configuration)
                     ]),
-                  ignoredStrings: config.ignored)
+                  ignoredStrings: config.ignored,
+                  severity: config.severity)
     }
     
     public init(declareParser: LocalizableParser,
                 usageParser: LocalizableParser,
-                ignoredStrings: [String]) {
+                ignoredStrings: [String],
+                severity: ViolationSeverity) {
         self.declareParser = declareParser
         self.usageParser = usageParser
         self.ignoredStrings = ignoredStrings
+        self.severity = severity
     }
         
     public func processFile(_ file: File) {
@@ -91,6 +96,6 @@ public class UnusedRule: LintRule {
     }
     
     private func buildViolation(location: Location) -> Violation {
-        return Violation(ruleDescription: UnusedRule.description, severity: .warning, location: location, reason: "Localized string is unused")
+        return Violation(ruleDescription: UnusedRule.description, severity: self.severity, location: location, reason: "Localized string is unused")
     }
 }

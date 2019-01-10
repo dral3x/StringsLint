@@ -20,6 +20,7 @@ class UnusedRuleTests: XCTestCase {
         rule.processFile(file2)
         
         XCTAssertEqual(rule.violations.count, 1)
+        XCTAssertEqual(rule.violations[0].severity, .warning)
     }
     
     func testBalancedUse() {
@@ -34,4 +35,15 @@ class UnusedRuleTests: XCTestCase {
         XCTAssertEqual(rule.violations.count, 0)
     }
     
+    func testSeverityError() {
+        
+        let file1 = File(name: "Localizable.strings", content: "\"abc\" = \"A B C\";")
+        
+        let rule = UnusedRule()
+        rule.severity = .error
+        rule.processFile(file1)
+        
+        XCTAssertEqual(rule.violations.count, 1)
+        XCTAssertEqual(rule.violations[0].severity, .error)
+    }
 }

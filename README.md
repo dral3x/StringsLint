@@ -74,6 +74,10 @@ See [Rules.md](Rules.md) for more information.
 
 You can also check [Sources/StringsLintFramework/Rules/Lint](Sources/StringsLintFramework/Rules/Lint) directory to see their implementation.
 
+Each rule can emit violations. You can configure the severity of these violations (accepted values are `note`, `warning` and `error`).
+
+When a violation with severity error is emitted, the Xcode build will fail.
+
 ### Configuration
 
 Configure StringsLint by adding a `.stringslint.yml` file from the directory you'll run StringsLint from.
@@ -100,9 +104,16 @@ xib_parser:
     - textLocalized # keyPath used to localized UI elements
 
 # Customize specific rules
+missing:
+  severity: error
+
+partial:
+  severity: warning
+
 unused:
-  excluded:
-    - InfoPlist.strings # strings in here are used by iOS directly
+  severity: note
+  ignored:
+    - NSAppleMusicUsageDescription # used by iOS directly
 
 ```
 

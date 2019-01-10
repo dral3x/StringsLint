@@ -15,20 +15,28 @@ public class PartialRule: LintRule {
     )
     
     private let parser: LocalizableParser
+    var severity: ViolationSeverity
     
     private var locales = [Locale]()
     private var declaredStrings = [Locale: [LocalizedString]]()
     
     public required convenience init() {
-        self.init(parser: StringsParser())
+        let config = PartialRuleConfiguration()
+        self.init(parser: StringsParser(), severity: config.severity)
     }
     
     public required convenience init(configuration: Any) throws {
-        self.init(parser: try StringsParser.self.init(configuration: configuration))
+        var config = PartialRuleConfiguration()
+        do {
+            try config.apply(defaultDictionaryValue(configuration, for: PartialRule.self.description.identifier))
+        } catch {}
+        
+        self.init(parser: try StringsParser.self.init(configuration: configuration), severity: config.severity)
     }
 
-    public init(parser: LocalizableParser) {
+    public init(parser: LocalizableParser, severity: ViolationSeverity) {
         self.parser = parser
+        self.severity = severity
     }
     
     public func processFile(_ file: File) {
@@ -78,6 +86,6 @@ public class PartialRule: LintRule {
     }
     
     private func buildViolation(location: Location, locale: Locale) -> Violation {
-        return Violation(ruleDescription: PartialRule.description, severity: .warning, location: location, reason: "Localized string is missing in locale \(locale)")
+        return Violation(ruleDescription: PartialRule.description, severity: self.severity, location: location, reason: "Localized string is missing in locale \(locale)")
     }
 }
