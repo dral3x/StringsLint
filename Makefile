@@ -24,8 +24,6 @@ FRAMEWORKS_FOLDER=/Library/Frameworks
 BINARIES_FOLDER=/usr/local/bin
 LICENSE_PATH="$(shell pwd)/LICENSE"
 
-OUTPUT_PACKAGE=StringsLint.pkg
-
 STRINGSLINT_PLIST=Sources/StringsLint/Supporting Files/Info.plist
 STRINGSLINTFRAMEWORK_PLIST=Sources/StringsLintFramework/Supporting Files/Info.plist
 
@@ -36,9 +34,7 @@ VERSION_STRING=$(shell /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionSt
 all: build
 
 clean:
-	rm -f "$(OUTPUT_PACKAGE)"
 	rm -rf "$(TEMPORARY_FOLDER)"
-	rm -f "./portable_stringslint.zip"
 	swift package clean
 
 clean_xcode: clean
