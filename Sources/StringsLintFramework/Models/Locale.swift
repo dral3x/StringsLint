@@ -59,6 +59,22 @@ extension Locale {
     }
 }
 
+extension Locale: CustomStringConvertible {
+    
+    var description: String {
+        switch self {
+        case .none:
+            return "none"
+            
+        case .base:
+            return "base"
+            
+        case .language(let language):
+            return language
+        }
+    }
+}
+
 extension Locale: Hashable {
     var hashValue: Int {
         switch self {
