@@ -10,7 +10,9 @@
 
 #### Enhancements
 
-* None.
+* Output more information about each violation and a final summary.
+  [Alessandro Calzavara](https://github.com/dral3x)
+  [#8](https://github.com/dral3x/StringsLint/pull/8).
 
 #### Bug Fixes
 

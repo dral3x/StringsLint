@@ -73,7 +73,7 @@ public class UnusedRule: LintRule {
         let diff = self.declaredStrings.difference(from: self.usedStrings)
         
         return diff.compactMap({ (string) -> Violation? in
-            return self.buildViolation(location: string.location)
+            return self.buildViolation(key: string.key, location: string.location)
         })
     }
     
@@ -95,7 +95,7 @@ public class UnusedRule: LintRule {
         }
     }
     
-    private func buildViolation(location: Location) -> Violation {
-        return Violation(ruleDescription: UnusedRule.description, severity: self.severity, location: location, reason: "Localized string is unused")
+    private func buildViolation(key: String, location: Location) -> Violation {
+        return Violation(ruleDescription: UnusedRule.description, severity: self.severity, location: location, reason: "Localized string \"\(key)\" is unused")
     }
 }

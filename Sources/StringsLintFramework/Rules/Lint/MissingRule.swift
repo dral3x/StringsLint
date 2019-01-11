@@ -68,7 +68,7 @@ public class MissingRule: LintRule {
         let diff = self.usedStrings.difference(from: self.declaredStrings)
         
         return diff.compactMap({ (string) -> Violation? in
-            return self.buildViolation(location: string.location)
+            return self.buildViolation(key: string.key, location: string.location)
         })
     }
     
@@ -90,7 +90,7 @@ public class MissingRule: LintRule {
         }
     }
     
-    private func buildViolation(location: Location) -> Violation {
-        return Violation(ruleDescription: MissingRule.description, severity: self.severity, location: location, reason: "Localized string is missing")
+    private func buildViolation(key: String, location: Location) -> Violation {
+        return Violation(ruleDescription: MissingRule.description, severity: self.severity, location: location, reason: "Localized string \"\(key)\" is missing")
     }
 }

@@ -68,7 +68,7 @@ public class PartialRule: LintRule {
                 let otherStrings = self.declaredStrings[otherLocale] ?? []
                 
                 violations += baseStrings.difference(from: otherStrings).compactMap({ (string) -> Violation? in
-                    return self.buildViolation(location: string.location, locale: otherLocale)
+                    return self.buildViolation(key: string.key, location: string.location, locale: otherLocale)
                 })
             }
         }
@@ -85,7 +85,7 @@ public class PartialRule: LintRule {
         }
     }
     
-    private func buildViolation(location: Location, locale: Locale) -> Violation {
-        return Violation(ruleDescription: PartialRule.description, severity: self.severity, location: location, reason: "Localized string is missing in locale \(locale)")
+    private func buildViolation(key: String, location: Location, locale: Locale) -> Violation {
+        return Violation(ruleDescription: PartialRule.description, severity: self.severity, location: location, reason: "Localized string \"\(key)\" is missing in locale \"\(locale)\"")
     }
 }
