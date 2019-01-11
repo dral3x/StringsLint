@@ -32,11 +32,24 @@ struct LintCommand: CommandProtocol {
             }.flatMap { (violations) -> Result<(), CommandantError<()>> in
                 
                 let numberOfSeriousViolations = violations.filter({ $0.severity == .error }).count
+                
+                printStatus(violations: violations, files: files, serious: numberOfSeriousViolations)
+                
                 if numberOfSeriousViolations > 0 {
                     exit(2)
                 }
                 return .success(())
         }
+    }
+    
+    private func printStatus(violations: [Violation], files: [String], serious: Int) {
+        let pluralSuffix = { (collection: [Any]) -> String in
+            return collection.count != 1 ? "s" : ""
+        }
+        queuedPrintError(
+            "Done linting! Found \(violations.count) violation\(pluralSuffix(violations)), " +
+            "\(serious) serious in \(files.count) file\(pluralSuffix(files))."
+        )
     }
 }
 
