@@ -14,6 +14,10 @@
   [Alessandro Calzavara](https://github.com/dral3x)
   [#8](https://github.com/dral3x/StringsLint/pull/8).
 
+* Add support for `.stringsdict` files.
+  [Alessandro Calzavara](https://github.com/dral3x)
+  [#9](https://github.com/dral3x/StringsLint/pull/9).
+
 #### Bug Fixes
 
 * None.
