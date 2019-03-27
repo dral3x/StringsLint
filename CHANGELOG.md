@@ -1,4 +1,4 @@
-## Master
+## 0.0.3: Supporting stringsdict files
 
 #### Breaking
 
