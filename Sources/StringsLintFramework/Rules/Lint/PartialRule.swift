@@ -22,7 +22,8 @@ public class PartialRule: LintRule {
     
     public required convenience init() {
         let config = PartialRuleConfiguration()
-        self.init(parser: StringsParser(), severity: config.severity)
+        self.init(parser: ComposedParser(parsers: [ StringsParser(), StringsdictParser() ]),
+                  severity: config.severity)
     }
     
     public required convenience init(configuration: Any) throws {
@@ -31,7 +32,10 @@ public class PartialRule: LintRule {
             try config.apply(defaultDictionaryValue(configuration, for: PartialRule.self.description.identifier))
         } catch {}
         
-        self.init(parser: try StringsParser.self.init(configuration: configuration), severity: config.severity)
+        self.init(parser: ComposedParser(parsers: [
+            try StringsParser.self.init(configuration: configuration),
+            try StringsdictParser.self.init(configuration: configuration)
+            ]), severity: config.severity)
     }
 
     public init(parser: LocalizableParser, severity: ViolationSeverity) {

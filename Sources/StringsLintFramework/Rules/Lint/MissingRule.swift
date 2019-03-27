@@ -27,7 +27,10 @@ public class MissingRule: LintRule {
             try config.apply(defaultDictionaryValue(configuration, for: MissingRule.self.description.identifier))
         } catch {}
         
-        self.init(declareParser: try StringsParser.self.init(configuration: configuration),
+        self.init(declareParser: ComposedParser(parsers: [
+                    try StringsParser.self.init(configuration: configuration),
+                    try StringsdictParser.self.init(configuration: configuration)
+                    ]),
                   usageParser: ComposedParser(parsers: [
                     try SwiftParser.self.init(configuration: configuration),
                     try ObjcParser.self.init(configuration: configuration),
