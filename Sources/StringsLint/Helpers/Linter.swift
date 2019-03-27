@@ -65,7 +65,7 @@ func linterFrom(configuration: Configuration) -> Linter {
 
 func supportedFilesExtentions() -> Set<String> {
     // based on all the parsers implemented in the library
-    let parsers: [LocalizableParser] = [ ObjcParser(), StringsParser(), SwiftParser(), XibParser() ]
+    let parsers: [LocalizableParser] = [ StringsParser(), StringsdictParser(), ObjcParser(), SwiftParser(), XibParser() ]
     let extensions = parsers.flatMap { $0.supportedFileExtentions }
     return Set(extensions.map { ".\($0)" })
 }

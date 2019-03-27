@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		FAA8243D224BDC620091A65C /* StringsdictParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8243C224BDC620091A65C /* StringsdictParserTests.swift */; };
+		FAA8243F224BDDD20091A65C /* StringsdictParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8243E224BDDD20091A65C /* StringsdictParser.swift */; };
 		FAF383AD21E7A3C100B24265 /* MissingRuleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF383AC21E7A3C100B24265 /* MissingRuleConfiguration.swift */; };
 		FAF383AF21E7A3DB00B24265 /* PartialRuleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF383AE21E7A3DB00B24265 /* PartialRuleConfiguration.swift */; };
 		FAF383B221E7A9E700B24265 /* UnusedRuleConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF383B121E7A9E700B24265 /* UnusedRuleConfigurationTests.swift */; };
@@ -232,6 +234,8 @@
 
 /* Begin PBXFileReference section */
 		"Commandant::Commandant::Product" /* Commandant.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Commandant.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAA8243C224BDC620091A65C /* StringsdictParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsdictParserTests.swift; sourceTree = "<group>"; };
+		FAA8243E224BDDD20091A65C /* StringsdictParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsdictParser.swift; sourceTree = "<group>"; };
 		FAF383AC21E7A3C100B24265 /* MissingRuleConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingRuleConfiguration.swift; sourceTree = "<group>"; };
 		FAF383AE21E7A3DB00B24265 /* PartialRuleConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialRuleConfiguration.swift; sourceTree = "<group>"; };
 		FAF383B121E7A9E700B24265 /* UnusedRuleConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnusedRuleConfigurationTests.swift; sourceTree = "<group>"; };
@@ -592,6 +596,7 @@
 				OBJ_49 /* LocalizableParser.swift */,
 				OBJ_50 /* ObjcParser.swift */,
 				OBJ_51 /* StringsParser.swift */,
+				FAA8243E224BDDD20091A65C /* StringsdictParser.swift */,
 				OBJ_52 /* SwiftParser.swift */,
 				OBJ_53 /* XibParser.swift */,
 				OBJ_54 /* YamlParser.swift */,
@@ -609,7 +614,7 @@
 			path = Configuration;
 			sourceTree = "<group>";
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -620,7 +625,6 @@
 				OBJ_86 /* Dependencies */,
 				OBJ_136 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_55 /* Reporters */ = {
@@ -707,6 +711,7 @@
 				OBJ_77 /* ObjcParserTests.swift */,
 				OBJ_78 /* ParserTestCase.swift */,
 				OBJ_79 /* StringsParserTests.swift */,
+				FAA8243C224BDC620091A65C /* StringsdictParserTests.swift */,
 				OBJ_80 /* SwiftParserTests.swift */,
 				OBJ_81 /* XibParserTests.swift */,
 			);
@@ -1007,7 +1012,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_136 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1126,6 +1131,7 @@
 				OBJ_235 /* UnusedRuleConfiguration.swift in Sources */,
 				OBJ_236 /* MissingRule.swift in Sources */,
 				OBJ_237 /* PartialRule.swift in Sources */,
+				FAA8243F224BDDD20091A65C /* StringsdictParser.swift in Sources */,
 				OBJ_238 /* UnusedRule.swift in Sources */,
 				OBJ_239 /* LintRule.swift in Sources */,
 			);
@@ -1136,6 +1142,7 @@
 			buildActionMask = 0;
 			files = (
 				FAF383B221E7A9E700B24265 /* UnusedRuleConfigurationTests.swift in Sources */,
+				FAA8243D224BDC620091A65C /* StringsdictParserTests.swift in Sources */,
 				OBJ_251 /* ConfigurationTestCase.swift in Sources */,
 				OBJ_252 /* ConfigurationTests.swift in Sources */,
 				OBJ_253 /* ObjcParserConfigurationTests.swift in Sources */,
