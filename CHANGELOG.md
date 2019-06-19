@@ -1,3 +1,21 @@
+## 0.0.4: Fixing building
+
+#### Breaking
+
+* None.
+
+#### Experimental
+
+* None.
+
+#### Enhancements
+
+* None.
+
+#### Bug Fixes
+
+* None.
+
 ## 0.0.3: Supporting stringsdict files
 
 #### Breaking
