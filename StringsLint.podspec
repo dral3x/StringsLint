@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.homepage       = 'https://github.com/dral3x/StringsLint'
   s.license        = { :type => 'MIT', :file => 'LICENSE' }
   s.author         = { 'Alessandro Calzavara' => 'alessandro.calzavara@gmail.com' }
-  s.source         = { :http => "#{s.homepage}/releases/download/#{s.version}/portable_swiftlint.zip" }
+  s.source         = { :http => "#{s.homepage}/releases/download/#{s.version}/portable_stringslint.zip" }
   s.preserve_paths = '*'
   s.exclude_files  = '**/file.zip'
 end
