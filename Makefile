@@ -99,13 +99,13 @@ get_version:
 	@echo $(VERSION_STRING)
 
 push_version:
-ifneq ($(strip $(shell git status --untracked-files=no --porcelain 2>/dev/null)),)
-	$(error git state is not clean)
-endif
+#ifneq ($(strip $(shell git status --untracked-files=no --porcelain 2>/dev/null)),)
+#	$(error git state is not clean)
+#endif
 	$(eval NEW_VERSION_AND_NAME := $(filter-out $@,$(MAKECMDGOALS)))
 	$(eval NEW_VERSION := $(shell echo $(NEW_VERSION_AND_NAME) | sed 's/:.*//' ))
-	@sed -i '' 's/## Master/## $(NEW_VERSION_AND_NAME)/g' CHANGELOG.md
-	@sed 's/__VERSION__/$(NEW_VERSION)/g' script/Version.swift.template > Sources/StringsLintFramework/Models/Version.swift
+#	@sed -i '' 's/## Master/## $(NEW_VERSION_AND_NAME)/g' CHANGELOG.md
+#	@sed 's/__VERSION__/$(NEW_VERSION)/g' script/Version.swift.template > Sources/StringsLintFramework/Models/Version.swift
 	@/usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $(NEW_VERSION)" "$(STRINGSLINTFRAMEWORK_PLIST)"
 	@/usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $(NEW_VERSION)" "$(STRINGSLINT_PLIST)"
 	git commit -a -m "release $(NEW_VERSION)"
