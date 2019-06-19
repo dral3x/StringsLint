@@ -241,6 +241,8 @@
 		FAF383B121E7A9E700B24265 /* UnusedRuleConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnusedRuleConfigurationTests.swift; sourceTree = "<group>"; };
 		FAF383B321E7AAD900B24265 /* MissingRuleConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingRuleConfigurationTests.swift; sourceTree = "<group>"; };
 		FAF383B521E7AAFD00B24265 /* PartialRuleConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialRuleConfigurationTests.swift; sourceTree = "<group>"; };
+		FAFE2BDE22BA9B11003B35BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAFE2BE022BA9B2B003B35BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		OBJ_10 /* LintCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LintCommand.swift; sourceTree = "<group>"; };
 		OBJ_100 /* Resolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resolver.swift; sourceTree = "<group>"; };
 		OBJ_101 /* String+Yams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Yams.swift"; sourceTree = "<group>"; };
@@ -422,6 +424,23 @@
 			path = Configuration;
 			sourceTree = "<group>";
 		};
+		FAFE2BDD22BA9B11003B35BB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FAFE2BDE22BA9B11003B35BB /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FAFE2BDF22BA9B2B003B35BB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FAFE2BE022BA9B2B003B35BB /* Info.plist */,
+			);
+			name = "Supporting Files";
+			path = "Sources/StringsLint/Supporting Files";
+			sourceTree = SOURCE_ROOT;
+		};
 		OBJ_105 /* CYaml */ = {
 			isa = PBXGroup;
 			children = (
@@ -543,6 +562,7 @@
 				OBJ_43 /* Parsers */,
 				OBJ_55 /* Reporters */,
 				OBJ_58 /* Rules */,
+				FAFE2BDD22BA9B11003B35BB /* Supporting Files */,
 			);
 			name = StringsLintFramework;
 			path = Sources/StringsLintFramework;
@@ -733,6 +753,7 @@
 				OBJ_9 /* Commands */,
 				OBJ_12 /* Extensions */,
 				OBJ_16 /* Helpers */,
+				FAFE2BDF22BA9B2B003B35BB /* Supporting Files */,
 				OBJ_19 /* main.swift */,
 			);
 			name = stringslint;
@@ -1588,6 +1609,7 @@
 		OBJ_271 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/StringsLintFramework/Supporting Files/Info.plist";
 				LD = /usr/bin/true;
 				OTHER_SWIFT_FLAGS = "-swift-version 4 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk";
 				SWIFT_VERSION = 4.0;
@@ -1597,6 +1619,7 @@
 		OBJ_272 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/StringsLintFramework/Supporting Files/Info.plist";
 				LD = /usr/bin/true;
 				OTHER_SWIFT_FLAGS = "-swift-version 4 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk";
 				SWIFT_VERSION = 4.0;
@@ -1724,7 +1747,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/.build/checkouts/Yams.git-6968181056193183773/Sources/CYaml/include",
 				);
-				INFOPLIST_FILE = StringsLint.xcodeproj/stringslint_Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/StringsLint/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx @executable_path";
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -1748,7 +1771,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/.build/checkouts/Yams.git-6968181056193183773/Sources/CYaml/include",
 				);
-				INFOPLIST_FILE = StringsLint.xcodeproj/stringslint_Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/StringsLint/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx @executable_path";
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
