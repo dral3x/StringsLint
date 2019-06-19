@@ -31,6 +31,26 @@ brew tap dral3x/dral3x
 brew install stringslint
 ```
 
+### Using [CocoaPods](https://cocoapods.org):
+
+Simply add the following line to your Podfile:
+
+```ruby
+pod 'StringsLint'
+```
+
+This will download the StringsLint binaries and dependencies in `Pods/` during your next
+`pod install` execution and will allow you to invoke it via `${PODS_ROOT}/StringsLint/stringslint`
+in your Script Build Phases.
+
+This is the recommended way to install a specific version of StringsLint since it supports
+installing a pinned version rather than simply the latest (which is the case with Homebrew and Mint).
+
+Note that this will add the StringsLint binaries, its dependencies' binaries and the Swift binary
+library distribution to the `Pods/` directory, so checking in this directory to SCM such as
+git is discouraged.
+
+
 ### Compiling from source:
 
 You can build from source by cloning this project and running `make install` (Xcode 10.0 or later).

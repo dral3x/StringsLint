@@ -340,9 +340,9 @@
 		OBJ_98 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		OBJ_99 /* Representer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Representer.swift; sourceTree = "<group>"; };
 		"Result::Result::Product" /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Result.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"StringsLint::StringsLintFramework::Product" /* StringsLintFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = StringsLintFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"StringsLint::StringsLintFrameworkTests::Product" /* StringsLintFrameworkTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = StringsLintFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		"StringsLint::stringslint::Product" /* stringslint */ = {isa = PBXFileReference; lastKnownFileType = text; path = stringslint; sourceTree = BUILT_PRODUCTS_DIR; };
+		"StringsLint::StringsLintFramework::Product" /* StringsLintFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StringsLintFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"StringsLint::StringsLintFrameworkTests::Product" /* StringsLintFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = StringsLintFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		"StringsLint::stringslint::Product" /* stringslint */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = stringslint; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Yams::CYaml::Product" /* CYaml.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CYaml.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Yams::Yams::Product" /* Yams.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Yams.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -1004,12 +1004,24 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 9999;
+				TargetAttributes = {
+					"StringsLint::StringsLintFramework" = {
+						LastSwiftMigration = 1020;
+					};
+					"StringsLint::StringsLintFrameworkTests" = {
+						LastSwiftMigration = 1020;
+					};
+					"StringsLint::stringslint" = {
+						LastSwiftMigration = 1020;
+					};
+				};
 			};
 			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "StringsLint" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = OBJ_5;
@@ -1493,7 +1505,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGET_NAME = StringsLintFramework;
 			};
 			name = Debug;
@@ -1520,7 +1532,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGET_NAME = StringsLintFramework;
 			};
 			name = Release;
@@ -1544,7 +1556,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGET_NAME = StringsLintFrameworkTests;
 			};
 			name = Debug;
@@ -1568,7 +1580,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGET_NAME = StringsLintFrameworkTests;
 			};
 			name = Release;
@@ -1720,7 +1732,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGET_NAME = stringslint;
 			};
 			name = Debug;
@@ -1744,7 +1756,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGET_NAME = stringslint;
 			};
 			name = Release;

@@ -76,18 +76,21 @@ extension Locale: CustomStringConvertible {
 }
 
 extension Locale: Hashable {
-    var hashValue: Int {
+    
+    public func hash(into hasher: inout Hasher) {
         switch self {
         case .none:
-            return 0
+            hasher.combine(0)
             
         case .base:
-            return 1
+            hasher.combine(1)
             
         case .language(let language):
-            return 2 &+ language.hashValue
+            hasher.combine(2)
+            hasher.combine(language)
         }
     }
+    
 }
 
 func == (lhs: Locale, rhs: Locale) -> Bool {

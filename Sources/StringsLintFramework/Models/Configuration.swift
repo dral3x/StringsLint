@@ -17,13 +17,15 @@ public struct Configuration: Hashable {
     public private(set) var rootPath: String?          // the root path to search for nested configurations
     public private(set) var configurationPath: String? // if successfully loaded from a path
     
-    public var hashValue: Int {
+    public func hash(into hasher: inout Hasher) {
         if let configurationPath = configurationPath {
-            return configurationPath.hashValue
+            hasher.combine(configurationPath)
         } else if let rootPath = rootPath {
-            return rootPath.hashValue
+            hasher.combine(rootPath)
+        } else {
+            hasher.combine(included)
+            hasher.combine(excluded)
         }
-        return (included + excluded).reduce(0, { $0 ^ $1.hashValue })
     }
     
     // MARK: Rules Properties

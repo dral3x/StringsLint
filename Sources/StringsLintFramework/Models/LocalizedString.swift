@@ -19,8 +19,9 @@ public struct LocalizedString: CustomStringConvertible, Hashable {
         ].joined(separator: ", ")
     }
     
-    public var hashValue: Int {
-        return [ key, table ].reduce(0, { $0 ^ $1.hashValue })
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(key)
+        hasher.combine(table)
     }
 }
 
