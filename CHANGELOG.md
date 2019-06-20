@@ -1,4 +1,4 @@
-## 0.0.4: Fixing building
+## Master
 
 #### Breaking
 
@@ -11,6 +11,26 @@
 #### Enhancements
 
 * None.
+
+#### Bug Fixes
+
+* None.
+
+
+## 0.0.4: Fixing building
+
+#### Breaking
+
+* None.
+
+#### Experimental
+
+* None.
+
+#### Enhancements
+
+* Support installation via cocoapods.
+  [Alessandro Calzavara](https://github.com/dral3x).
 
 #### Bug Fixes
 
