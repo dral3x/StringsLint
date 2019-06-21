@@ -72,6 +72,11 @@ fi
 
 ![](assets/runscript.png)
 
+Alternatively, if you've installed StringsLint via CocoaPods the script should look like this:
+
+```bash
+"${PODS_ROOT}/StringsLint/stringslint"
+```
 
 ### Command Line
 
