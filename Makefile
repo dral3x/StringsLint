@@ -98,6 +98,7 @@ publish:
 get_version:
 	@echo $(VERSION_STRING)
 
+# make push_version <VERSION>: <NAME>
 push_version:
 ifneq ($(strip $(shell git status --untracked-files=no --porcelain 2>/dev/null)),)
 	$(error git state is not clean)
