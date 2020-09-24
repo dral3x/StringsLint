@@ -1,4 +1,4 @@
-## Master
+## 0.0.5: SwiftUI support
 
 #### Breaking
 
