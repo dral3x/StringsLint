@@ -10,7 +10,10 @@
 
 #### Enhancements
 
-* None.
+* Add support for SwiftUI localization.
+  [Alessandro Calzavara](https://github.com/dral3x).
+* Build project with Xcode 12.
+  [Alessandro Calzavara](https://github.com/dral3x).
 
 #### Bug Fixes
 
