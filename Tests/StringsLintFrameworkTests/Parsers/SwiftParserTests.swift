@@ -121,4 +121,62 @@ ABCLocalizedString(\"abc\", tableName: \"Extras\", comment: \"blabla\")
         XCTAssertEqual(results[1].locale, .none)
         XCTAssertEqual(results[1].location, Location(file: file, line: 2))
     }
+    
+    func testSwiftUITextWithString() throws {
+        
+        let content = """
+Text("abc")
+"""
+        
+        let file = try self.createTempFile("test1.swift", with: content)
+        
+        let parser = SwiftParser()
+        let results = try parser.parse(file: file)
+        
+        XCTAssertEqual(results.count, 1)
+        
+        XCTAssertEqual(results[0].key, "abc")
+        XCTAssertEqual(results[0].table, "Localizable")
+        XCTAssertEqual(results[0].locale, .none)
+        XCTAssertEqual(results[0].location, Location(file: file, line: 1))
+    }
+    
+    func testSwiftUITextWithVerbatimString() throws {
+            
+        let content = """
+Text(verbatim: "pencil")
+"""
+        
+        let file = try self.createTempFile("test1.swift", with: content)
+        
+        let parser = SwiftParser()
+        let results = try parser.parse(file: file)
+        
+        XCTAssertEqual(results.count, 0)
+    }
+    
+    func testSwiftUITextWithLocalizedStringKey() throws {
+        
+        let content = """
+Text(LocalizedStringKey("abc"))
+Text(LocalizedStringKey("def"), tableName: "Other")
+"""
+        
+        let file = try self.createTempFile("test1.swift", with: content)
+        
+        let parser = SwiftParser()
+        let results = try parser.parse(file: file)
+        
+        XCTAssertEqual(results.count, 2)
+        
+        XCTAssertEqual(results[0].key, "abc")
+        XCTAssertEqual(results[0].table, "Localizable")
+        XCTAssertEqual(results[0].locale, .none)
+        XCTAssertEqual(results[0].location, Location(file: file, line: 1))
+        
+        XCTAssertEqual(results[1].key, "def")
+        XCTAssertEqual(results[1].table, "Other")
+        XCTAssertEqual(results[1].locale, .none)
+        XCTAssertEqual(results[1].location, Location(file: file, line: 2))
+    }
 }

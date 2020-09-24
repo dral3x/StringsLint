@@ -23,6 +23,7 @@
 /* Begin PBXBuildFile section */
 		FAA8243D224BDC620091A65C /* StringsdictParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8243C224BDC620091A65C /* StringsdictParserTests.swift */; };
 		FAA8243F224BDDD20091A65C /* StringsdictParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8243E224BDDD20091A65C /* StringsdictParser.swift */; };
+		FAE0FFD3251A07C400E20F84 /* String+Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE0FFC5251A032B00E20F84 /* String+Range.swift */; };
 		FAF383AD21E7A3C100B24265 /* MissingRuleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF383AC21E7A3C100B24265 /* MissingRuleConfiguration.swift */; };
 		FAF383AF21E7A3DB00B24265 /* PartialRuleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF383AE21E7A3DB00B24265 /* PartialRuleConfiguration.swift */; };
 		FAF383B221E7A9E700B24265 /* UnusedRuleConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF383B121E7A9E700B24265 /* UnusedRuleConfigurationTests.swift */; };
@@ -236,6 +237,7 @@
 		"Commandant::Commandant::Product" /* Commandant.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Commandant.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA8243C224BDC620091A65C /* StringsdictParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsdictParserTests.swift; sourceTree = "<group>"; };
 		FAA8243E224BDDD20091A65C /* StringsdictParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsdictParser.swift; sourceTree = "<group>"; };
+		FAE0FFC5251A032B00E20F84 /* String+Range.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Range.swift"; sourceTree = "<group>"; };
 		FAF383AC21E7A3C100B24265 /* MissingRuleConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingRuleConfiguration.swift; sourceTree = "<group>"; };
 		FAF383AE21E7A3DB00B24265 /* PartialRuleConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialRuleConfiguration.swift; sourceTree = "<group>"; };
 		FAF383B121E7A9E700B24265 /* UnusedRuleConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnusedRuleConfigurationTests.swift; sourceTree = "<group>"; };
@@ -585,6 +587,7 @@
 			children = (
 				OBJ_28 /* Glob.swift */,
 				OBJ_29 /* Parsing.swift */,
+				FAE0FFC5251A032B00E20F84 /* String+Range.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
