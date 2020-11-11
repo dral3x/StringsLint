@@ -114,7 +114,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: GitHub Action for StringsLint
-        uses: dral3x/action-stringslint@0.0.4
+        uses: dral3x/action-stringslint@1.0.1
 ```
 More details here https://github.com/dral3x/action-stringslint
 
