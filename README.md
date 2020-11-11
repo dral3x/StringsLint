@@ -92,6 +92,32 @@ version         Display the current version of StringsLint
 Run `stringslint` in the directory containing the files to lint.
 Directories will be searched recursively.
 
+### GitHub Action
+
+Create a new workflow file in your repo (for example: `.github/workflows/stringslint.yml`) with the following content:
+```
+name: StringsLint
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/stringslint.yml'
+      - '.stringslint.yml'
+      - '**/*.swift'
+      - '**/*.strings'
+      - '**/*.stringsdict'
+
+jobs:
+  StringsLint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: GitHub Action for StringsLint
+        uses: dral3x/action-stringslint@0.0.4
+```
+More details here https://github.com/dral3x/action-stringslint
+
 ## Rules
 
 There are few basic but important rules included.
