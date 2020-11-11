@@ -38,6 +38,12 @@ VERSION_STRING=$(shell /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionSt
 
 all: build
 
+sourcery: Tests/LinuxMain.swift
+
+Tests/LinuxMain.swift: Tests/*/*.swift .sourcery/LinuxMain.stencil
+	sourcery --sources Tests --exclude-sources Tests/StringsLintFrameworkTests/Resources --templates .sourcery/LinuxMain.stencil --output .sourcery --force-parse generated
+	mv .sourcery/LinuxMain.generated.swift Tests/LinuxMain.swift
+
 clean:
 	rm -f "$(OUTPUT_PACKAGE)"
 	rm -rf "$(TEMPORARY_FOLDER)"
