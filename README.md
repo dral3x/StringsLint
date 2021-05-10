@@ -146,9 +146,13 @@ excluded: # paths to ignore during linting. Takes precedence over `included`.
 - Source/*/ExcludedFile.swift # Exclude files with a wildcard
 
 # Customize parsers
+swift_parser:
+  macros:
+    - localizedString # detect this custom macro inside Swift files
+
 objc_parser:
   implicit_macros:
-    - SPKLocalizedString # detect this custom macro
+    - SPKLocalizedString # detect this custom macro inside ObjC files
 
 xib_parser:
   key_paths:
