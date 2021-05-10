@@ -179,4 +179,23 @@ Text(LocalizedStringKey("def"), tableName: "Other")
         XCTAssertEqual(results[1].locale, .none)
         XCTAssertEqual(results[1].location, Location(file: file, line: 2))
     }
+    
+    func testParseCustomLocalizationFunction() throws {
+        
+        let content = """
+localeString(\"abc\")
+"""
+        
+        let file = try self.createTempFile("test1.swift", with: content)
+        
+        let parser = SwiftParser(macros: [ "localeString" ])
+        let results = try parser.parse(file: file)
+        
+        XCTAssertEqual(results.count, 1)
+        
+        XCTAssertEqual(results[0].key, "abc")
+        XCTAssertEqual(results[0].table, "Localizable")
+        XCTAssertEqual(results[0].locale, .none)
+        XCTAssertEqual(results[0].location, Location(file: file, line: 1))
+    }
 }
