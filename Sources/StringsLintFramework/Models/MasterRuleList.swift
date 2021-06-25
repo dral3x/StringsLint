@@ -9,4 +9,5 @@ public let masterRuleList = RuleList(rules: [
     MissingRule.self,
     UnusedRule.self,
     PartialRule.self,
+    MissingCommentRule.self,
 ])

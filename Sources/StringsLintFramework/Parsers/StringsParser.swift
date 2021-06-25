@@ -38,7 +38,11 @@ public struct StringsParser: LocalizableParser {
                 
         for (index, line) in file.lines.enumerated() {
             if let key = line.extractLocalizedKey() {
-                strings.append(LocalizedString(key: key, table: tableName, locale: locale, location: Location(file: file, line: index+1)))
+
+                let previousLine = (index > 0) ? file.lines[index - 1] : ""
+                let commentForLocalizedString = previousLine.extractComment()
+
+                strings.append(LocalizedString(key: key, table: tableName, locale: locale, location: Location(file: file, line: index+1), comment: commentForLocalizedString))
             }
         }
 
@@ -59,6 +63,18 @@ extension String {
         }
         return nil
     }
+
+    private func matchFirstSafe(regex: String) -> String? {
+        do {
+            let regex = try NSRegularExpression(pattern: regex)
+            if let result = regex.firstMatch(in: self, range: NSRange(self.startIndex..., in: self)) {
+                return String(self[Range(result.range, in: self)!])
+            }
+        } catch let error {
+            print("invalid regex: \(error.localizedDescription)")
+        }
+        return nil
+    }
     
     fileprivate func extractLocalizedKey() -> String? {
         return self.matchFirst(regex: "^\"(?<key>.*)\" = \"(.*)\";$")
@@ -66,5 +82,9 @@ extension String {
     
     fileprivate func extractTableName() -> String? {
         return self.matchFirst(regex: "asd")
+    }
+
+    fileprivate func extractComment() -> String? {
+        return self.matchFirstSafe(regex: "\\/[^\n]*|\\/\\*[\\s\\S]*?\\*\\/")
     }
 }

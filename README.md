@@ -166,6 +166,9 @@ unused:
   ignored:
     - NSAppleMusicUsageDescription # used by iOS directly
 
+missingComment:
+  severity: error
+
 ```
 
 ## License
