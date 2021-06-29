@@ -15,11 +15,9 @@ public class MissingCommentRule: LintRule {
     )
 
     private var declaredStrings = [LocalizedString]()
-    private var usedStrings = [LocalizedString]()
     var severity: ViolationSeverity
 
     private let declareParser: LocalizableParser
-    private let usageParser: LocalizableParser
 
     public required convenience init(configuration: Any) throws {
         var config = MissingCommentRuleConfiguration()
@@ -46,7 +44,6 @@ public class MissingCommentRule: LintRule {
                 usageParser: LocalizableParser,
                 severity: ViolationSeverity) {
         self.declareParser = declareParser
-        self.usageParser = usageParser
         self.severity = severity
     }
 
