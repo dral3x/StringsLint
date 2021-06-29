@@ -10,6 +10,7 @@ public struct LocalizedString: CustomStringConvertible, Hashable {
     let table: String
     let locale: Locale
     let location: Location
+    var comment: String? = nil
     
     public var description: String {
         return [
