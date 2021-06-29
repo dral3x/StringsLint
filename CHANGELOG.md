@@ -1,3 +1,19 @@
+## 0.1.0: Missing Comment rule
+
+#### Breaking
+
+* None.
+
+#### Experimental
+
+* None.
+
+#### Enhancements
+
+* Add new rule to identify strings without a proper comment.
+  [Marco Eidinger](https://github.com/MarcoEidinger)
+  [#16](https://github.com/dral3x/StringsLint/pull/16).
+
 ## 0.0.5: SwiftUI support
 
 #### Breaking
@@ -18,7 +34,6 @@
 #### Bug Fixes
 
 * None.
-
 
 ## 0.0.4: Fixing building
 
