@@ -22,6 +22,7 @@ struct LintCommand: CommandProtocol {
 
         // Process all files
         return linterFrom(configuration: configuration).lintFiles(files)
+            .map { $0.filter { $0.severity != .none } }
             .flatMap { (violations) -> Result<([Violation]), CommandantError<()>> in
                 
                 // Report violations

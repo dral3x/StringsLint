@@ -24,6 +24,7 @@
 		8ACC8C1D268B51DF00EFF85D /* MissingCommentRuleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACC8C1C268B51DF00EFF85D /* MissingCommentRuleConfiguration.swift */; };
 		8ACC8C1F268B51F100EFF85D /* MissingCommentRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACC8C1E268B51F100EFF85D /* MissingCommentRule.swift */; };
 		8ACC8C21268B522A00EFF85D /* MissingCommentRuleConfiguratonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACC8C20268B522A00EFF85D /* MissingCommentRuleConfiguratonTests.swift */; };
+		FA77E9E826DE118900D82C5C /* XcodeReporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA77E9E726DE118900D82C5C /* XcodeReporterTests.swift */; };
 		FAA8243D224BDC620091A65C /* StringsdictParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8243C224BDC620091A65C /* StringsdictParserTests.swift */; };
 		FAA8243F224BDDD20091A65C /* StringsdictParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8243E224BDDD20091A65C /* StringsdictParser.swift */; };
 		FAE0FFD3251A07C400E20F84 /* String+Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE0FFC5251A032B00E20F84 /* String+Range.swift */; };
@@ -241,6 +242,7 @@
 		8ACC8C1E268B51F100EFF85D /* MissingCommentRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissingCommentRule.swift; sourceTree = "<group>"; };
 		8ACC8C20268B522A00EFF85D /* MissingCommentRuleConfiguratonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissingCommentRuleConfiguratonTests.swift; sourceTree = "<group>"; };
 		"Commandant::Commandant::Product" /* Commandant.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Commandant.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA77E9E726DE118900D82C5C /* XcodeReporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeReporterTests.swift; sourceTree = "<group>"; };
 		FAA8243C224BDC620091A65C /* StringsdictParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsdictParserTests.swift; sourceTree = "<group>"; };
 		FAA8243E224BDDD20091A65C /* StringsdictParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsdictParser.swift; sourceTree = "<group>"; };
 		FAE0FFC5251A032B00E20F84 /* String+Range.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Range.swift"; sourceTree = "<group>"; };
@@ -422,6 +424,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FA77E9E626DE116800D82C5C /* Reporters */ = {
+			isa = PBXGroup;
+			children = (
+				FA77E9E726DE118900D82C5C /* XcodeReporterTests.swift */,
+			);
+			path = Reporters;
+			sourceTree = "<group>";
+		};
 		FAF383B021E7A9CE00B24265 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -712,6 +722,7 @@
 			children = (
 				OBJ_69 /* Models */,
 				OBJ_72 /* Parsers */,
+				FA77E9E626DE116800D82C5C /* Reporters */,
 				OBJ_82 /* Rules */,
 			);
 			name = StringsLintFrameworkTests;
@@ -1201,6 +1212,7 @@
 				OBJ_259 /* SwiftParserTests.swift in Sources */,
 				FAF383B621E7AAFD00B24265 /* PartialRuleConfigurationTests.swift in Sources */,
 				8ACC8C21268B522A00EFF85D /* MissingCommentRuleConfiguratonTests.swift in Sources */,
+				FA77E9E826DE118900D82C5C /* XcodeReporterTests.swift in Sources */,
 				OBJ_260 /* XibParserTests.swift in Sources */,
 				OBJ_261 /* UnusedRuleTests.swift in Sources */,
 				FAF383B421E7AAD900B24265 /* MissingRuleConfigurationTests.swift in Sources */,

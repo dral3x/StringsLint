@@ -13,7 +13,7 @@ class PartialRuleConfigurationTests: ConfigurationTestCase {
     func testSeverity() throws {
         
         let content = """
-severity: note
+severity: none
 """
         
         let data = try self.creareConfigFileAsDictionary(with: content)
@@ -26,7 +26,7 @@ severity: note
         // Apply new value
         try configuration.apply(data)
         
-        XCTAssertEqual(configuration.severity, .note)
+        XCTAssertEqual(configuration.severity, .none)
     }
 
 }
