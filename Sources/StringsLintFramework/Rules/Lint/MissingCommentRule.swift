@@ -9,7 +9,7 @@ import Foundation
 
 public class MissingCommentRule: LintRule {
     public static var description = RuleDescription(
-        identifier: "missingComment",
+        identifier: "missing_comment",
         name: "MissingComment",
         description: "Comemnt for Localized string is missing"
     )
