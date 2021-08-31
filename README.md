@@ -125,7 +125,7 @@ See [Rules.md](Rules.md) for more information.
 
 You can also check [Sources/StringsLintFramework/Rules/Lint](Sources/StringsLintFramework/Rules/Lint) directory to see their implementation.
 
-Each rule can emit violations. You can configure the severity of these violations (accepted values are `note`, `warning` and `error`).
+Each rule can emit violations. You can configure the severity of these violations (accepted values are `none`, `warning` and `error`).
 
 When a violation with severity error is emitted, the Xcode build will fail.
 
@@ -166,8 +166,8 @@ unused:
   ignored:
     - NSAppleMusicUsageDescription # used by iOS directly
 
-missingComment:
-  severity: error
+missing_comment:
+  severity: none
 
 ```
 
