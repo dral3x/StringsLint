@@ -1,3 +1,23 @@
+## 0.1.1: New severity level
+
+#### Breaking
+
+* New severity level.
+  [Alessandro Calzavara](https://github.com/dral3x).
+  [#17](https://github.com/dral3x/StringsLint/pull/17).
+
+* Improvements to Missing Comment rule.
+  [Alessandro Calzavara](https://github.com/dral3x).
+  [#18](https://github.com/dral3x/StringsLint/pull/18).
+
+#### Experimental
+
+* None.
+
+#### Enhancements
+
+* None.
+
 ## 0.1.0: Missing Comment rule
 
 #### Breaking
