@@ -8,7 +8,6 @@
 import Foundation
 import Dispatch
 import Commandant
-import Result
 import StringsLintFramework
 
 struct Linter {

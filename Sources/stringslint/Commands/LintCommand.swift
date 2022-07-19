@@ -7,7 +7,6 @@
 
 import Foundation
 import Commandant
-import Result
 import StringsLintFramework
 
 struct LintCommand: CommandProtocol {

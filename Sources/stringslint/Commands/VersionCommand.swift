@@ -6,7 +6,6 @@
 //
 
 import Commandant
-import Result
 import StringsLintFramework
 
 struct VersionCommand: CommandProtocol {
