@@ -128,7 +128,6 @@ extension StructuredPlaceholderCommentRule {
         case invalidJSON
         case missingDescription
         case emptyDescription
-        case missingPlaceholders
         case containsInvalidPlaceholders(invalidPlaceholders: Set<String>)
         case placeholderCountsDontMatch
 
@@ -140,8 +139,6 @@ extension StructuredPlaceholderCommentRule {
                 return "is missing the `description`"
             case .emptyDescription:
                 return "has an empty `description`"
-            case .missingPlaceholders: //TODO: (Mark Hall, July 19) might not need this one
-                return "is missing `placeholders`"
             case .containsInvalidPlaceholders(let invalidPlaceholders):
                 return "contains invalid placeholders: \"\(invalidPlaceholders.joined(separator: "\", \""))\""
             case .placeholderCountsDontMatch:

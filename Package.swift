@@ -29,9 +29,6 @@ let package = Package(
             name: "StringsLintFrameworkTests",
             dependencies: [
                 "StringsLintFramework"
-            ],
-            exclude: [
-                "Resources",
             ]
         )
     ]
