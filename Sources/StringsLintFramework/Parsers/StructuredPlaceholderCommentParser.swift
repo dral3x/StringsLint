@@ -68,8 +68,15 @@ public struct StructuredPlaceholderCommentParser: LocalizableParser {
 
 private extension String {
     var localizedStringPlaceholders: [String] {
-        //TODO: (Mark Hall, July 19) only checking for %@ and %d right now, not sure that is everything we should be looking for
-        self.matchAll(regex: "%(\\d\\$)?[@d]") ?? []
+        // %d/%i/%o/%u/%x with their optional length modifiers like in "%lld"
+        let patternInt = "(?:h|hh|l|ll|q|z|t|j)?([dioux])"
+        // valid flags for float
+        let patternFloat = "[aefg]"
+        // like in "%3$" to make positional specifiers
+        let position = "(\\d+\\$)?"
+        // precision like in "%1.2f"
+        let precision = "[-+# 0]?\\d?(?:\\.\\d)?"
+        return self.matchAll(regex: "(?:^|(?<!%)(?:%%)*)%\(position)\(precision)(@|\(patternInt)|\(patternFloat)|[csp])") ?? []
     }
 
     func extractLocalizedKey() -> String? {
