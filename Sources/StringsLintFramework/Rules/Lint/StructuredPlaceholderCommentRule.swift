@@ -28,7 +28,6 @@ public class StructuredPlaceholderCommentRule {
     ])
 
     public init(declareParser: LocalizableParser,
-                usageParser: LocalizableParser,
                 severity: ViolationSeverity) {
         self.declareParser = declareParser
         self.severity = severity
@@ -40,18 +39,14 @@ public class StructuredPlaceholderCommentRule {
             try config.apply(defaultDictionaryValue(configuration, for: StructuredPlaceholderCommentRule.self.description.identifier))
         } catch { }
 
-        self.init(declareParser: ComposedParser(parsers: [
-                    try StructuredPlaceholderCommentParser.self.init(configuration: configuration)
-                    ]),
-                  usageParser: ComposedParser(parsers: []),
-                  severity: config.severity
-        )
+        self.init(declareParser: try StructuredPlaceholderCommentParser.self.init(configuration: configuration),
+                  severity: config.severity)
     }
+
     public required convenience init() {
         let config = StructuredPlaceholderCommentRuleConfiguration()
 
         self.init(declareParser: StructuredPlaceholderCommentParser(),
-                  usageParser: ComposedParser(parsers: []),
                   severity: config.severity)
     }
 
@@ -62,13 +57,6 @@ public class StructuredPlaceholderCommentRule {
             print("Unable to parse file \(file): \(error)")
             return []
         }
-    }
-
-    private func buildViolation(key: String, violationType: ViolationType, location: Location) -> Violation {
-        return Violation(ruleDescription: StructuredPlaceholderCommentRule.description,
-                         severity: self.severity,
-                         location: location,
-                         reason: "Comment for Localized string \"\(key)\" \(violationType.reasonDescription)")
     }
 }
 
@@ -114,11 +102,12 @@ extension StructuredPlaceholderCommentRule: LintRule {
             }
 
             return nil
-        }.compactMap({ input -> Violation? in
+        }.map({ input -> Violation in
             let (string, violationType) = input
-            return self.buildViolation(key: string.key,
-                                       violationType: violationType,
-                                       location: string.location)
+            return Violation(ruleDescription: StructuredPlaceholderCommentRule.description,
+                             severity: self.severity,
+                             location: string.location,
+                             reason: "Comment for Localized string \"\(string.key)\" \(violationType.reasonDescription)")
         })
     }
 }
