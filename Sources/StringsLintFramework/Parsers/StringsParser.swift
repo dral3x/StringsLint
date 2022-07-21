@@ -37,25 +37,15 @@ public struct StringsParser: LocalizableParser {
         var strings = [LocalizedString]()
                 
         for (index, line) in file.lines.enumerated() {
-            if let key = line.extractLocalizedKey() {
+            if let key = line.localizedKey {
 
                 let previousLine = (index > 0) ? file.lines[index - 1] : ""
-                let commentForLocalizedString = previousLine.extractComment()
+                let commentForLocalizedString = previousLine.comment
 
                 strings.append(LocalizedString(key: key, table: tableName, locale: locale, location: Location(file: file, line: index+1), comment: commentForLocalizedString))
             }
         }
 
         return strings
-    }
-}
-
-private extension String {
-    func extractLocalizedKey() -> String? {
-        return self.matchFirst(regex: "^\"(?<key>.*)\" = \"(.*)\";$")
-    }
-
-    func extractComment() -> String? {
-        return self.matchFirstSafe(regex: "\\/[^\n]*|\\/\\*[\\s\\S]*?\\*\\/")
     }
 }

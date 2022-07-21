@@ -50,8 +50,10 @@ public struct StructuredPlaceholderCommentParser: LocalizableParser {
         let allLines = file.lines.enumerated()
 
         for rawString in rawStrings {
-            if let key = rawString.extractLocalizedKey() {
-                let commentForLocalizedString = rawString.extractMultiLineComment()
+            if let key = rawString.localizedKey {
+                let commentForLocalizedString = rawString.comment?
+                    .trimmingCharacters(in: CharacterSet(charactersIn: "/**/"))
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
                 let lineNumber = (allLines.first(where: { $0.element.contains(key) })?.offset ?? -1) + 1
                 strings.append(LocalizedString(key: key,
                                                table: tableName,
@@ -77,22 +79,5 @@ private extension String {
         // precision like in "%1.2f"
         let precision = "[-+# 0]?\\d?(?:\\.\\d)?"
         return self.matchAll(regex: "(?:^|(?<!%)(?:%%)*)%\(position)\(precision)(@|\(patternInt)|\(patternFloat)|[csp])") ?? []
-    }
-
-    func extractLocalizedKey() -> String? {
-        return self.matchFirst(regex: "\"(?<key>.*)\" = \"(.*)\"")
-    }
-
-    /// Matches comments in the format
-    /// /*
-    /// {
-    ///    "test": "testValue"
-    /// }
-    /// */
-    /// - Returns: The entire comment
-    func extractMultiLineComment() -> String? {
-        return self.matchFirstSafe(regex: "\\/\\*(.|\n)*\\*\\/")?
-            .trimmingCharacters(in: CharacterSet(charactersIn: "/**/"))
-            .trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }

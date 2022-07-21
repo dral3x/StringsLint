@@ -13,6 +13,7 @@ class StructuredPlaceholderCommentRuleTests: XCTestCase {
     func testStringWithValidComment() {
 
         let file = File(name: "Localizable.strings", content: """
+            //--START CONTENT--
             /*
             {
               "description": "A CTA to go to the New Arrivals shopping section, links the retailer to this category",
@@ -31,6 +32,7 @@ class StructuredPlaceholderCommentRuleTests: XCTestCase {
     func testStringWithMissingDescriptionInComment() {
 
         let file = File(name: "Localizable.strings", content: """
+            //--START CONTENT--
             /*
             {
               "placeholders": ["person_name", "number"]
@@ -43,12 +45,13 @@ class StructuredPlaceholderCommentRuleTests: XCTestCase {
         rule.processFile(file)
 
         XCTAssertEqual(rule.violations.count, 1)
-        XCTAssertEqual(rule.violations[0].severity, .warning)
+        XCTAssertEqual(rule.violations.first?.severity, .warning)
     }
 
     func testStringWithEmptyDescriptionInComment() {
 
         let file = File(name: "Localizable.strings", content: """
+            //--START CONTENT--
             /*
             {
               "description": "",
@@ -62,12 +65,13 @@ class StructuredPlaceholderCommentRuleTests: XCTestCase {
         rule.processFile(file)
 
         XCTAssertEqual(rule.violations.count, 1)
-        XCTAssertEqual(rule.violations[0].severity, .warning)
+        XCTAssertEqual(rule.violations.first?.severity, .warning)
     }
 
     func testStringWithInvalidPlaceholdersInComment() {
 
         let file = File(name: "Localizable.strings", content: """
+            //--START CONTENT--
             /*
             {
               "description": "A CTA to go to the New Arrivals shopping section, links the retailer to this category",
@@ -81,12 +85,13 @@ class StructuredPlaceholderCommentRuleTests: XCTestCase {
         rule.processFile(file)
 
         XCTAssertEqual(rule.violations.count, 1)
-        XCTAssertEqual(rule.violations[0].severity, .warning)
+        XCTAssertEqual(rule.violations.first?.severity, .warning)
     }
 
     func testStringWithPlaceholderCountNotMatchingInComment() {
 
         let file = File(name: "Localizable.strings", content: """
+            //--START CONTENT--
             /*
             {
               "description": "A CTA to go to the New Arrivals shopping section, links the retailer to this category",
@@ -100,12 +105,13 @@ class StructuredPlaceholderCommentRuleTests: XCTestCase {
         rule.processFile(file)
 
         XCTAssertEqual(rule.violations.count, 1)
-        XCTAssertEqual(rule.violations[0].severity, .warning)
+        XCTAssertEqual(rule.violations.first?.severity, .warning)
     }
 
     func testStringWithInvalidComment() {
 
         let file = File(name: "Localizable.strings", content: """
+            //--START CONTENT--
             /*
             {
               "description": "A CTA to go to the New Arrivals shopping section, links the retailer to this category",
@@ -117,7 +123,7 @@ class StructuredPlaceholderCommentRuleTests: XCTestCase {
         rule.processFile(file)
 
         XCTAssertEqual(rule.violations.count, 1)
-        XCTAssertEqual(rule.violations[0].severity, .warning)
+        XCTAssertEqual(rule.violations.first?.severity, .warning)
     }
 
 }

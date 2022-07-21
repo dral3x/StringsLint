@@ -45,7 +45,12 @@ extension String {
         return nil
     }
 
-    func extractTableName() -> String? {
-        return self.matchFirst(regex: "asd")
+    /// Finds comments in the format of `//` or `/* */` or multi-line comments surrounded by `/* */`
+    var comment: String? {
+        return self.matchFirstSafe(regex: "(\\/\\*(.|\n)*?\\*\\/)|(\\/[^\n]*|\\/\\*[\\s\\S]*?\\*\\/)")
+    }
+
+    var localizedKey: String? {
+        return self.matchFirst(regex: "\"(?<key>.*)\" = \"(.*)\"")
     }
 }
