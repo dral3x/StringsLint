@@ -39,14 +39,16 @@ public class StructuredPlaceholderCommentRule {
             try config.apply(defaultDictionaryValue(configuration, for: StructuredPlaceholderCommentRule.self.description.identifier))
         } catch { }
 
-        self.init(declareParser: try StructuredPlaceholderCommentParser.self.init(configuration: configuration),
+        self.init(declareParser: ComposedParser(parsers: [try StringsdictParser.self.init(configuration: configuration),
+                                                          try StructuredPlaceholderCommentParser.self.init(configuration: configuration)]),
                   severity: config.severity)
     }
 
     public required convenience init() {
         let config = StructuredPlaceholderCommentRuleConfiguration()
 
-        self.init(declareParser: StructuredPlaceholderCommentParser(),
+        self.init(declareParser: ComposedParser(parsers: [StringsdictParser(),
+                                                          StructuredPlaceholderCommentParser()]),
                   severity: config.severity)
     }
 

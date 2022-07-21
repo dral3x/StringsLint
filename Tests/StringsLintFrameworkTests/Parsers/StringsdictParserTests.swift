@@ -19,8 +19,10 @@ class StringsdictParserTests: ParserTestCase {
         <key>things_count</key>
         <dict>
             <key>NSStringLocalizedFormatKey</key>
-            <string>%#@format@</string>
-            <key>format</key>
+            <string>%#@elements@</string>
+            <key>formattedComment</key>
+            <string>Some Formatted Comment</string>
+            <key>elements</key>
             <dict>
                 <key>NSStringFormatSpecTypeKey</key>
                 <string>NSStringPluralRuleType</string>
@@ -35,8 +37,8 @@ class StringsdictParserTests: ParserTestCase {
         <key>people_count</key>
         <dict>
             <key>NSStringLocalizedFormatKey</key>
-            <string>%#@format@</string>
-            <key>format</key>
+            <string>%#@elements@</string>
+            <key>elements</key>
             <dict>
                 <key>NSStringFormatSpecTypeKey</key>
                 <string>NSStringPluralRuleType</string>
@@ -62,12 +64,16 @@ class StringsdictParserTests: ParserTestCase {
         XCTAssertEqual(results[0].key, "people_count")
         XCTAssertEqual(results[0].table, "Localizable")
         XCTAssertEqual(results[0].locale, .base)
-        XCTAssertEqual(results[0].location, Location(file: file, line: 21))
+        XCTAssertEqual(results[0].location, Location(file: file, line: 23))
+        XCTAssertEqual(results[0].placeholders, ["li"])
+        XCTAssertEqual(results[0].comment, nil)
         
         XCTAssertEqual(results[1].key, "things_count")
         XCTAssertEqual(results[1].table, "Localizable")
         XCTAssertEqual(results[1].locale, .base)
         XCTAssertEqual(results[1].location, Location(file: file, line: 5))
+        XCTAssertEqual(results[1].placeholders, ["li"])
+        XCTAssertEqual(results[1].comment, "Some Formatted Comment")
     }
 
     func testParseOtherStringsFileInIT() throws {
@@ -80,8 +86,10 @@ class StringsdictParserTests: ParserTestCase {
         <key>things_count</key>
         <dict>
             <key>NSStringLocalizedFormatKey</key>
-            <string>%#@format@</string>
-            <key>format</key>
+            <string>%#@elements@</string>
+            <key>formattedComment</key>
+            <string>Some Formatted Comment</string>
+            <key>elements</key>
             <dict>
                 <key>NSStringFormatSpecTypeKey</key>
                 <string>NSStringPluralRuleType</string>
@@ -108,5 +116,7 @@ class StringsdictParserTests: ParserTestCase {
         XCTAssertEqual(results[0].table, "Other")
         XCTAssertEqual(results[0].locale, .language("it"))
         XCTAssertEqual(results[0].location, Location(file: file, line: 5))
+        XCTAssertEqual(results[0].placeholders, ["li"])
+        XCTAssertEqual(results[0].comment, "Some Formatted Comment")
     }
 }

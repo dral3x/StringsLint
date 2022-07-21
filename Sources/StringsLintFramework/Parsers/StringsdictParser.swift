@@ -38,12 +38,22 @@ public struct StringsdictParser: LocalizableParser {
         
         var propertyListForamt: PropertyListSerialization.PropertyListFormat = .xml
         let data = try PropertyListSerialization.propertyList(from: file.content.data(using: .utf8)!, options: [.mutableContainersAndLeaves], format: &propertyListForamt) as! [String: AnyObject]
-        
+
         for key in data.keys.sorted() {
             if let index = file.lines.firstIndex(where: { (line) -> Bool in
                 line.contains(key)
             }) {
-                strings.append(LocalizedString(key: key, table: tableName, locale: locale, location: Location(file: file, line: index+1)))
+                guard let value = data[key] as? [String: Any],
+                      let item = try? StringDict.PluralItem(key: key, value: value) else {
+                    continue
+                }
+
+                strings.append(LocalizedString(key: key,
+                                               table: tableName,
+                                               locale: locale,
+                                               location: Location(file: file, line: index+1),
+                                               placeholders: [item.format.formatValueKey],
+                                               comment: item.formattedComment))
             }
         }
         
