@@ -55,7 +55,7 @@ private extension StringDict.PluralItem {
     struct Container: Decodable {
         enum CodingKeys: String, CodingKey {
             case format = "elements"
-            case formattedComment
+            case formattedComment = "context"
         }
         let format: StringDict.PluralItem.Format
         let formattedComment: String?

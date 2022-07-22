@@ -20,7 +20,7 @@ class StringsdictParserTests: ParserTestCase {
         <dict>
             <key>NSStringLocalizedFormatKey</key>
             <string>%#@elements@</string>
-            <key>formattedComment</key>
+            <key>context</key>
             <string>Some Formatted Comment</string>
             <key>elements</key>
             <dict>
@@ -87,7 +87,7 @@ class StringsdictParserTests: ParserTestCase {
         <dict>
             <key>NSStringLocalizedFormatKey</key>
             <string>%#@elements@</string>
-            <key>formattedComment</key>
+            <key>context</key>
             <string>Some Formatted Comment</string>
             <key>elements</key>
             <dict>
