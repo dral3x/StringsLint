@@ -13,7 +13,13 @@ class JSONCommentRuleTests: XCTestCase {
     func testStringWithValidComment() {
 
         let file = File(name: "Localizable.strings", content: """
-            //--START CONTENT--
+            /*
+              Retailer.strings
+              Retailer
+
+              Created by Raissa Nucci on 07/04/20.
+              Copyright © 2020 Faire Inc. All rights reserved.
+            */
             /*
             {
               "description": "A CTA to go to the New Arrivals shopping section, links the retailer to this category",
@@ -32,7 +38,13 @@ class JSONCommentRuleTests: XCTestCase {
     func testStringWithMissingDescriptionInComment() {
 
         let file = File(name: "Localizable.strings", content: """
-            //--START CONTENT--
+            /*
+              Retailer.strings
+              Retailer
+
+              Created by Raissa Nucci on 07/04/20.
+              Copyright © 2020 Faire Inc. All rights reserved.
+            */
             /*
             {
               "placeholders": ["person_name", "number"]
@@ -51,7 +63,13 @@ class JSONCommentRuleTests: XCTestCase {
     func testStringWithEmptyDescriptionInComment() {
 
         let file = File(name: "Localizable.strings", content: """
-            //--START CONTENT--
+            /*
+              Retailer.strings
+              Retailer
+
+              Created by Raissa Nucci on 07/04/20.
+              Copyright © 2020 Faire Inc. All rights reserved.
+            */
             /*
             {
               "description": "",
@@ -71,7 +89,13 @@ class JSONCommentRuleTests: XCTestCase {
     func testStringWithInvalidPlaceholdersInComment() {
 
         let file = File(name: "Localizable.strings", content: """
-            //--START CONTENT--
+            /*
+              Retailer.strings
+              Retailer
+
+              Created by Raissa Nucci on 07/04/20.
+              Copyright © 2020 Faire Inc. All rights reserved.
+            */
             /*
             {
               "description": "A CTA to go to the New Arrivals shopping section, links the retailer to this category",
@@ -91,7 +115,13 @@ class JSONCommentRuleTests: XCTestCase {
     func testStringWithPlaceholderCountNotMatchingInComment() {
 
         let file = File(name: "Localizable.strings", content: """
-            //--START CONTENT--
+            /*
+              Retailer.strings
+              Retailer
+
+              Created by Raissa Nucci on 07/04/20.
+              Copyright © 2020 Faire Inc. All rights reserved.
+            */
             /*
             {
               "description": "A CTA to go to the New Arrivals shopping section, links the retailer to this category",
@@ -111,7 +141,13 @@ class JSONCommentRuleTests: XCTestCase {
     func testStringWithInvalidComment() {
 
         let file = File(name: "Localizable.strings", content: """
-            //--START CONTENT--
+            /*
+              Retailer.strings
+              Retailer
+
+              Created by Raissa Nucci on 07/04/20.
+              Copyright © 2020 Faire Inc. All rights reserved.
+            */
             /*
             {
               "description": "A CTA to go to the New Arrivals shopping section, links the retailer to this category",

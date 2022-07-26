@@ -9,10 +9,6 @@ import Foundation
 
 public struct StringsJSONCommentParser: LocalizableParser {
 
-    enum StringsJSONCommentParserError: Error {
-        case missingHeaderSeparatorComment
-    }
-
     public static var identifier: String {
         return "structured_placeholder_comment_parser"
     }
@@ -39,12 +35,7 @@ public struct StringsJSONCommentParser: LocalizableParser {
         let locale = Locale(url: file.url)
 
         var strings = [LocalizedString]()
-        guard file.content.contains("//--START CONTENT--") else {
-            throw StringsJSONCommentParserError.missingHeaderSeparatorComment
-        }
-        guard let rawStrings = file.content.components(separatedBy: "//--START CONTENT--").last?.components(separatedBy: ";") else {
-            return [] //should never get here given the previous guard
-        }
+        let rawStrings = removeHeaderComment(from: file.content).components(separatedBy: ";")
 
         let allLines = file.lines.enumerated()
 
@@ -65,6 +56,22 @@ public struct StringsJSONCommentParser: LocalizableParser {
 
         return strings
     }
+
+    private func removeHeaderComment(from content: String) -> String {
+        var lastHeaderIndex = 0
+        var lastChar: Character?
+        for c in content {
+            if let lastChar = lastChar,
+               lastChar == "*",
+               c == "/" { break }
+            lastChar = c
+            lastHeaderIndex += 1
+        }
+
+        let suffixLenght = content.count - lastHeaderIndex - 1
+        return String(content.suffix(suffixLenght))
+    }
+
 }
 
 private extension String {
