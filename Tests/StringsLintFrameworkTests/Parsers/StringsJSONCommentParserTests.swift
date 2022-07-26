@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  StringsJSONCommentParserTests.swift
 //  
 //
 //  Created by Mark Hall on 2022-07-19.
@@ -8,7 +8,7 @@
 import XCTest
 @testable import StringsLintFramework
 
-class StructuredPlaceholderCommentParserTests: ParserTestCase {
+class StringsJSONCommentParserTests: ParserTestCase {
 
     func testParseFullFile() throws {
 
@@ -56,7 +56,7 @@ class StructuredPlaceholderCommentParserTests: ParserTestCase {
 
         let file = try self.createTempFile("Localizable.strings", with: content, path: "/Base.lproj")
 
-        let parser = StructuredPlaceholderCommentParser()
+        let parser = StringsJSONCommentParser()
         let results = try parser.parse(file: file)
 
         XCTAssertEqual(results.count, 4)
@@ -141,9 +141,9 @@ class StructuredPlaceholderCommentParserTests: ParserTestCase {
 
         let file = try self.createTempFile("Localizable.strings", with: content, path: "/Base.lproj")
 
-        let parser = StructuredPlaceholderCommentParser()
+        let parser = StringsJSONCommentParser()
         XCTAssertThrowsError(try parser.parse(file: file)) { error in
-            XCTAssertEqual(error as? StructuredPlaceholderCommentParser.StructuredPlaceholderCommentParserError, StructuredPlaceholderCommentParser.StructuredPlaceholderCommentParserError.missingHeaderSeparatorComment)
+            XCTAssertEqual(error as? StringsJSONCommentParser.StringsJSONCommentParserError, StringsJSONCommentParser.StringsJSONCommentParserError.missingHeaderSeparatorComment)
         }
 
     }

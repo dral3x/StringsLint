@@ -1,5 +1,5 @@
 //
-//  StructuredPlaceholderCommentConfiguration.swift
+//  JSONCommentRuleConfiguration.swift
 //  StringsLintFramework
 //
 //  Created by Mark Hall on 2022-07-18.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct StructuredPlaceholderCommentRuleConfiguration: RuleConfiguration {
+public struct JSONCommentRuleConfiguration: RuleConfiguration {
     public var description: String {
         return "severity: \(self.severity)"
     }

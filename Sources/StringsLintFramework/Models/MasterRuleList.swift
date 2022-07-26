@@ -10,5 +10,5 @@ public let masterRuleList = RuleList(rules: [
     UnusedRule.self,
     PartialRule.self,
     MissingCommentRule.self,
-    StructuredPlaceholderCommentRule.self
+    JSONCommentRule.self
 ])

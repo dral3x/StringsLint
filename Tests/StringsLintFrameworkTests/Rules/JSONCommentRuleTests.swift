@@ -8,7 +8,7 @@
 import XCTest
 @testable import StringsLintFramework
 
-class StructuredPlaceholderCommentRuleTests: XCTestCase {
+class JSONCommentRuleTests: XCTestCase {
 
     func testStringWithValidComment() {
 
@@ -23,7 +23,7 @@ class StructuredPlaceholderCommentRuleTests: XCTestCase {
             "EMPTY_STATE.VIEW_BAG_BUTTON_MULTIPLE_PLACEHOLDERS" = "View Bag %@ %@";
             """)
 
-        let rule = StructuredPlaceholderCommentRule()
+        let rule = JSONCommentRule()
         rule.processFile(file)
 
         XCTAssertEqual(rule.violations.count, 0)
@@ -41,7 +41,7 @@ class StructuredPlaceholderCommentRuleTests: XCTestCase {
             "EMPTY_STATE.VIEW_BAG_BUTTON_MULTIPLE_PLACEHOLDERS" = "View Bag %@ %@";
             """)
 
-        let rule = StructuredPlaceholderCommentRule()
+        let rule = JSONCommentRule()
         rule.processFile(file)
 
         XCTAssertEqual(rule.violations.count, 1)
@@ -61,7 +61,7 @@ class StructuredPlaceholderCommentRuleTests: XCTestCase {
             "EMPTY_STATE.VIEW_BAG_BUTTON_MULTIPLE_PLACEHOLDERS" = "View Bag %@ %@";
             """)
 
-        let rule = StructuredPlaceholderCommentRule()
+        let rule = JSONCommentRule()
         rule.processFile(file)
 
         XCTAssertEqual(rule.violations.count, 1)
@@ -81,7 +81,7 @@ class StructuredPlaceholderCommentRuleTests: XCTestCase {
             "EMPTY_STATE.VIEW_BAG_BUTTON_MULTIPLE_PLACEHOLDERS" = "View Bag %@ %@";
             """)
 
-        let rule = StructuredPlaceholderCommentRule()
+        let rule = JSONCommentRule()
         rule.processFile(file)
 
         XCTAssertEqual(rule.violations.count, 1)
@@ -101,7 +101,7 @@ class StructuredPlaceholderCommentRuleTests: XCTestCase {
             "EMPTY_STATE.VIEW_BAG_BUTTON_MULTIPLE_PLACEHOLDERS" = "View Bag %@ %@";
             """)
 
-        let rule = StructuredPlaceholderCommentRule()
+        let rule = JSONCommentRule()
         rule.processFile(file)
 
         XCTAssertEqual(rule.violations.count, 1)
@@ -119,7 +119,7 @@ class StructuredPlaceholderCommentRuleTests: XCTestCase {
             "EMPTY_STATE.VIEW_BAG_BUTTON_MULTIPLE_PLACEHOLDERS" = "View Bag %@ %@";
             """)
 
-        let rule = StructuredPlaceholderCommentRule()
+        let rule = JSONCommentRule()
         rule.processFile(file)
 
         XCTAssertEqual(rule.violations.count, 1)

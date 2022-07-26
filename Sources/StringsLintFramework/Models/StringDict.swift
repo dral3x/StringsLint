@@ -62,16 +62,6 @@ private extension StringDict.PluralItem {
     }
 }
 
-private extension StringDict.PluralItem.Format {
-    struct Container: Decodable {
-        enum CodingKeys: String, CodingKey {
-            case valueKey = "NSStringFormatValueTypeKey"
-        }
-
-        let valueKey: String?
-    }
-}
-
 private extension JSONDecoder {
     func decode<T: Decodable>(JSONObject: Any, as type: T.Type? = nil) throws -> T {
         let data = try JSONSerialization.data(withJSONObject: JSONObject, options: [])

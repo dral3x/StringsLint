@@ -1,5 +1,5 @@
 //
-//  StructuredPlaceholderCommentParser.swift
+//  StringsJSONCommentParser.swift
 //  
 //
 //  Created by Mark Hall on 2022-07-19.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-public struct StructuredPlaceholderCommentParser: LocalizableParser {
+public struct StringsJSONCommentParser: LocalizableParser {
 
-    enum StructuredPlaceholderCommentParserError: Error {
+    enum StringsJSONCommentParserError: Error {
         case missingHeaderSeparatorComment
     }
 
@@ -29,7 +29,6 @@ public struct StructuredPlaceholderCommentParser: LocalizableParser {
         self.init()
     }
 
-    //TODO: (Mark Hall, July 18) only need to support the english file
     public func support(file: File) -> Bool {
         return file.name.hasSuffix(".strings")
     }
@@ -41,7 +40,7 @@ public struct StructuredPlaceholderCommentParser: LocalizableParser {
 
         var strings = [LocalizedString]()
         guard file.content.contains("//--START CONTENT--") else {
-            throw StructuredPlaceholderCommentParserError.missingHeaderSeparatorComment
+            throw StringsJSONCommentParserError.missingHeaderSeparatorComment
         }
         guard let rawStrings = file.content.components(separatedBy: "//--START CONTENT--").last?.components(separatedBy: ";") else {
             return [] //should never get here given the previous guard

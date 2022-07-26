@@ -1,5 +1,5 @@
 //
-//  StructuredPlaceholderCommentRule.swift
+//  JSONCommentRule.swift
 //  StringsLintFramework
 //
 //  Created by Mark Hall on 2022-07-18.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class StructuredPlaceholderCommentRule {
+public class JSONCommentRule {
     private var declaredStrings = [LocalizedString]()
     var severity: ViolationSeverity
 
@@ -34,21 +34,21 @@ public class StructuredPlaceholderCommentRule {
     }
 
     public required convenience init(configuration: Any) throws {
-        var config = StructuredPlaceholderCommentRuleConfiguration()
+        var config = JSONCommentRuleConfiguration()
         do {
-            try config.apply(defaultDictionaryValue(configuration, for: StructuredPlaceholderCommentRule.self.description.identifier))
+            try config.apply(defaultDictionaryValue(configuration, for: JSONCommentRule.self.description.identifier))
         } catch { }
 
         self.init(declareParser: ComposedParser(parsers: [try StringsdictParser.self.init(configuration: configuration),
-                                                          try StructuredPlaceholderCommentParser.self.init(configuration: configuration)]),
+                                                          try StringsJSONCommentParser.self.init(configuration: configuration)]),
                   severity: config.severity)
     }
 
     public required convenience init() {
-        let config = StructuredPlaceholderCommentRuleConfiguration()
+        let config = JSONCommentRuleConfiguration()
 
         self.init(declareParser: ComposedParser(parsers: [StringsdictParser(),
-                                                          StructuredPlaceholderCommentParser()]),
+                                                          StringsJSONCommentParser()]),
                   severity: config.severity)
     }
 
@@ -62,11 +62,11 @@ public class StructuredPlaceholderCommentRule {
     }
 }
 
-extension StructuredPlaceholderCommentRule: LintRule {
+extension JSONCommentRule: LintRule {
 
     public static var description = RuleDescription(
-        identifier: "structured_placeholder_comment",
-        name: "StructuredPlaceholderComment",
+        identifier: "json_comment_rule",
+        name: "JSONCommentRule",
         description: "Placeholder comment is incorrect"
     )
 
@@ -106,7 +106,7 @@ extension StructuredPlaceholderCommentRule: LintRule {
             return nil
         }.map({ input -> Violation in
             let (string, violationType) = input
-            return Violation(ruleDescription: StructuredPlaceholderCommentRule.description,
+            return Violation(ruleDescription: JSONCommentRule.description,
                              severity: self.severity,
                              location: string.location,
                              reason: "Comment for Localized string \"\(string.key)\" \(violationType.reasonDescription)")
@@ -114,7 +114,7 @@ extension StructuredPlaceholderCommentRule: LintRule {
     }
 }
 
-extension StructuredPlaceholderCommentRule {
+extension JSONCommentRule {
     enum ViolationType {
         case invalidJSON
         case missingDescription
