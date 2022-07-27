@@ -37,54 +37,15 @@ public struct StringsParser: LocalizableParser {
         var strings = [LocalizedString]()
                 
         for (index, line) in file.lines.enumerated() {
-            if let key = line.extractLocalizedKey() {
+            if let key = line.localizedKey {
 
                 let previousLine = (index > 0) ? file.lines[index - 1] : ""
-                let commentForLocalizedString = previousLine.extractComment()
+                let commentForLocalizedString = previousLine.comment
 
                 strings.append(LocalizedString(key: key, table: tableName, locale: locale, location: Location(file: file, line: index+1), comment: commentForLocalizedString))
             }
         }
 
         return strings
-    }
-}
-
-extension String {
-    
-    private func matchFirst(regex: String) -> String? {
-        do {
-            let regex = try NSRegularExpression(pattern: regex)
-            if let result = regex.firstMatch(in: self, range: NSRange(self.startIndex..., in: self)) {
-                return String(self[Range(result.range(at: 1), in: self)!])
-            }
-        } catch let error {
-            print("invalid regex: \(error.localizedDescription)")
-        }
-        return nil
-    }
-
-    private func matchFirstSafe(regex: String) -> String? {
-        do {
-            let regex = try NSRegularExpression(pattern: regex)
-            if let result = regex.firstMatch(in: self, range: NSRange(self.startIndex..., in: self)) {
-                return String(self[Range(result.range, in: self)!])
-            }
-        } catch let error {
-            print("invalid regex: \(error.localizedDescription)")
-        }
-        return nil
-    }
-    
-    fileprivate func extractLocalizedKey() -> String? {
-        return self.matchFirst(regex: "^\"(?<key>.*)\" = \"(.*)\";$")
-    }
-    
-    fileprivate func extractTableName() -> String? {
-        return self.matchFirst(regex: "asd")
-    }
-
-    fileprivate func extractComment() -> String? {
-        return self.matchFirstSafe(regex: "\\/[^\n]*|\\/\\*[\\s\\S]*?\\*\\/")
     }
 }
