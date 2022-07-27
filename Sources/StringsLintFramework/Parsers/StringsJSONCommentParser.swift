@@ -41,9 +41,10 @@ public struct StringsJSONCommentParser: LocalizableParser {
 
         for rawString in rawStrings {
             if let key = rawString.localizedKey {
-                let commentForLocalizedString = rawString.comment?
+                let commentForLocalizedString = rawString.multiLineComment?
                     .trimmingCharacters(in: CharacterSet(charactersIn: "/**/"))
                     .trimmingCharacters(in: .whitespacesAndNewlines)
+
                 let lineNumber = (allLines.first(where: { $0.element.localizedKey == key })?.offset ?? -1) + 1
                 strings.append(LocalizedString(key: key,
                                                table: tableName,

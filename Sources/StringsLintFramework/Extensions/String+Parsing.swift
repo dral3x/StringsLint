@@ -45,6 +45,11 @@ extension String {
         return nil
     }
 
+    /// Finds multi-line comments surrounded by `/* */`
+    var multiLineComment: String? {
+        return self.matchFirstSafe(regex: "(\\/\\*(.|\n)*?\\*\\/)")
+    }
+
     /// Finds comments in the format of `//` or `/* */` or multi-line comments surrounded by `/* */`
     var comment: String? {
         return self.matchFirstSafe(regex: "(\\/\\*(.|\n)*?\\*\\/)|(\\/[^\n]*|\\/\\*[\\s\\S]*?\\*\\/)")
