@@ -58,4 +58,8 @@ extension String {
     var localizedKey: String? {
         return self.matchFirst(regex: "\"(?<key>.*)\" = \"(.*)\"")
     }
+
+    var localizedValue: String? {
+        return self.matchFirst(regex: "= \"(?<value>.*)\"")
+    }
 }
