@@ -24,7 +24,11 @@ public class JSONCommentRule {
         "person_name",
         "currency_code",
         "event_name",
-        "email_address"
+        "email_address",
+        "tariff_code",
+        "tracking_code",
+        "token",
+        "sku"
     ])
 
     public init(declareParser: LocalizableParser,
