@@ -28,7 +28,9 @@ public class JSONCommentRule {
         "tariff_code",
         "tracking_code",
         "token",
-        "sku"
+        "sku",
+        "month",
+        "day"
     ])
 
     public init(declareParser: LocalizableParser,
