@@ -24,8 +24,13 @@
 		8ACC8C1D268B51DF00EFF85D /* MissingCommentRuleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACC8C1C268B51DF00EFF85D /* MissingCommentRuleConfiguration.swift */; };
 		8ACC8C1F268B51F100EFF85D /* MissingCommentRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACC8C1E268B51F100EFF85D /* MissingCommentRule.swift */; };
 		8ACC8C21268B522A00EFF85D /* MissingCommentRuleConfiguratonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACC8C20268B522A00EFF85D /* MissingCommentRuleConfiguratonTests.swift */; };
-		A7F73E912885F04B0093B166 /* StructuredPlaceholderCommentRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F73E902885F04B0093B166 /* StructuredPlaceholderCommentRule.swift */; };
-		A7F73E932885F2000093B166 /* StructuredPlaceholderCommentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F73E922885F2000093B166 /* StructuredPlaceholderCommentConfiguration.swift */; };
+		DA010E3D28FE470B00EF0F3F /* UnusedSwiftGenRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA010E3C28FE470B00EF0F3F /* UnusedSwiftGenRule.swift */; };
+		DA010E3F28FE48BB00EF0F3F /* SwiftL10nParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA010E3E28FE48BB00EF0F3F /* SwiftL10nParser.swift */; };
+		DA010E4128FE4E2E00EF0F3F /* UnusedSwiftGenRuleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA010E4028FE4E2E00EF0F3F /* UnusedSwiftGenRuleConfiguration.swift */; };
+		DA010E4328FE510E00EF0F3F /* SwiftL10nParserConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA010E4228FE510E00EF0F3F /* SwiftL10nParserConfiguration.swift */; };
+		DA1B709728FE714800852939 /* StringsJSONCommentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B709628FE714800852939 /* StringsJSONCommentParser.swift */; };
+		DA1B709928FE716500852939 /* JSONCommentRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B709828FE716500852939 /* JSONCommentRule.swift */; };
+		DA1B709B28FEFB3E00852939 /* JSONCommentRuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B709A28FEFB3E00852939 /* JSONCommentRuleTests.swift */; };
 		FA77E9E826DE118900D82C5C /* XcodeReporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA77E9E726DE118900D82C5C /* XcodeReporterTests.swift */; };
 		FA77E9EA26DE1C0600D82C5C /* MissingCommentRuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA77E9E926DE1C0600D82C5C /* MissingCommentRuleTests.swift */; };
 		FAA8243D224BDC620091A65C /* StringsdictParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8243C224BDC620091A65C /* StringsdictParserTests.swift */; };
@@ -244,9 +249,14 @@
 		8ACC8C1C268B51DF00EFF85D /* MissingCommentRuleConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissingCommentRuleConfiguration.swift; sourceTree = "<group>"; };
 		8ACC8C1E268B51F100EFF85D /* MissingCommentRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissingCommentRule.swift; sourceTree = "<group>"; };
 		8ACC8C20268B522A00EFF85D /* MissingCommentRuleConfiguratonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissingCommentRuleConfiguratonTests.swift; sourceTree = "<group>"; };
-		A7F73E902885F04B0093B166 /* StructuredPlaceholderCommentRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructuredPlaceholderCommentRule.swift; sourceTree = "<group>"; };
-		A7F73E922885F2000093B166 /* StructuredPlaceholderCommentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructuredPlaceholderCommentConfiguration.swift; sourceTree = "<group>"; };
 		"Commandant::Commandant::Product" /* Commandant.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Commandant.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA010E3C28FE470B00EF0F3F /* UnusedSwiftGenRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnusedSwiftGenRule.swift; sourceTree = "<group>"; };
+		DA010E3E28FE48BB00EF0F3F /* SwiftL10nParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftL10nParser.swift; sourceTree = "<group>"; };
+		DA010E4028FE4E2E00EF0F3F /* UnusedSwiftGenRuleConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnusedSwiftGenRuleConfiguration.swift; sourceTree = "<group>"; };
+		DA010E4228FE510E00EF0F3F /* SwiftL10nParserConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftL10nParserConfiguration.swift; sourceTree = "<group>"; };
+		DA1B709628FE714800852939 /* StringsJSONCommentParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringsJSONCommentParser.swift; path = Sources/StringsLintFramework/Parsers/StringsJSONCommentParser.swift; sourceTree = SOURCE_ROOT; };
+		DA1B709828FE716500852939 /* JSONCommentRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONCommentRule.swift; sourceTree = "<group>"; };
+		DA1B709A28FEFB3E00852939 /* JSONCommentRuleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONCommentRuleTests.swift; path = Tests/StringsLintFrameworkTests/Rules/JSONCommentRuleTests.swift; sourceTree = SOURCE_ROOT; };
 		FA77E9E726DE118900D82C5C /* XcodeReporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeReporterTests.swift; sourceTree = "<group>"; };
 		FA77E9E926DE1C0600D82C5C /* MissingCommentRuleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingCommentRuleTests.swift; sourceTree = "<group>"; };
 		FAA8243C224BDC620091A65C /* StringsdictParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsdictParserTests.swift; sourceTree = "<group>"; };
@@ -442,6 +452,7 @@
 			isa = PBXGroup;
 			children = (
 				8ACC8C20268B522A00EFF85D /* MissingCommentRuleConfiguratonTests.swift */,
+				DA1B709A28FEFB3E00852939 /* JSONCommentRuleTests.swift */,
 				FAF383B121E7A9E700B24265 /* UnusedRuleConfigurationTests.swift */,
 				FAF383B321E7AAD900B24265 /* MissingRuleConfigurationTests.swift */,
 				FAF383B521E7AAFD00B24265 /* PartialRuleConfigurationTests.swift */,
@@ -641,8 +652,10 @@
 				OBJ_45 /* Configuration */,
 				OBJ_49 /* LocalizableParser.swift */,
 				OBJ_50 /* ObjcParser.swift */,
-				OBJ_51 /* StringsParser.swift */,
 				FAA8243E224BDDD20091A65C /* StringsdictParser.swift */,
+				DA1B709628FE714800852939 /* StringsJSONCommentParser.swift */,
+				OBJ_51 /* StringsParser.swift */,
+				DA010E3E28FE48BB00EF0F3F /* SwiftL10nParser.swift */,
 				OBJ_52 /* SwiftParser.swift */,
 				OBJ_53 /* XibParser.swift */,
 				OBJ_54 /* YamlParser.swift */,
@@ -656,6 +669,7 @@
 				OBJ_46 /* ObjcParserConfiguration.swift */,
 				OBJ_47 /* SwiftParserConfiguration.swift */,
 				OBJ_48 /* XibParserConfiguration.swift */,
+				DA010E4228FE510E00EF0F3F /* SwiftL10nParserConfiguration.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -700,7 +714,7 @@
 				OBJ_61 /* UnusedRuleConfiguration.swift */,
 				FAF383AC21E7A3C100B24265 /* MissingRuleConfiguration.swift */,
 				FAF383AE21E7A3DB00B24265 /* PartialRuleConfiguration.swift */,
-				A7F73E922885F2000093B166 /* StructuredPlaceholderCommentConfiguration.swift */,
+				DA010E4028FE4E2E00EF0F3F /* UnusedSwiftGenRuleConfiguration.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -708,11 +722,12 @@
 		OBJ_62 /* Lint */ = {
 			isa = PBXGroup;
 			children = (
+				DA1B709828FE716500852939 /* JSONCommentRule.swift */,
 				8ACC8C1E268B51F100EFF85D /* MissingCommentRule.swift */,
 				OBJ_63 /* MissingRule.swift */,
 				OBJ_64 /* PartialRule.swift */,
 				OBJ_65 /* UnusedRule.swift */,
-				A7F73E902885F04B0093B166 /* StructuredPlaceholderCommentRule.swift */,
+				DA010E3C28FE470B00EF0F3F /* UnusedSwiftGenRule.swift */,
 			);
 			path = Lint;
 			sourceTree = "<group>";
@@ -1162,6 +1177,7 @@
 				OBJ_203 /* Array+StringsLint.swift in Sources */,
 				OBJ_204 /* Configuration+Parsing.swift in Sources */,
 				OBJ_205 /* LinuxCompatibility.swift in Sources */,
+				DA010E3F28FE48BB00EF0F3F /* SwiftL10nParser.swift in Sources */,
 				OBJ_206 /* QueuedPrint.swift in Sources */,
 				OBJ_207 /* String+StringsLint.swift in Sources */,
 				8ACC8C1D268B51DF00EFF85D /* MissingCommentRuleConfiguration.swift in Sources */,
@@ -1171,20 +1187,23 @@
 				8ACC8C1F268B51F100EFF85D /* MissingCommentRule.swift in Sources */,
 				OBJ_210 /* Configuration.swift in Sources */,
 				OBJ_211 /* ConfigurationError.swift in Sources */,
+				DA1B709728FE714800852939 /* StringsJSONCommentParser.swift in Sources */,
 				OBJ_212 /* File.swift in Sources */,
 				FAE0FFD3251A07C400E20F84 /* String+Range.swift in Sources */,
 				OBJ_213 /* Locale.swift in Sources */,
+				DA1B709928FE716500852939 /* JSONCommentRule.swift in Sources */,
 				OBJ_214 /* LocalizedString.swift in Sources */,
 				OBJ_215 /* Location.swift in Sources */,
 				OBJ_216 /* MasterRuleList.swift in Sources */,
-				A7F73E932885F2000093B166 /* StructuredPlaceholderCommentConfiguration.swift in Sources */,
 				OBJ_217 /* RuleDescription.swift in Sources */,
 				OBJ_218 /* RuleList.swift in Sources */,
 				OBJ_219 /* Version.swift in Sources */,
 				OBJ_220 /* Violation.swift in Sources */,
 				OBJ_221 /* ViolationSeverity.swift in Sources */,
 				OBJ_222 /* ComposedParser.swift in Sources */,
+				DA010E3D28FE470B00EF0F3F /* UnusedSwiftGenRule.swift in Sources */,
 				OBJ_223 /* ObjcParserConfiguration.swift in Sources */,
+				DA010E4328FE510E00EF0F3F /* SwiftL10nParserConfiguration.swift in Sources */,
 				FAF383AF21E7A3DB00B24265 /* PartialRuleConfiguration.swift in Sources */,
 				OBJ_224 /* SwiftParserConfiguration.swift in Sources */,
 				OBJ_225 /* XibParserConfiguration.swift in Sources */,
@@ -1192,7 +1211,9 @@
 				OBJ_227 /* ObjcParser.swift in Sources */,
 				OBJ_228 /* StringsParser.swift in Sources */,
 				OBJ_229 /* SwiftParser.swift in Sources */,
+				DA010E4128FE4E2E00EF0F3F /* UnusedSwiftGenRuleConfiguration.swift in Sources */,
 				OBJ_230 /* XibParser.swift in Sources */,
+				DA1B709B28FEFB3E00852939 /* JSONCommentRuleTests.swift in Sources */,
 				OBJ_231 /* YamlParser.swift in Sources */,
 				OBJ_232 /* Reporter.swift in Sources */,
 				OBJ_233 /* XcodeReporter.swift in Sources */,
@@ -1200,7 +1221,6 @@
 				OBJ_235 /* UnusedRuleConfiguration.swift in Sources */,
 				OBJ_236 /* MissingRule.swift in Sources */,
 				OBJ_237 /* PartialRule.swift in Sources */,
-				A7F73E912885F04B0093B166 /* StructuredPlaceholderCommentRule.swift in Sources */,
 				FAA8243F224BDDD20091A65C /* StringsdictParser.swift in Sources */,
 				OBJ_238 /* UnusedRule.swift in Sources */,
 				OBJ_239 /* LintRule.swift in Sources */,
