@@ -11,12 +11,12 @@ import Foundation
 
 public struct UnusedSwiftGenRuleConfiguration: RuleConfiguration {
   public var description: String {
-    return "severity: \(self.severity), ignored: \(self.ignored)"
+    return "severity: \(self.severity), ignored: \(self.ignored), wipStrings: \(self.workInProgressStrings)"
   }
 
   public var severity: ViolationSeverity = .warning
-  public var ignored: [String] = []
-  public var table: String = "Retailer"
+  public var workInProgressStrings = [String]()
+  public var ignored = [String]()
 
   public mutating func apply(_ configuration: Any) throws {
 
@@ -26,6 +26,6 @@ public struct UnusedSwiftGenRuleConfiguration: RuleConfiguration {
 
     self.severity = ViolationSeverity(rawValue: configuration["severity"] as! String) ?? self.severity
     self.ignored += defaultStringArray(configuration["ignored"])
+    self.workInProgressStrings += defaultStringArray(configuration["work_in_progress"])
   }
-
 }

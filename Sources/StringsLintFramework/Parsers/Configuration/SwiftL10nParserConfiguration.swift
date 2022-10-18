@@ -13,7 +13,7 @@ public struct SwiftL10nParserConfiguration {
     case tableName = "tableName"
   }
 
-  public var tableName = "Retailer"
+  public var tableName = "Localizable"
 
   public mutating func apply(_ configuration: Any) throws {
 

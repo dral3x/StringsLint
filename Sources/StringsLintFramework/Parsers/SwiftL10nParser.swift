@@ -48,7 +48,7 @@ public struct SwiftL10nParser: LocalizableParser {
 
 private extension SwiftL10nParser {
   enum Constants {
-    static let L10nPattern = #"(L10n\.[a-zA-Z0-9.]+)|(\"\@.*\")"#
+    static let L10nPattern = #"L10n\.[a-zA-Z0-9.]+"#
   }
 
   func extractL10nUsage(from content: String, location: Location) -> [LocalizedString] {

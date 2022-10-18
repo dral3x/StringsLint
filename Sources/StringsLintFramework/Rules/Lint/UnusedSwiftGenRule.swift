@@ -8,7 +8,7 @@
 import Foundation
 
 public class UnusedSwiftGenRule: LintRule {
-  private let ignoredStrings: [String]
+  private let ignoredStrings: Set<String>
   private var declaredStrings = [LocalizedString]()
   private var usedStrings = [LocalizedString]()
   var severity: ViolationSeverity
@@ -25,8 +25,8 @@ public class UnusedSwiftGenRule: LintRule {
   public required convenience init() {
     let config = UnusedSwiftGenRuleConfiguration()
     self.init(declareParser: ComposedParser(parsers: [ StringsParser(), StringsdictParser() ]),
-              usageParser: ComposedParser(parsers: [ SwiftParser() ]),
-              ignoredStrings: config.ignored,
+              usageParser: ComposedParser(parsers: [ SwiftL10nParser() ]),
+              ignoredStrings: config.workInProgressStrings + config.ignored,
               severity: config.severity)
   }
 
@@ -42,9 +42,9 @@ public class UnusedSwiftGenRule: LintRule {
         try StringsdictParser.self.init(configuration: configuration)
       ]),
       usageParser: ComposedParser(parsers: [
-        try SwiftL10nParser.init(configuration: configuration)
+        try SwiftL10nParser.self.init(configuration: configuration)
       ]),
-      ignoredStrings: config.ignored,
+      ignoredStrings: config.workInProgressStrings + config.ignored,
       severity: config.severity
     )
   }
@@ -55,12 +55,11 @@ public class UnusedSwiftGenRule: LintRule {
               severity: ViolationSeverity) {
     self.declareParser = declareParser
     self.usageParser = usageParser
-    self.ignoredStrings = ignoredStrings
+    self.ignoredStrings = Set(ignoredStrings.map { $0.toL10nGenerated() })
     self.severity = severity
   }
 
   public func processFile(_ file: File) {
-
     if self.declareParser.support(file: file) {
       self.declaredStrings += self.processDeclarationFile(file)
         .filter { !self.ignoredStrings.contains($0.key) }
@@ -115,16 +114,17 @@ public class UnusedSwiftGenRule: LintRule {
     }
   }
 
-  private func buildViolation(key: String, location: Location, comment: String?) -> Violation {
-      Violation(
-        ruleDescription: UnusedSwiftGenRule.description,
-        severity: self.severity,
-        location: location,
-        reason: "Localized string \"\(key)\(comment != nil ? " (\(comment))" : "")\" is unused"
-      )
+  private func buildViolation(key: String, location: Location, comment: String?) -> Violation? {
+    guard let comment = comment else { return nil }
+
+    return Violation(
+      ruleDescription: UnusedSwiftGenRule.description,
+      severity: self.severity,
+      location: location,
+      reason: "Localized string "(comment)"\" is unused."
+    )
   }
 }
-
 
 
 extension String {
