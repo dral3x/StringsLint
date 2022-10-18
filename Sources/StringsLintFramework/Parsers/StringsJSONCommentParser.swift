@@ -36,15 +36,16 @@ public struct StringsJSONCommentParser: LocalizableParser {
 
         var strings = [LocalizedString]()
         let rawStrings = removeHeaderComment(from: file.content).components(separatedBy: ";")
-
-        let allLines = file.lines.enumerated()
+        let lineNumberDictionary = buildMapLineNumberMap(from: file)
 
         for rawString in rawStrings {
-            if let key = rawString.localizedKey, let value = rawString.localizedValue{
+            if let key = rawString.localizedKey,
+               let value = rawString.localizedValue,
+               let lineNumber = lineNumberDictionary[key] {
                 let commentForLocalizedString = rawString.multiLineComment?
                     .trimmingCharacters(in: CharacterSet(charactersIn: "/**/"))
                     .trimmingCharacters(in: .whitespacesAndNewlines)
-                let lineNumber = (allLines.first(where: { $0.element.localizedKey == key })?.offset ?? -1) + 1
+
                 strings.append(LocalizedString(key: key,
                                                table: tableName,
                                                locale: locale,
@@ -56,6 +57,17 @@ public struct StringsJSONCommentParser: LocalizableParser {
 
         return strings
     }
+
+  private func buildMapLineNumberMap(from file: File) -> [String: Int] {
+    var map = [String: Int]()
+
+    file.lines.enumerated().forEach {
+      guard let localizedKey = $0.element.localizedKey else { return }
+      map.updateValue($0.offset+1, forKey: localizedKey)
+    }
+
+    return map
+  }
 
     private func removeHeaderComment(from content: String) -> String {
         var lastHeaderIndex = 0

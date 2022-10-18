@@ -121,7 +121,7 @@ public class UnusedSwiftGenRule: LintRule {
       ruleDescription: UnusedSwiftGenRule.description,
       severity: self.severity,
       location: location,
-      reason: "Localized string "(comment)"\" is unused."
+      reason: "Localized string \"\(comment)\" is unused."
     )
   }
 }
