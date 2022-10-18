@@ -7,5 +7,6 @@
 
 public let masterRuleList = RuleList(rules: [
     UnusedSwiftGenRule.self,
+    MissingCommentRule.self,
     JSONCommentRule.self
 ])
