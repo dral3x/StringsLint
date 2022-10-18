@@ -12,7 +12,7 @@ public class UnusedRule: LintRule {
     public static var description = RuleDescription(
         identifier: "unused",
         name: "Unused",
-        description: "Localized string it not used in the app"
+        description: "Localized string is not used in the app"
     )
 
     private var declaredStrings = [LocalizedString]()
