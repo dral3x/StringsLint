@@ -212,4 +212,161 @@ class JSONCommentRuleTests: XCTestCase {
       XCTAssertEqual(rule.violations.count, 0)
   }
 
+  func testStringsDict_with_noViolations() {
+
+      let file = File(name: "Localizable.stringsdict", content: """
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>ORDER.ACTIONS.TRACK_SHIPMENTS</key>
+            <dict>
+              <key>context</key>
+              <string>
+                      {
+                          "description": "CTA to go to package tracking from the orders list and order details pages",
+                          "placeholders": ["number"]
+                      }
+                  </string>
+              <key>NSStringLocalizedFormatKey</key>
+              <string>%#@elements@</string>
+              <key>elements</key>
+              <dict>
+                <key>NSStringFormatSpecTypeKey</key>
+                <string>NSStringPluralRuleType</string>
+                <key>NSStringFormatValueTypeKey</key>
+                <string>d</string>
+                <key>other</key>
+                <string>Track Shipment · %d packages</string>
+                <key>one</key>
+                <string>Track Shipment · %d package</string>
+              </dict>
+            </dict>
+          </dict>
+          </plist>
+          """)
+
+      let rule = JSONCommentRule()
+      rule.processFile(file)
+
+      XCTAssertEqual(rule.violations.count, 0)
+  }
+
+  func testStringsDict_with_missingDescriptionViolation() {
+
+      let file = File(name: "Localizable.stringsdict", content: """
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>ORDER.ACTIONS.TRACK_SHIPMENTS</key>
+            <dict>
+              <key>context</key>
+              <string>
+                      {
+                          "placeholders": ["number"]
+                      }
+                  </string>
+              <key>NSStringLocalizedFormatKey</key>
+              <string>%#@elements@</string>
+              <key>elements</key>
+              <dict>
+                <key>NSStringFormatSpecTypeKey</key>
+                <string>NSStringPluralRuleType</string>
+                <key>NSStringFormatValueTypeKey</key>
+                <string>d</string>
+                <key>other</key>
+                <string>Track Shipment · %d packages</string>
+                <key>one</key>
+                <string>Track Shipment · %d package</string>
+              </dict>
+            </dict>
+          </dict>
+          </plist>
+          """)
+
+      let rule = JSONCommentRule()
+      rule.processFile(file)
+
+      XCTAssertEqual(rule.violations.count, 1)
+  }
+
+  func testStringsDict_with_noPlaceholderInString_noViolations() {
+
+      let file = File(name: "Localizable.stringsdict", content: """
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>ORDER.ACTIONS.TRACK_SHIPMENTS</key>
+            <dict>
+              <key>context</key>
+              <string>
+                      {
+                          "description": "CTA to go to package tracking from the orders list and order details pages"
+                      }
+                  </string>
+              <key>NSStringLocalizedFormatKey</key>
+              <string>%#@elements@</string>
+              <key>elements</key>
+              <dict>
+                <key>NSStringFormatSpecTypeKey</key>
+                <string>NSStringPluralRuleType</string>
+                <key>NSStringFormatValueTypeKey</key>
+                <string>d</string>
+                <key>other</key>
+                <string>Track packages</string>
+                <key>one</key>
+                <string>Track package</string>
+              </dict>
+            </dict>
+          </dict>
+          </plist>
+          """)
+
+      let rule = JSONCommentRule()
+      rule.processFile(file)
+
+      XCTAssertEqual(rule.violations.count, 0)
+  }
+
+  func testStringsDict_with_placeholderInString_missingPlaceholdersInComment_oneViolations() {
+
+      let file = File(name: "Localizable.stringsdict", content: """
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>ORDER.ACTIONS.TRACK_SHIPMENTS</key>
+            <dict>
+              <key>context</key>
+              <string>
+                      {
+                          "description": "CTA to go to package tracking from the orders list and order details pages"
+                      }
+                  </string>
+              <key>NSStringLocalizedFormatKey</key>
+              <string>%#@elements@</string>
+              <key>elements</key>
+              <dict>
+                <key>NSStringFormatSpecTypeKey</key>
+                <string>NSStringPluralRuleType</string>
+                <key>NSStringFormatValueTypeKey</key>
+                <string>d</string>
+                <key>other</key>
+                <string>Track Shipment · %d packages</string>
+                <key>one</key>
+                <string>Track Shipment · %d package</string>
+              </dict>
+            </dict>
+          </dict>
+          </plist>
+          """)
+
+      let rule = JSONCommentRule()
+      rule.processFile(file)
+
+      XCTAssertEqual(rule.violations.count, 1)
+  }
+
 }
