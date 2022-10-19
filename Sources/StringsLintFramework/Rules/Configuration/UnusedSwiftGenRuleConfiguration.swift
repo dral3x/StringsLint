@@ -17,6 +17,7 @@ public struct UnusedSwiftGenRuleConfiguration: RuleConfiguration {
   public var severity: ViolationSeverity = .warning
   public var workInProgressStrings = [String]()
   public var ignored = [String]()
+  public var helpLink: String?
 
   public mutating func apply(_ configuration: Any) throws {
 
@@ -27,5 +28,6 @@ public struct UnusedSwiftGenRuleConfiguration: RuleConfiguration {
     self.severity = ViolationSeverity(rawValue: configuration["severity"] as! String) ?? self.severity
     self.ignored += defaultStringArray(configuration["ignored"])
     self.workInProgressStrings += defaultStringArray(configuration["work_in_progress"])
+    self.helpLink = configuration["help_link"] as? String
   }
 }

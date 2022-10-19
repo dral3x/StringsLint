@@ -38,6 +38,7 @@ struct StringIgnoreYamlParser {
 Please specify a DRE for these strings in the following format:
 directly_responsible_engineer_name:
   John Doe
+
 """
         )
       )

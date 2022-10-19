@@ -49,6 +49,34 @@ let myVar = abc
     XCTAssertEqual(rule.violations.count, 1)
   }
 
+  func testHelpLink() throws {
+
+    let stringsFile = File(
+      name: "Localizable.strings",
+      content: """
+          \"abc\" = \"A B C\";
+"""
+    )
+
+    let usageFile = File(name: "hi.swift", content: """
+let myVar = abc
+""")
+
+    let stringsLintConfig = [
+      "unused_swiftgen_strings": [
+        "severity": "warning",
+        "help_link": "www.faire.com"
+      ]
+    ]
+
+    let rule = try UnusedSwiftGenRule(configuration: stringsLintConfig)
+
+    rule.processFile(stringsFile)
+    rule.processFile(usageFile)
+
+    XCTAssertEqual(rule.violations[0].description, "<nopath>:1: warning: Unused SwiftGen String Violation: Localized string \"abc\" is unused. If you intend to use this string in a later PR, please add it to the \"work_in_progress\" list in .stringslint.yml or create a new \".ignore.yml\" file. For more information, please see: www.faire.com (unused_swiftgen_strings)")
+  }
+
   func testStringWithNestedUsage() {
 
     let stringsFile = File(
@@ -239,7 +267,8 @@ work_in_progress:
     XCTAssertEqual(rule.violations[0].description, """
 <nopath>:1: error: Unused SwiftGen String Violation: Please specify a DRE for these strings in the following format:
 directly_responsible_engineer_name:
-  John Doe (unused_swiftgen_strings)
+  John Doe
+ (unused_swiftgen_strings)
 """)
 
   }

@@ -19,6 +19,14 @@ public class UnusedSwiftGenRule: LintRule {
   private let declareParser: LocalizableParser
   private let usageParser: LocalizableParser
   private let ignoreYamlParser: StringIgnoreYamlParser
+  private let helpLink: String?
+  private var helpLinkDescription: String {
+    if let helpLink = helpLink {
+      return " For more information, please see: \(helpLink)"
+    } else {
+      return ""
+    }
+  }
 
   public static var description = RuleDescription(
     identifier: "unused_swiftgen_strings",
@@ -32,7 +40,8 @@ public class UnusedSwiftGenRule: LintRule {
               usageParser: ComposedParser(parsers: [ SwiftL10nParser() ]),
               ignoredStrings: config.ignored,
               wipStrings: config.workInProgressStrings,
-              severity: config.severity)
+              severity: config.severity,
+              helpLink: config.helpLink)
   }
 
   public required convenience init(configuration: Any) throws {
@@ -51,7 +60,8 @@ public class UnusedSwiftGenRule: LintRule {
       ]),
       ignoredStrings: config.ignored,
       wipStrings: config.workInProgressStrings,
-      severity: config.severity
+      severity: config.severity,
+      helpLink: config.helpLink
     )
   }
 
@@ -59,13 +69,15 @@ public class UnusedSwiftGenRule: LintRule {
               usageParser: LocalizableParser,
               ignoredStrings: [String],
               wipStrings: [String],
-              severity: ViolationSeverity) {
+              severity: ViolationSeverity,
+              helpLink: String?) {
     self.declareParser = declareParser
     self.usageParser = usageParser
     self.ignoredStrings = Set(ignoredStrings.map { $0.toL10nGenerated() })
     self.wipStrings = Set(wipStrings.map { $0.toL10nGenerated() })
     self.ignoreYamlParser = .init(severity: severity)
     self.severity = severity
+    self.helpLink = helpLink
   }
 
   public func processFile(_ file: File) {
@@ -109,7 +121,7 @@ public class UnusedSwiftGenRule: LintRule {
           ruleDescription: UnusedSwiftGenRule.description,
           severity: severity,
           location: string.location,
-          reason: "This string is marked as WIP in .stringslint.yml, please remove this string from the WIP list."
+          reason: "This string is marked as WIP in .stringslint.yml, please remove this string from the WIP list.\(helpLinkDescription)"
         )
       }
 
@@ -118,7 +130,7 @@ public class UnusedSwiftGenRule: LintRule {
           ruleDescription: UnusedSwiftGenRule.description,
           severity: severity,
           location: ignoreKey.location,
-          reason: "This string is marked as WIP here but is referenced at \"\(string.location)\", please remove this string."
+          reason: "This string is marked as WIP here but is referenced at \"\(string.location)\", please remove this string.\(helpLinkDescription)"
         )
       }
       return nil
@@ -176,7 +188,7 @@ public class UnusedSwiftGenRule: LintRule {
       ruleDescription: UnusedSwiftGenRule.description,
       severity: self.severity,
       location: location,
-      reason: "Localized string \"\(comment)\" is unused. If you intend to use this string in a later PR, please add it to the \"work_in_progress\" list in .stringslint.yml"
+      reason: "Localized string \"\(comment)\" is unused. If you intend to use this string in a later PR, please add it to the \"work_in_progress\" list in .stringslint.yml or create a new \".ignore.yml\" file.\(helpLinkDescription)"
     )
   }
 }
