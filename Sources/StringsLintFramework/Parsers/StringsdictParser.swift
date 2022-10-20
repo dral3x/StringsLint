@@ -48,11 +48,14 @@ public struct StringsdictParser: LocalizableParser {
                     continue
                 }
 
+              //if the string doesn't actually contain the placeholder, we don't want to force the comment to have a `placeholders` value
+              let doesStringContainPlaceholder = item.strings.contains { $0.contains("%\(item.format.formatValueKey)") }
+              let validPlaceholders = doesStringContainPlaceholder ? [item.format.formatValueKey] : []
                 strings.append(LocalizedString(key: key,
                                                table: tableName,
                                                locale: locale,
                                                location: Location(file: file, line: index+1),
-                                               placeholders: [item.format.formatValueKey],
+                                               placeholders: validPlaceholders,
                                                comment: item.formattedComment))
             }
         }
