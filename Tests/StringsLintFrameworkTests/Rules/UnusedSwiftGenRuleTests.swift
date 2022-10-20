@@ -49,6 +49,37 @@ let myVar = abc
     XCTAssertEqual(rule.violations.count, 1)
   }
 
+  func testStringWithNoUsage_multipleStringsFiles() {
+
+    let stringsFile1 = File(
+      name: "en.lproj/Localizable.strings",
+      content: """
+          \"abc\" = \"hello\";
+"""
+    )
+
+    let stringsFile2 = File(
+      name: "fr.lproj/Localizable.strings",
+      content: """
+          \"abc\" = \"bonjour\";
+"""
+    )
+
+    let usageFile = File(name: "hi.swift", content: """
+let myVar = abc
+""")
+
+    let rule = UnusedSwiftGenRule()
+    rule.processFile(stringsFile1)
+    rule.processFile(stringsFile2)
+    rule.processFile(usageFile)
+
+    let violations = rule.violations
+    XCTAssertEqual(violations.count, 2)
+    XCTAssertEqual(violations[0].description, "<nopath>:1: warning: Unused SwiftGen String Violation: Localized string \"abc\" is unused. If you intend to use this string in a later PR, please add it to the \"work_in_progress\" list in .stringslint.yml or create a new \".ignore.yml\" file. (unused_swiftgen_strings)")
+    XCTAssertEqual(violations[1].description, "<nopath>:1: warning: Unused SwiftGen String Violation: Localized string \"abc\" is unused. If you intend to use this string in a later PR, please add it to the \"work_in_progress\" list in .stringslint.yml or create a new \".ignore.yml\" file. (unused_swiftgen_strings)")
+  }
+
   func testHelpLink() throws {
 
     let stringsFile = File(

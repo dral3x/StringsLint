@@ -99,7 +99,8 @@ public class UnusedSwiftGenRule: LintRule {
   }
 
   private func buildUnusedStringViolations() -> [Violation] {
-    let diff = declaredStrings
+    let usedStringMap = Set(usedStrings)
+    let unusedStrings = declaredStrings
       .filter { string in
         !ignoredStrings.contains(string.key) &&
         !wipStrings.contains(string.key) &&
@@ -107,9 +108,11 @@ public class UnusedSwiftGenRule: LintRule {
           $0.key.toL10nGenerated() == string.key
         }
       }
-      .difference(from: self.usedStrings)
+      .filter { string in
+        !usedStringMap.contains(string)
+      }
 
-    return diff.compactMap({ (string) -> Violation? in
+    return unusedStrings.compactMap({ (string) -> Violation? in
       buildViolation(key: string.key, location: string.location, comment: string.comment)
     })
   }
