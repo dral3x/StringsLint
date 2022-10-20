@@ -19,29 +19,21 @@ struct StringIgnoreYamlParser {
     let location: Location
   }
 
+  enum IgnoreYamlFileVioationType {
+    case noDRE(Location)
+  }
+
   func supports(file: File) -> Bool {
     file.name.hasSuffix(".ignore.yml")
   }
 
-  func parseFile(file: File) throws -> ([Violation], [IgnoredStringsKey]) {
+  func parseFile(file: File) throws -> ([IgnoreYamlFileVioationType], [IgnoredStringsKey]) {
     let data = try YamlParser.parse(file.content)
-    var _fileViolations = [Violation]()
+    var _fileViolations = [IgnoreYamlFileVioationType]()
     var _wipStrings = Set<String>()
 
     if data["directly_responsible_engineer_name"] == nil {
-      _fileViolations.append(
-        Violation(
-          ruleDescription: UnusedSwiftGenRule.description,
-          severity: severity,
-          location: Location(file: file),
-          reason: """
-Please specify a DRE for these strings in the following format:
-directly_responsible_engineer_name:
-  John Doe
-
-"""
-        )
-      )
+      _fileViolations.append(.noDRE(Location(file: file)))
     }
 
     if let wipStrings = data["work_in_progress"] as? [String] {

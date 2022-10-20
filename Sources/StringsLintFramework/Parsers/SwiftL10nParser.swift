@@ -30,11 +30,8 @@ public struct SwiftL10nParser: LocalizableParser {
   }
 
   public func parse(file: File) throws -> [LocalizedString] {
-    file.lines
-      .enumerated()
-      .flatMap {
-        extractL10nUsage(from: $0.element, location: Location(file: file, line: $0.offset+1))
-      }
+    let lineNumberMap = getLineNumberMap(for: file)
+    return extractL10nUsage(from: file, lineNumberMap: lineNumberMap)
   }
 
   // MARK: Internal
@@ -48,10 +45,27 @@ public struct SwiftL10nParser: LocalizableParser {
 
 private extension SwiftL10nParser {
   enum Constants {
-    static let L10nPattern = #"L10n\.[a-zA-Z0-9.]+"#
+    static let L10nPattern = #"L10n((\n\s*)?\.[a-zA-Z0-9.]+)+"#
   }
 
-  func extractL10nUsage(from content: String, location: Location) -> [LocalizedString] {
+  /// Maps the match order to file number
+  func getLineNumberMap(for file: File) -> [Int: Int] {
+    var counter = 0
+    var map = [Int: Int]()
+    for (idx, line) in file.lines.enumerated() {
+      let regex = try! NSRegularExpression(pattern: #"L10n\."#)
+      for _ in regex.matches(in: line, range: NSRange(line.startIndex..., in: line)) {
+        map[counter] = idx+1
+        counter += 1
+      }
+
+    }
+
+    return map
+  }
+
+  func extractL10nUsage(from file: File, lineNumberMap: [Int: Int]) -> [LocalizedString] {
+    let content = file.content
     do {
       let regex = try NSRegularExpression(pattern: Constants.L10nPattern)
 
@@ -60,17 +74,29 @@ private extension SwiftL10nParser {
         range: NSRange(content.startIndex..., in: content)
       )
 
-      return results.map {
-        LocalizedString(
-          key: String(content[Range($0.range, in: content)!]),
-          table: tableName,
-          locale: .none,
-          location: location
-        )
+      return results
+        .enumerated()
+        .compactMap { match -> LocalizedString? in
+          guard let lineNumber = lineNumberMap[match.offset] else { return nil }
+          return LocalizedString(
+            key: String(content[Range(match.element.range, in: content)!]).filter {
+              CharacterSet.alphanumerics.union(CharacterSet(charactersIn: ".")).containsUnicodeScalars(of: $0)
+            },
+            table: tableName,
+            locale: .none,
+            location: Location(file: file, line: lineNumber)
+          )
       }
     } catch let error {
       print("invalid regex: \(error.localizedDescription)")
       return []
     }
   }
+}
+
+
+extension CharacterSet {
+    func containsUnicodeScalars(of character: Character) -> Bool {
+        return character.unicodeScalars.allSatisfy(contains(_:))
+    }
 }

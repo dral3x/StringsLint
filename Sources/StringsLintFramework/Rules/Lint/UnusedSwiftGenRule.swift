@@ -140,10 +140,23 @@ public class UnusedSwiftGenRule: LintRule {
   private func parseIgnoreYamlFile(_ file: File){
     do {
       let (violations, keys) = try ignoreYamlParser.parseFile(file: file)
-      yamlFileViolations += violations
+      yamlFileViolations += violations.map(parseYamlViolation)
       ignoreKeys += keys
     } catch {
     }
+  }
+
+  private func parseYamlViolation(violation: StringIgnoreYamlParser.IgnoreYamlFileVioationType) -> Violation {
+    switch violation {
+    case .noDRE(let location):
+      return Violation(
+        ruleDescription: UnusedSwiftGenRule.description,
+        severity: severity,
+        location: location,
+        reason: "Please specify a DRE for these strings.\(helpLinkDescription)"
+      )
+    }
+
   }
 
   private func processDeclarationFile(_ file: File) -> [LocalizedString] {
