@@ -9,12 +9,24 @@ import Foundation
 
 public class UnusedSwiftGenRule: LintRule {
   private let ignoredStrings: Set<String>
+  private let wipStrings: Set<String>
   private var declaredStrings = [LocalizedString]()
   private var usedStrings = [LocalizedString]()
+  private var yamlFileViolations = [Violation]()
+  private var ignoreKeys = [StringIgnoreYamlParser.IgnoredStringsKey]()
   var severity: ViolationSeverity
 
   private let declareParser: LocalizableParser
   private let usageParser: LocalizableParser
+  private let ignoreYamlParser: StringIgnoreYamlParser
+  private let helpLink: String?
+  private var helpLinkDescription: String {
+    if let helpLink = helpLink {
+      return " For more information, please see: \(helpLink)"
+    } else {
+      return ""
+    }
+  }
 
   public static var description = RuleDescription(
     identifier: "unused_swiftgen_strings",
@@ -26,8 +38,10 @@ public class UnusedSwiftGenRule: LintRule {
     let config = UnusedSwiftGenRuleConfiguration()
     self.init(declareParser: ComposedParser(parsers: [ StringsParser(), StringsdictParser() ]),
               usageParser: ComposedParser(parsers: [ SwiftL10nParser() ]),
-              ignoredStrings: config.workInProgressStrings + config.ignored,
-              severity: config.severity)
+              ignoredStrings: config.ignored,
+              wipStrings: config.workInProgressStrings,
+              severity: config.severity,
+              helpLink: config.helpLink)
   }
 
   public required convenience init(configuration: Any) throws {
@@ -44,39 +58,105 @@ public class UnusedSwiftGenRule: LintRule {
       usageParser: ComposedParser(parsers: [
         try SwiftL10nParser.self.init(configuration: configuration)
       ]),
-      ignoredStrings: config.workInProgressStrings + config.ignored,
-      severity: config.severity
+      ignoredStrings: config.ignored,
+      wipStrings: config.workInProgressStrings,
+      severity: config.severity,
+      helpLink: config.helpLink
     )
   }
 
   public init(declareParser: LocalizableParser,
               usageParser: LocalizableParser,
               ignoredStrings: [String],
-              severity: ViolationSeverity) {
+              wipStrings: [String],
+              severity: ViolationSeverity,
+              helpLink: String?) {
     self.declareParser = declareParser
     self.usageParser = usageParser
     self.ignoredStrings = Set(ignoredStrings.map { $0.toL10nGenerated() })
+    self.wipStrings = Set(wipStrings.map { $0.toL10nGenerated() })
+    self.ignoreYamlParser = .init(severity: severity)
     self.severity = severity
+    self.helpLink = helpLink
   }
 
   public func processFile(_ file: File) {
     if self.declareParser.support(file: file) {
       self.declaredStrings += self.processDeclarationFile(file)
-        .filter { !self.ignoredStrings.contains($0.key) }
     }
 
     if self.usageParser.support(file: file) {
       self.usedStrings += self.processUsageFile(file)
     }
+
+    if ignoreYamlParser.supports(file: file) {
+      parseIgnoreYamlFile(file)
+    }
   }
 
   public var violations: [Violation] {
+    buildUnusedStringViolations() + buildWIPStringViolations() + yamlFileViolations
+  }
 
-    let diff = self.declaredStrings.difference(from: self.usedStrings)
+  private func buildUnusedStringViolations() -> [Violation] {
+    let diff = declaredStrings
+      .filter { string in
+        !ignoredStrings.contains(string.key) &&
+        !wipStrings.contains(string.key) &&
+        !ignoreKeys.contains {
+          $0.key.toL10nGenerated() == string.key
+        }
+      }
+      .difference(from: self.usedStrings)
 
     return diff.compactMap({ (string) -> Violation? in
-      return self.buildViolation(key: string.key, location: string.location, comment: string.comment)
+      buildViolation(key: string.key, location: string.location, comment: string.comment)
     })
+  }
+
+  private func buildWIPStringViolations() -> [Violation] {
+    usedStrings.compactMap { string -> Violation? in
+      if wipStrings.contains(string.key) {
+        return Violation(
+          ruleDescription: UnusedSwiftGenRule.description,
+          severity: severity,
+          location: string.location,
+          reason: "This string is marked as WIP in .stringslint.yml, please remove this string from the WIP list.\(helpLinkDescription)"
+        )
+      }
+
+      if let ignoreKey = ignoreKeys.first(where: {$0.key.toL10nGenerated() == string.key }) {
+        return Violation(
+          ruleDescription: UnusedSwiftGenRule.description,
+          severity: severity,
+          location: ignoreKey.location,
+          reason: "This string is marked as WIP here but is referenced at \"\(string.location)\", please remove this string.\(helpLinkDescription)"
+        )
+      }
+      return nil
+    }
+  }
+
+  private func parseIgnoreYamlFile(_ file: File){
+    do {
+      let (violations, keys) = try ignoreYamlParser.parseFile(file: file)
+      yamlFileViolations += violations.map(parseYamlViolation)
+      ignoreKeys += keys
+    } catch {
+    }
+  }
+
+  private func parseYamlViolation(violation: StringIgnoreYamlParser.IgnoreYamlFileVioationType) -> Violation {
+    switch violation {
+    case .noDRE(let location):
+      return Violation(
+        ruleDescription: UnusedSwiftGenRule.description,
+        severity: severity,
+        location: location,
+        reason: "Please specify a DRE for these strings.\(helpLinkDescription)"
+      )
+    }
+
   }
 
   private func processDeclarationFile(_ file: File) -> [LocalizedString] {
@@ -121,7 +201,7 @@ public class UnusedSwiftGenRule: LintRule {
       ruleDescription: UnusedSwiftGenRule.description,
       severity: self.severity,
       location: location,
-      reason: "Localized string \"\(comment)\" is unused."
+      reason: "Localized string \"\(comment)\" is unused. If you intend to use this string in a later PR, please add it to the \"work_in_progress\" list in .stringslint.yml or create a new \".ignore.yml\" file.\(helpLinkDescription)"
     )
   }
 }

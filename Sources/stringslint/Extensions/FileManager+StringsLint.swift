@@ -19,7 +19,7 @@ extension FileManager: LintableFileManager {
         let absolutePath = path.bridge()
             .absolutePathRepresentation(rootDirectory: rootPath).bridge()
             .standardizingPath
-        
+
         // if path is a file, it won't be returned in `enumerator(atPath:)`
         if absolutePath.isFile {
             return [absolutePath]
