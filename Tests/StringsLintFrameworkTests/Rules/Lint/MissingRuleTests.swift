@@ -23,9 +23,9 @@ final class MissingRuleTests: XCTestCase {
 
     func testIgnoredStrings() {
 
-        let file = File(name: "MainView.swift", content: "Text(\"Banana\")")
+        let file = File(name: "MainView.swift", content: "Text(\"This is a test\")")
 
-        let rule = MissingRule(ignored: ["Banana"])
+        let rule = MissingRule(ignored: ["This is a test"])
         rule.processFile(file)
 
         XCTAssertEqual(rule.violations.count, 0)

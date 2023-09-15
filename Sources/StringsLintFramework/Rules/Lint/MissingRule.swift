@@ -42,7 +42,7 @@ public class MissingRule: LintRule {
         )
     }
     public required convenience init() {
-        var config = MissingRuleConfiguration()
+        let config = MissingRuleConfiguration()
 
         self.init(declareParser: StringsParser(),
                   usageParser: ComposedParser(parsers: [ SwiftParser(), ObjcParser(), XibParser() ]),
