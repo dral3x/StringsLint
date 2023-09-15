@@ -1,3 +1,19 @@
+## 0.1.2: Ignore missing strings
+
+#### Breaking
+
+* None.
+
+#### Experimental
+
+* None.
+
+#### Enhancements
+
+* Improvements to Missing rule.
+  [Alessandro Calzavara](https://github.com/dral3x).
+  [#25](https://github.com/dral3x/StringsLint/pull/19).
+
 ## 0.1.1: New severity level
 
 #### Breaking
