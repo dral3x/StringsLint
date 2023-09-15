@@ -29,6 +29,7 @@
 		FAA8243D224BDC620091A65C /* StringsdictParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8243C224BDC620091A65C /* StringsdictParserTests.swift */; };
 		FAA8243F224BDDD20091A65C /* StringsdictParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8243E224BDDD20091A65C /* StringsdictParser.swift */; };
 		FAE0FFD3251A07C400E20F84 /* String+Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE0FFC5251A032B00E20F84 /* String+Range.swift */; };
+		FAF2E3482AB486B000B60C7E /* MissingRuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF2E3472AB486B000B60C7E /* MissingRuleTests.swift */; };
 		FAF383AD21E7A3C100B24265 /* MissingRuleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF383AC21E7A3C100B24265 /* MissingRuleConfiguration.swift */; };
 		FAF383AF21E7A3DB00B24265 /* PartialRuleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF383AE21E7A3DB00B24265 /* PartialRuleConfiguration.swift */; };
 		FAF383B221E7A9E700B24265 /* UnusedRuleConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF383B121E7A9E700B24265 /* UnusedRuleConfigurationTests.swift */; };
@@ -248,6 +249,7 @@
 		FAA8243C224BDC620091A65C /* StringsdictParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsdictParserTests.swift; sourceTree = "<group>"; };
 		FAA8243E224BDDD20091A65C /* StringsdictParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsdictParser.swift; sourceTree = "<group>"; };
 		FAE0FFC5251A032B00E20F84 /* String+Range.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Range.swift"; sourceTree = "<group>"; };
+		FAF2E3472AB486B000B60C7E /* MissingRuleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingRuleTests.swift; sourceTree = "<group>"; };
 		FAF383AC21E7A3C100B24265 /* MissingRuleConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingRuleConfiguration.swift; sourceTree = "<group>"; };
 		FAF383AE21E7A3DB00B24265 /* PartialRuleConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialRuleConfiguration.swift; sourceTree = "<group>"; };
 		FAF383B121E7A9E700B24265 /* UnusedRuleConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnusedRuleConfigurationTests.swift; sourceTree = "<group>"; };
@@ -434,13 +436,23 @@
 			path = Reporters;
 			sourceTree = "<group>";
 		};
+		FAF2E3492AB486C000B60C7E /* Lint */ = {
+			isa = PBXGroup;
+			children = (
+				FA77E9E926DE1C0600D82C5C /* MissingCommentRuleTests.swift */,
+				FAF2E3472AB486B000B60C7E /* MissingRuleTests.swift */,
+				OBJ_83 /* UnusedRuleTests.swift */,
+			);
+			path = Lint;
+			sourceTree = "<group>";
+		};
 		FAF383B021E7A9CE00B24265 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
 				8ACC8C20268B522A00EFF85D /* MissingCommentRuleConfiguratonTests.swift */,
-				FAF383B121E7A9E700B24265 /* UnusedRuleConfigurationTests.swift */,
 				FAF383B321E7AAD900B24265 /* MissingRuleConfigurationTests.swift */,
 				FAF383B521E7AAFD00B24265 /* PartialRuleConfigurationTests.swift */,
+				FAF383B121E7A9E700B24265 /* UnusedRuleConfigurationTests.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -789,8 +801,7 @@
 			isa = PBXGroup;
 			children = (
 				FAF383B021E7A9CE00B24265 /* Configuration */,
-				OBJ_83 /* UnusedRuleTests.swift */,
-				FA77E9E926DE1C0600D82C5C /* MissingCommentRuleTests.swift */,
+				FAF2E3492AB486C000B60C7E /* Lint */,
 			);
 			path = Rules;
 			sourceTree = "<group>";
@@ -1209,6 +1220,7 @@
 				OBJ_252 /* ConfigurationTests.swift in Sources */,
 				FA77E9EA26DE1C0600D82C5C /* MissingCommentRuleTests.swift in Sources */,
 				OBJ_253 /* ObjcParserConfigurationTests.swift in Sources */,
+				FAF2E3482AB486B000B60C7E /* MissingRuleTests.swift in Sources */,
 				OBJ_255 /* SwiftParserConfigurationTests.swift in Sources */,
 				OBJ_256 /* ObjcParserTests.swift in Sources */,
 				OBJ_257 /* ParserTestCase.swift in Sources */,

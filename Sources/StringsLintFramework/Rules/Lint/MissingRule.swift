@@ -16,6 +16,7 @@ public class MissingRule: LintRule {
     
     private var declaredStrings = [LocalizedString]()
     private var usedStrings = [LocalizedString]()
+    private let ignoredStrings: [String]
     var severity: ViolationSeverity
     
     private let declareParser: LocalizableParser
@@ -36,22 +37,35 @@ public class MissingRule: LintRule {
                     try ObjcParser.self.init(configuration: configuration),
                     try XibParser.self.init(configuration: configuration)
                     ]),
+                  ignoredStrings: config.ignored,
                   severity: config.severity
         )
     }
     public required convenience init() {
-        let config = MissingRuleConfiguration()
-        
+        var config = MissingRuleConfiguration()
+
         self.init(declareParser: StringsParser(),
                   usageParser: ComposedParser(parsers: [ SwiftParser(), ObjcParser(), XibParser() ]),
+                  ignoredStrings: config.ignored,
                   severity: config.severity)
     }
-    
+    public convenience init(ignored: [String]) {
+        var config = MissingRuleConfiguration()
+        config.ignored = ignored
+
+        self.init(declareParser: StringsParser(),
+                  usageParser: ComposedParser(parsers: [ SwiftParser(), ObjcParser(), XibParser() ]),
+                  ignoredStrings: config.ignored,
+                  severity: config.severity)
+    }
+
     public init(declareParser: LocalizableParser,
                 usageParser: LocalizableParser,
+                ignoredStrings: [String],
                 severity: ViolationSeverity) {
         self.declareParser = declareParser
         self.usageParser = usageParser
+        self.ignoredStrings = ignoredStrings
         self.severity = severity
     }
     
@@ -71,6 +85,9 @@ public class MissingRule: LintRule {
         let diff = self.usedStrings.difference(from: self.declaredStrings)
         
         return diff.compactMap({ (string) -> Violation? in
+            if self.ignoredStrings.contains(string.key) {
+                return nil
+            }
             return self.buildViolation(key: string.key, location: string.location)
         })
     }

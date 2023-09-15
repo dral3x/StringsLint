@@ -157,6 +157,8 @@ xib_parser:
 # Customize specific rules
 missing:
   severity: error
+  ignored:
+    - Demo title
 
 partial:
   severity: warning
