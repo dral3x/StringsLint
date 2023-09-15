@@ -29,4 +29,24 @@ severity: error
         XCTAssertEqual(configuration.severity, .error)
     }
 
+    func testIgnored() throws {
+        let content = """
+ignored:
+  - ABC
+  - def
+"""
+
+        let data = try self.creareConfigFileAsDictionary(with: content)
+
+        var configuration = MissingRuleConfiguration()
+
+        // Default value
+        XCTAssertEqual(configuration.ignored, [])
+
+        // Apply new value
+        try configuration.apply(data)
+
+        XCTAssertEqual(configuration.ignored, ["ABC", "def"])
+    }
+
 }

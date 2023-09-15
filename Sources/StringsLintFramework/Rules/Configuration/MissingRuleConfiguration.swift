@@ -14,13 +14,21 @@ public struct MissingRuleConfiguration: RuleConfiguration {
     
     public var severity: ViolationSeverity = .warning
     
+    public var ignored: [String] = []
+
     public mutating func apply(_ configuration: Any) throws {
         
         guard let configuration = configuration as? [String: Any] else {
             throw ConfigurationError.unknownConfiguration
         }
         
-        self.severity = ViolationSeverity(rawValue: configuration["severity"] as! String) ?? self.severity
+        if 
+            let severityString = configuration["severity"] as? String,
+            let severity = ViolationSeverity(rawValue: severityString) {
+            self.severity = severity
+        }
+
+        self.ignored += defaultStringArray(configuration["ignored"])
     }
     
 }
