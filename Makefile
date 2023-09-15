@@ -7,14 +7,7 @@ XCODEFLAGS=-workspace 'StringsLint.xcworkspace' \
 	DSTROOT=$(TEMPORARY_FOLDER) \
 	OTHER_LDFLAGS=-Wl,-headerpad_max_install_names
 
-SWIFT_BUILD_FLAGS=--configuration release
-UNAME=$(shell uname)
-ifeq ($(UNAME), Darwin)
-USE_SWIFT_STATIC_STDLIB:=$(shell test -d $$(dirname $$(xcrun --find swift))/../lib/swift_static/macosx && echo yes)
-ifeq ($(USE_SWIFT_STATIC_STDLIB), yes)
-SWIFT_BUILD_FLAGS+= -Xswiftc -static-stdlib
-endif
-endif
+SWIFT_BUILD_FLAGS=--configuration release -Xlinker -dead_strip
 
 STRINGSLINT_EXECUTABLE=$(shell swift build $(SWIFT_BUILD_FLAGS) --show-bin-path)/stringslint
 
@@ -32,7 +25,8 @@ OUTPUT_PACKAGE=StringsLint.pkg
 STRINGSLINT_PLIST=Sources/StringsLint/Supporting Files/Info.plist
 STRINGSLINTFRAMEWORK_PLIST=Sources/StringsLintFramework/Supporting Files/Info.plist
 
-VERSION_STRING=$(shell /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$(STRINGSLINT_PLIST)")
+#VERSION_STRING=$(shell /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$(STRINGSLINT_PLIST)")
+VERSION_STRING=$(shell ./script/get-version)
 
 .PHONY: all clean build install package test uninstall
 
