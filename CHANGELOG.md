@@ -1,3 +1,19 @@
+## 0.1.3: Ignore strings in code
+
+#### Breaking
+
+* None.
+
+#### Experimental
+
+* None.
+
+#### Enhancements
+
+* Support comment stringslint:ignore on code.
+  [Alessandro Calzavara](https://github.com/dral3x).
+  [#27](https://github.com/dral3x/StringsLint/pull/27).
+
 ## 0.1.2: Ignore missing strings
 
 #### Breaking
@@ -12,7 +28,7 @@
 
 * Improvements to Missing rule.
   [Alessandro Calzavara](https://github.com/dral3x).
-  [#25](https://github.com/dral3x/StringsLint/pull/19).
+  [#25](https://github.com/dral3x/StringsLint/pull/25).
 
 ## 0.1.1: New severity level
 
