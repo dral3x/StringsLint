@@ -16,7 +16,8 @@ public struct SwiftParser: LocalizableParser {
     let uiKitPattern: String
     let swiftUIImplicitPattern: String
     let swiftUIExplicitPattern: String
-    
+    let ignoreThisPattern: String
+
     public var supportedFileExtentions: [String] {
         return [ "swift" ]
     }
@@ -39,6 +40,7 @@ public struct SwiftParser: LocalizableParser {
         self.uiKitPattern = "(\(macros.joined(separator: "|")))\\(\"([^\"]+)\", (tableName: \"([^\"]+)\", )?(comment: \"([^\"]*)\")\\)"
         self.swiftUIImplicitPattern = "Text\\(\"([^\"]+)\"\\)"
         self.swiftUIExplicitPattern = "Text\\(LocalizedStringKey\\(\"([^\"]+)\"\\)(, tableName: \"([^\"]+)\")?.*\\)"
+        self.ignoreThisPattern = "//stringslint:ignore"
     }
     
     public func support(file: File) -> Bool {
@@ -49,6 +51,7 @@ public struct SwiftParser: LocalizableParser {
         var strings = [LocalizedString]()
         
         for (index, line) in file.lines.enumerated() {
+            if self.hasIgnoreThisLineComment(line) { continue }
             let results = self.extractLocalizedStrings(from: line, location: Location(file: file, line: index+1))
             strings += results
         }
@@ -56,6 +59,17 @@ public struct SwiftParser: LocalizableParser {
         return strings
     }
     
+    private func hasIgnoreThisLineComment(_ text: String) -> Bool {
+        do {
+            let regex = try NSRegularExpression(pattern: self.ignoreThisPattern)
+            let results = regex.matches(in: text, options: [ .reportCompletion ], range: NSRange(text.startIndex..., in: text))
+            return !results.isEmpty
+        } catch let error {
+            print("invalid regex: \(error.localizedDescription)")
+            return false
+        }
+    }
+
     private func extractLocalizedStrings(from text: String, location: Location) -> [LocalizedString] {
         
         var strings = [LocalizedString]()
