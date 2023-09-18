@@ -123,5 +123,25 @@ CustomLocalizedStringFromTable(@\"abc\", @\"table\", nil)
         XCTAssertEqual(results.get(0)?.locale, Locale.none)
         XCTAssertEqual(results.get(0)?.location, Location(file: file, line: 1))
     }
-    
+
+    func testIgnoreLine() throws {
+
+        let content = """
+NSLocalizedString(@\"abc\", nil)
+NSLocalizedString(@\"def\", nil) //stringslint:ignore
+"""
+
+        let file = try self.createTempFile("test1.m", with: content)
+
+        let parser = ObjcParser(implicitMacros: [], explicitMacros: [])
+        let results = try parser.parse(file: file)
+
+        XCTAssertEqual(results.count, 1)
+
+        XCTAssertEqual(results.get(0)?.key, "abc")
+        XCTAssertEqual(results.get(0)?.table, "Localizable")
+        XCTAssertEqual(results.get(0)?.locale, Locale.none)
+        XCTAssertEqual(results.get(0)?.location, Location(file: file, line: 1))
+    }
+
 }

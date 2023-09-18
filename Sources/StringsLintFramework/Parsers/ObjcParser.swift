@@ -15,7 +15,8 @@ public struct ObjcParser: LocalizableParser {
     
     let implicitPattern: String
     let explicitPattern: String
-    
+    let ignoreThisPattern: String
+
     public var supportedFileExtentions: [String] {
         return [ "m" ]
     }
@@ -37,6 +38,7 @@ public struct ObjcParser: LocalizableParser {
     public init(implicitMacros: [String], explicitMacros: [String]) {
         self.implicitPattern = "(\(implicitMacros.joined(separator: "|")))\\(@\"([^\"]+)\", (@\"([^\"]*)\"|nil)\\)"
         self.explicitPattern = "(\(explicitMacros.joined(separator: "|")))\\(@\"([^\"]+)\", @\"([^\"]*)\", (@\"([^\"]*)\"|nil)\\)"
+        self.ignoreThisPattern = "//stringslint:ignore"
     }
     
     public func support(file: File) -> Bool {
@@ -47,11 +49,23 @@ public struct ObjcParser: LocalizableParser {
         var strings = [LocalizedString]()
         
         for (index, line) in file.lines.enumerated() {
+            if self.hasIgnoreThisLineComment(line) { continue }
             let results = self.extractLocalizedStrings(from: line, location: Location(file: file, line: index+1))
             strings += results
         }
         
         return strings
+    }
+    
+    private func hasIgnoreThisLineComment(_ text: String) -> Bool {
+        do {
+            let regex = try NSRegularExpression(pattern: self.ignoreThisPattern)
+            let results = regex.matches(in: text, options: [ .reportCompletion ], range: NSRange(text.startIndex..., in: text))
+            return !results.isEmpty
+        } catch let error {
+            print("invalid regex: \(error.localizedDescription)")
+            return false
+        }
     }
     
     private func extractLocalizedStrings(from text: String, location: Location) -> [LocalizedString] {
