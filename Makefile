@@ -7,7 +7,7 @@ XCODEFLAGS=-workspace 'StringsLint.xcworkspace' \
 	DSTROOT=$(TEMPORARY_FOLDER) \
 	OTHER_LDFLAGS=-Wl,-headerpad_max_install_names
 
-SWIFT_BUILD_FLAGS=--configuration release -Xlinker -dead_strip
+SWIFT_BUILD_FLAGS=--configuration release --arch arm64 --arch x86_64 -Xlinker -dead_strip
 
 STRINGSLINT_EXECUTABLE=$(shell swift build $(SWIFT_BUILD_FLAGS) --show-bin-path)/stringslint
 
