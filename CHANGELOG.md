@@ -1,3 +1,19 @@
+## 0.1.4: Improved SwiftUI support
+
+#### Breaking
+
+* None.
+
+#### Experimental
+
+* None.
+
+#### Enhancements
+
+* Support Button and LocalizedStringKey.
+  [Alessandro Calzavara](https://github.com/dral3x).
+  [#30](https://github.com/dral3x/StringsLint/pull/30).
+
 ## 0.1.3: Ignore strings in code
 
 #### Breaking
