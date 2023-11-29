@@ -122,10 +122,11 @@ ABCLocalizedString(\"abc\", tableName: \"Extras\", comment: \"blabla\")
         XCTAssertEqual(results[1].location, Location(file: file, line: 2))
     }
     
-    func testSwiftUITextWithString() throws {
-        
+    func testSwiftUITextWithImplicitString() throws {
+
         let content = """
 Text("abc")
+Button("def")
 """
         
         let file = try self.createTempFile("test1.swift", with: content)
@@ -133,12 +134,17 @@ Text("abc")
         let parser = SwiftParser()
         let results = try parser.parse(file: file)
         
-        XCTAssertEqual(results.count, 1)
-        
+        XCTAssertEqual(results.count, 2)
+
         XCTAssertEqual(results[0].key, "abc")
         XCTAssertEqual(results[0].table, "Localizable")
         XCTAssertEqual(results[0].locale, .none)
         XCTAssertEqual(results[0].location, Location(file: file, line: 1))
+
+        XCTAssertEqual(results[1].key, "def")
+        XCTAssertEqual(results[1].table, "Localizable")
+        XCTAssertEqual(results[1].locale, .none)
+        XCTAssertEqual(results[1].location, Location(file: file, line: 2))
     }
     
     func testSwiftUITextWithVerbatimString() throws {
@@ -155,11 +161,12 @@ Text(verbatim: "pencil")
         XCTAssertEqual(results.count, 0)
     }
     
-    func testSwiftUITextWithLocalizedStringKey() throws {
-        
+    func testSwiftUITextWithTable() throws {
+
         let content = """
-Text(LocalizedStringKey("abc"))
-Text(LocalizedStringKey("def"), tableName: "Other")
+Text("abc", tableName: "First")
+Text(LocalizedStringKey("def"), tableName: "Second")
+Text(LocalizedStringKey("ghi"), tableName: "Third", comment: "Blabla")
 """
         
         let file = try self.createTempFile("test1.swift", with: content)
@@ -167,24 +174,48 @@ Text(LocalizedStringKey("def"), tableName: "Other")
         let parser = SwiftParser()
         let results = try parser.parse(file: file)
         
-        XCTAssertEqual(results.count, 2)
-        
+        XCTAssertEqual(results.count, 3)
+
         XCTAssertEqual(results[0].key, "abc")
-        XCTAssertEqual(results[0].table, "Localizable")
+        XCTAssertEqual(results[0].table, "First")
         XCTAssertEqual(results[0].locale, .none)
         XCTAssertEqual(results[0].location, Location(file: file, line: 1))
         
         XCTAssertEqual(results[1].key, "def")
-        XCTAssertEqual(results[1].table, "Other")
+        XCTAssertEqual(results[1].table, "Second")
         XCTAssertEqual(results[1].locale, .none)
         XCTAssertEqual(results[1].location, Location(file: file, line: 2))
+
+        XCTAssertEqual(results[2].key, "ghi")
+        XCTAssertEqual(results[2].table, "Third")
+        XCTAssertEqual(results[2].locale, .none)
+        XCTAssertEqual(results[2].location, Location(file: file, line: 3))
+    }
+
+    func testSwiftUILocalizedStringKey() throws {
+
+        let content = """
+LocalizedStringKey("abc")
+"""
+
+        let file = try self.createTempFile("test1.swift", with: content)
+
+        let parser = SwiftParser()
+        let results = try parser.parse(file: file)
+
+        XCTAssertEqual(results.count, 1)
+
+        XCTAssertEqual(results[0].key, "abc")
+        XCTAssertEqual(results[0].table, "Localizable")
+        XCTAssertEqual(results[0].locale, .none)
+        XCTAssertEqual(results[0].location, Location(file: file, line: 1))
     }
 
     func testIgnore() throws {
 
         let content = """
-Text(LocalizedStringKey("abc"))
-Text(LocalizedStringKey("def")) //stringslint:ignore
+Text("abc")
+Button("def") //stringslint:ignore
 """
 
         let file = try self.createTempFile("test1.swift", with: content)
