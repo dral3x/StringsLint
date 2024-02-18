@@ -16,6 +16,7 @@ public struct SwiftParser: LocalizableParser {
     let uiKitPattern: String
     let swiftUIImplicitPattern: String
     let swiftUIExplicitPattern: String
+    let customRegex: CustomRegex?
     let ignoreThisPattern: String
 
     public var supportedFileExtentions: [String] {
@@ -24,7 +25,7 @@ public struct SwiftParser: LocalizableParser {
     
     public init() {
         let config = SwiftParserConfiguration()
-        self.init(macros: config.macros)
+        self.init(macros: config.macros, customRegex: config.customRegex)
     }
     
     public init(configuration: Any) throws {
@@ -33,16 +34,17 @@ public struct SwiftParser: LocalizableParser {
             try config.apply(defaultDictionaryValue(configuration, for: SwiftParser.self.identifier))
         } catch {}
         
-        self.init(macros: config.macros)
+        self.init(macros: config.macros, customRegex: config.customRegex)
     }
     
-    public init(macros: [String]) {
+    public init(macros: [String], customRegex: CustomRegex? = nil) {
         self.uiKitPattern = "(\(macros.joined(separator: "|")))\\(\"([^\"]+)\", (tableName: \"([^\"]+)\", )?(comment: \"([^\"]*)\")\\)"
         self.swiftUIExplicitPattern = "Text\\((LocalizedStringKey\\()?\"([^\"]+)\"\\)?, tableName: \"([^\"]+)\"(, comment: \"([^\"]*)\")?\\)"
         self.swiftUIImplicitPattern = "(Text|Button|LocalizedStringKey)\\(\"([^\"]+)\"\\)"
         self.ignoreThisPattern = "//stringslint:ignore"
+        self.customRegex = customRegex
     }
-    
+
     public func support(file: File) -> Bool {
         return file.name.hasSuffix(".swift")
     }
@@ -131,6 +133,26 @@ public struct SwiftParser: LocalizableParser {
                     var key = ""
                     if result.numberOfRanges > 2 {
                         key = String(text[Range(result.range(at: 2), in: text)!])
+                    }
+
+                    strings.append(LocalizedString(key: key, table: "Localizable", locale: .none, location: location))
+
+                }
+            } catch let error {
+                print("invalid regex: \(error.localizedDescription)")
+            }
+        }
+
+        if let customRegex = customRegex {
+            do {
+                let regex = try NSRegularExpression(pattern: customRegex.pattern)
+                let results = regex.matches(in: text, options: [ .reportCompletion ], range: NSRange(text.startIndex..., in: text))
+                
+                for result in results {
+
+                    var key = ""
+                    if result.numberOfRanges > customRegex.matchIndex {
+                        key = String(text[Range(result.range(at: customRegex.matchIndex), in: text)!])
                     }
 
                     strings.append(LocalizedString(key: key, table: "Localizable", locale: .none, location: location))

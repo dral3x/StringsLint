@@ -15,6 +15,9 @@ class SwiftParserConfigurationTests: ConfigurationTestCase {
         let content = """
 macros:
 - ABCString
+regex:
+    pattern: ^\"([^\"]+)\".localized$
+    match_index: 2
 """
         
         let data = try self.creareConfigFileAsDictionary(with: content)
@@ -24,6 +27,8 @@ macros:
         
         XCTAssertEqual(configuration.macros.count, 3)
         XCTAssertEqual(configuration.macros, [ "NSLocalizedString", "CFLocalizedString", "ABCString" ])
+        XCTAssertEqual(configuration.customRegex?.pattern, "^\"([^\"]+)\".localized$")
+        XCTAssertEqual(configuration.customRegex?.matchIndex, 2)
     }
 
 }

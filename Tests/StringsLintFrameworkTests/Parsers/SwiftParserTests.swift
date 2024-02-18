@@ -121,7 +121,27 @@ ABCLocalizedString(\"abc\", tableName: \"Extras\", comment: \"blabla\")
         XCTAssertEqual(results[1].locale, .none)
         XCTAssertEqual(results[1].location, Location(file: file, line: 2))
     }
-    
+
+    func testParseCustomRegex() throws {
+        
+        let content = """
+\"blabla\".localized
+"""
+
+        let file = try self.createTempFile("test1.swift", with: content)
+
+        let customRegex = CustomRegex(pattern: "^\"([^\"]+)\".localized$", matchIndex: 1)
+        let parser = SwiftParser(macros: [], customRegex: customRegex)
+        let results = try parser.parse(file: file)
+        
+        XCTAssertEqual(results.count, 1)
+        
+        XCTAssertEqual(results[0].key, "blabla")
+        XCTAssertEqual(results[0].table, "Localizable")
+        XCTAssertEqual(results[0].locale, .none)
+        XCTAssertEqual(results[0].location, Location(file: file, line: 1))
+    }
+
     func testSwiftUITextWithImplicitString() throws {
 
         let content = """
