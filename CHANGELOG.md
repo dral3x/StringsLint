@@ -1,3 +1,19 @@
+## 0.1.6: Support custom regex
+
+#### Breaking
+
+* None.
+
+#### Experimental
+
+* None.
+
+#### Enhancements
+
+* support specifying a custom regex
+  [jalalawqati](https://github.com/jalalawqati).
+  [#33](https://github.com/dral3x/StringsLint/pull/33).
+
 ## 0.1.5: Fix brew install
 
 #### Breaking
