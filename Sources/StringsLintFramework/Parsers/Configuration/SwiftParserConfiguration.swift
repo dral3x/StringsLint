@@ -11,13 +11,16 @@ public struct SwiftParserConfiguration {
     
     private enum Key: String {
         case macros = "macros"
+        case customRegex = "regex"
     }
     
     public var macros: [String] = [
         "NSLocalizedString",
         "CFLocalizedString"
         ]
-    
+
+    public var customRegex: CustomRegex?
+
     public mutating func apply(_ configuration: Any) throws {
         
         guard let configuration = configuration as? [String: Any] else {
@@ -25,6 +28,7 @@ public struct SwiftParserConfiguration {
         }
         
         self.macros += defaultStringArray(configuration[Key.macros.rawValue])
+        self.customRegex = CustomRegex(config: configuration[Key.customRegex.rawValue])
     }
     
 }
