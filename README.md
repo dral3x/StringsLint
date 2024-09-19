@@ -15,7 +15,6 @@ StringsLint hooks into your source files, specifically it scans:
 If you **found a bug** or **have a feature request**, please open an issue.
 If you **want to contribute**, submit a pull request.
 
-
 ## Installation
 
 ### Using [Mint](https://github.com/yonaskolb/Mint):
@@ -49,7 +48,6 @@ installing a pinned version rather than simply the latest (which is the case wit
 Note that this will add the StringsLint binaries, its dependencies' binaries and the Swift binary
 library distribution to the `Pods/` directory, so checking in this directory to SCM such as
 git is discouraged.
-
 
 ### Compiling from source:
 
@@ -95,6 +93,7 @@ Directories will be searched recursively.
 ### GitHub Action
 
 Create a new workflow file in your repo (for example: `.github/workflows/stringslint.yml`) with the following content:
+
 ```
 name: StringsLint
 
@@ -116,6 +115,7 @@ jobs:
       - name: GitHub Action for StringsLint
         uses: dral3x/action-stringslint@1.0.1
 ```
+
 More details here https://github.com/dral3x/action-stringslint
 
 ## Rules
@@ -135,15 +135,14 @@ Configure StringsLint by adding a `.stringslint.yml` file from the directory you
 You can configure included and excluded file paths, extends some parsers capabilities and even turn off rules or specific files for each rule:
 
 ```yaml
-
 included: # paths to include during linting. `--path` is ignored if present.
-- Source
+  - Source
 excluded: # paths to ignore during linting. Takes precedence over `included`.
-- Carthage
-- Pods
-- Source/ExcludedFolder
-- Source/ExcludedFile.swift
-- Source/*/ExcludedFile.swift # Exclude files with a wildcard
+  - Carthage
+  - Pods
+  - Source/ExcludedFolder
+  - Source/ExcludedFile.swift
+  - Source/*/ExcludedFile.swift # Exclude files with a wildcard
 
 # Customize parsers
 objc_parser:
@@ -153,6 +152,9 @@ objc_parser:
 xib_parser:
   key_paths:
     - textLocalized # keyPath used to localized UI elements
+
+swift_parser:
+  swiftui_implicit: false # disable implicit detection of SwiftUI localized strings
 
 # Customize specific rules
 missing:
@@ -170,7 +172,6 @@ unused:
 
 missing_comment:
   severity: none
-
 ```
 
 ## License
