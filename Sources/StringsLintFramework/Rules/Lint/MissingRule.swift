@@ -88,6 +88,9 @@ public class MissingRule: LintRule {
             if self.ignoredStrings.contains(string.key) {
                 return nil
             }
+            if string.value != nil {
+                return nil
+            }
             return self.buildViolation(key: string.key, location: string.location)
         })
     }

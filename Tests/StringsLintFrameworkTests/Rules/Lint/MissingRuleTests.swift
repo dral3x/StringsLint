@@ -30,4 +30,14 @@ final class MissingRuleTests: XCTestCase {
 
         XCTAssertEqual(rule.violations.count, 0)
     }
+
+    func testStringWithValueShouldNotTrigger() {
+
+        let file = File(name: "MainView.swift", content: "NSLocalizedString(\"abc\", value: \"v\", comment: \"blabla\")")
+
+        let rule = MissingRule()
+        rule.processFile(file)
+
+        XCTAssertEqual(rule.violations.count, 0)
+    }
 }

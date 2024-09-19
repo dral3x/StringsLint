@@ -79,7 +79,7 @@ NSLocalizedString(\"abc\", tableName: \"ttt\", comment: \"blabla\")
     func testParseSingleStringWithTableAndValue() throws {
 
         let content = """
-NSLocalizedString(\"abc\", tableName: \"ttt\", value: \"v", comment: \"blabla\")
+NSLocalizedString(\"abc\", tableName: \"ttt\", value: \"v\", comment: \"blabla\")
 """
 
         let file = try self.createTempFile("test3.swift", with: content)
