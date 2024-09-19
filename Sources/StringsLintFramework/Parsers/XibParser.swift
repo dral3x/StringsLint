@@ -65,7 +65,7 @@ public struct XibParser: LocalizableParser {
                     key = String(text[Range(result.range(at: 2), in: text)!])
                 }
                 
-                strings.append(LocalizedString(key: key, table: "Localizable", locale: .none, location: location))
+                strings.append(LocalizedString(key: key, table: "Localizable", value: nil, locale: .none, location: location))
                 
             }
         } catch let error {

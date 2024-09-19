@@ -43,7 +43,7 @@ public struct StringsdictParser: LocalizableParser {
             if let index = file.lines.firstIndex(where: { (line) -> Bool in
                 line.contains(key)
             }) {
-                strings.append(LocalizedString(key: key, table: tableName, locale: locale, location: Location(file: file, line: index+1)))
+                strings.append(LocalizedString(key: key, table: tableName, value: nil, locale: locale, location: Location(file: file, line: index+1)))
             }
         }
         

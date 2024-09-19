@@ -45,11 +45,13 @@ NSLocalizedString(\"def\", tableName: \"ttt\", comment: \"blabla\")
         
         XCTAssertEqual(results[0].key, "abc")
         XCTAssertEqual(results[0].table, "Localizable")
+        XCTAssertEqual(results[0].value, nil)
         XCTAssertEqual(results[0].locale, .none)
         XCTAssertEqual(results[0].location, Location(file: file, line: 1))
         
         XCTAssertEqual(results[1].key, "def")
         XCTAssertEqual(results[1].table, "ttt")
+        XCTAssertEqual(results[0].value, nil)
         XCTAssertEqual(results[1].locale, .none)
         XCTAssertEqual(results[1].location, Location(file: file, line: 2))
     }
@@ -69,10 +71,31 @@ NSLocalizedString(\"abc\", tableName: \"ttt\", comment: \"blabla\")
         
         XCTAssertEqual(results[0].key, "abc")
         XCTAssertEqual(results[0].table, "ttt")
+        XCTAssertEqual(results[0].value, nil)
         XCTAssertEqual(results[0].locale, .none)
         XCTAssertEqual(results[0].location, Location(file: file, line: 1))
     }
     
+    func testParseSingleStringWithTableAndValue() throws {
+
+        let content = """
+NSLocalizedString(\"abc\", tableName: \"ttt\", value: \"v\", comment: \"blabla\")
+"""
+
+        let file = try self.createTempFile("test3.swift", with: content)
+
+        let parser = SwiftParser()
+        let results = try parser.parse(file: file)
+
+        XCTAssertEqual(results.count, 1)
+
+        XCTAssertEqual(results[0].key, "abc")
+        XCTAssertEqual(results[0].table, "ttt")
+        XCTAssertEqual(results[0].value, "v")
+        XCTAssertEqual(results[0].locale, .none)
+        XCTAssertEqual(results[0].location, Location(file: file, line: 1))
+    }
+
     func testParseMultipleStringsOnSingleLine() throws {
         
         let content = """

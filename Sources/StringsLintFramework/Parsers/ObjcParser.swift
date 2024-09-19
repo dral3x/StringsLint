@@ -87,8 +87,8 @@ public struct ObjcParser: LocalizableParser {
                     table = String(text[Range(result.range(at: 3), in: text)!])
                 }
                 
-                strings.append(LocalizedString(key: key, table: table, locale: .none, location: location))
-                
+                strings.append(LocalizedString(key: key, table: table, value: nil, locale: .none, location: location))
+
             }
         } catch let error {
             print("invalid regex: \(error.localizedDescription)")
@@ -104,7 +104,7 @@ public struct ObjcParser: LocalizableParser {
                     key = String(text[Range(result.range(at: 2), in: text)!])
                 }
                 
-                strings.append(LocalizedString(key: key, table: "Localizable", locale: .none, location: location))
+                strings.append(LocalizedString(key: key, table: "Localizable", value: nil, locale: .none, location: location))
                 
             }
         } catch let error {
