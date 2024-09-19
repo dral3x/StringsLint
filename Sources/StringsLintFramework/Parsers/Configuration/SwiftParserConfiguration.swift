@@ -12,6 +12,7 @@ public struct SwiftParserConfiguration {
     private enum Key: String {
         case macros = "macros"
         case customRegex = "regex"
+        case swiftUIImplicitEnabled = "swiftui_implicit"
     }
     
     public var macros: [String] = [
@@ -20,6 +21,7 @@ public struct SwiftParserConfiguration {
         ]
 
     public var customRegex: CustomRegex?
+    public var swiftUIImplicitEnabled: Bool = true
 
     public mutating func apply(_ configuration: Any) throws {
         
@@ -29,6 +31,7 @@ public struct SwiftParserConfiguration {
         
         self.macros += defaultStringArray(configuration[Key.macros.rawValue])
         self.customRegex = CustomRegex(config: configuration[Key.customRegex.rawValue])
+        self.swiftUIImplicitEnabled = defaultBooleanValue(configuration[Key.swiftUIImplicitEnabled.rawValue], default: true)
     }
     
 }

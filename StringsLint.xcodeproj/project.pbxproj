@@ -28,6 +28,7 @@
 		FA77E9EA26DE1C0600D82C5C /* MissingCommentRuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA77E9E926DE1C0600D82C5C /* MissingCommentRuleTests.swift */; };
 		FAA8243D224BDC620091A65C /* StringsdictParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8243C224BDC620091A65C /* StringsdictParserTests.swift */; };
 		FAA8243F224BDDD20091A65C /* StringsdictParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8243E224BDDD20091A65C /* StringsdictParser.swift */; };
+		FAC5F8972C9C70F40041AE49 /* RegexConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC5F8962C9C70F40041AE49 /* RegexConfiguration.swift */; };
 		FAE0FFD3251A07C400E20F84 /* String+Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE0FFC5251A032B00E20F84 /* String+Range.swift */; };
 		FAF2E3482AB486B000B60C7E /* MissingRuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF2E3472AB486B000B60C7E /* MissingRuleTests.swift */; };
 		FAF383AD21E7A3C100B24265 /* MissingRuleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF383AC21E7A3C100B24265 /* MissingRuleConfiguration.swift */; };
@@ -248,6 +249,7 @@
 		FA77E9E926DE1C0600D82C5C /* MissingCommentRuleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingCommentRuleTests.swift; sourceTree = "<group>"; };
 		FAA8243C224BDC620091A65C /* StringsdictParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsdictParserTests.swift; sourceTree = "<group>"; };
 		FAA8243E224BDDD20091A65C /* StringsdictParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsdictParser.swift; sourceTree = "<group>"; };
+		FAC5F8962C9C70F40041AE49 /* RegexConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexConfiguration.swift; sourceTree = "<group>"; };
 		FAE0FFC5251A032B00E20F84 /* String+Range.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Range.swift"; sourceTree = "<group>"; };
 		FAF2E3472AB486B000B60C7E /* MissingRuleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingRuleTests.swift; sourceTree = "<group>"; };
 		FAF383AC21E7A3C100B24265 /* MissingRuleConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingRuleConfiguration.swift; sourceTree = "<group>"; };
@@ -633,6 +635,7 @@
 				OBJ_35 /* LocalizedString.swift */,
 				OBJ_36 /* Location.swift */,
 				OBJ_37 /* MasterRuleList.swift */,
+				FAC5F8962C9C70F40041AE49 /* RegexConfiguration.swift */,
 				OBJ_38 /* RuleDescription.swift */,
 				OBJ_39 /* RuleList.swift */,
 				OBJ_40 /* Version.swift */,
@@ -1198,6 +1201,7 @@
 				OBJ_229 /* SwiftParser.swift in Sources */,
 				OBJ_230 /* XibParser.swift in Sources */,
 				OBJ_231 /* YamlParser.swift in Sources */,
+				FAC5F8972C9C70F40041AE49 /* RegexConfiguration.swift in Sources */,
 				OBJ_232 /* Reporter.swift in Sources */,
 				OBJ_233 /* XcodeReporter.swift in Sources */,
 				OBJ_234 /* RuleConfiguration.swift in Sources */,
