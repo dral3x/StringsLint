@@ -15,6 +15,7 @@ public struct SwiftParser: LocalizableParser {
     
     let uiKitPattern: String
     let swiftUIImplicitPattern: String
+    let swiftUIImplicitEnabled: Bool
     let swiftUIExplicitPattern: String
     let customRegex: CustomRegex?
     let ignoreThisPattern: String
@@ -25,7 +26,7 @@ public struct SwiftParser: LocalizableParser {
     
     public init() {
         let config = SwiftParserConfiguration()
-        self.init(macros: config.macros, customRegex: config.customRegex)
+        self.init(macros: config.macros, customRegex: config.customRegex, swiftUIImplicitEnabled: config.swiftUIImplicitEnabled)
     }
     
     public init(configuration: Any) throws {
@@ -34,15 +35,16 @@ public struct SwiftParser: LocalizableParser {
             try config.apply(defaultDictionaryValue(configuration, for: SwiftParser.self.identifier))
         } catch {}
         
-        self.init(macros: config.macros, customRegex: config.customRegex)
+        self.init(macros: config.macros, customRegex: config.customRegex, swiftUIImplicitEnabled: config.swiftUIImplicitEnabled)
     }
     
-    public init(macros: [String], customRegex: CustomRegex? = nil) {
+    public init(macros: [String], customRegex: CustomRegex?, swiftUIImplicitEnabled: Bool) {
         self.uiKitPattern = "(\(macros.joined(separator: "|")))\\(\"([^\"]+)\", (tableName: \"([^\"]+)\", )?(comment: \"([^\"]*)\")\\)"
         self.swiftUIExplicitPattern = "Text\\((LocalizedStringKey\\()?\"([^\"]+)\"\\)?, tableName: \"([^\"]+)\"(, comment: \"([^\"]*)\")?\\)"
         self.swiftUIImplicitPattern = "(Text|Button|LocalizedStringKey)\\(\"([^\"]+)\"\\)"
         self.ignoreThisPattern = "//stringslint:ignore"
         self.customRegex = customRegex
+        self.swiftUIImplicitEnabled = swiftUIImplicitEnabled
     }
 
     public func support(file: File) -> Bool {
@@ -124,7 +126,7 @@ public struct SwiftParser: LocalizableParser {
         }
 
         // Swift UI - implicit
-        if strings.isEmpty {
+        if strings.isEmpty && self.swiftUIImplicitEnabled {
             do {
                 let regex = try NSRegularExpression(pattern: self.swiftUIImplicitPattern)
                 let results = regex.matches(in: text, options: [ .reportCompletion ], range: NSRange(text.startIndex..., in: text))

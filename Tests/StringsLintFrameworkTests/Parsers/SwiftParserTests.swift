@@ -106,7 +106,7 @@ ABCLocalizedString(\"abc\", tableName: \"Extras\", comment: \"blabla\")
         
         let file = try self.createTempFile("test1.swift", with: content)
         
-        let parser = SwiftParser(macros: [ "ABCLocalizedString" ])
+        let parser = SwiftParser(macros: [ "ABCLocalizedString" ], customRegex: nil, swiftUIImplicitEnabled: true)
         let results = try parser.parse(file: file)
         
         XCTAssertEqual(results.count, 2)
@@ -131,7 +131,7 @@ ABCLocalizedString(\"abc\", tableName: \"Extras\", comment: \"blabla\")
         let file = try self.createTempFile("test1.swift", with: content)
 
         let customRegex = CustomRegex(pattern: "^\"([^\"]+)\".localized$", matchIndex: 1)
-        let parser = SwiftParser(macros: [], customRegex: customRegex)
+        let parser = SwiftParser(macros: [], customRegex: customRegex, swiftUIImplicitEnabled: true)
         let results = try parser.parse(file: file)
         
         XCTAssertEqual(results.count, 1)
@@ -249,5 +249,20 @@ Button("def") //stringslint:ignore
         XCTAssertEqual(results[0].table, "Localizable")
         XCTAssertEqual(results[0].locale, .none)
         XCTAssertEqual(results[0].location, Location(file: file, line: 1))
+    }
+
+    func testIgnoreImplicit() throws {
+
+        let content = """
+Text("abc")
+"""
+
+        let file = try self.createTempFile("test1.swift", with: content)
+
+        let parser = SwiftParser(macros: [], customRegex: nil, swiftUIImplicitEnabled: false)
+
+        let results = try parser.parse(file: file)
+
+        XCTAssertEqual(results.count, 0)
     }
 }

@@ -18,3 +18,7 @@ func defaultDictionaryValue(_ dictionary: Any, for key: String) -> Any {
     
     return dictionary[key] as Any
 }
+
+func defaultBooleanValue(_ object: Any?, `default`: Bool) -> Bool {
+    object as? Bool ?? `default`
+}
