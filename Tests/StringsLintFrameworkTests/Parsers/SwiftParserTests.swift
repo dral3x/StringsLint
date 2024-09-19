@@ -288,4 +288,46 @@ Text("abc")
 
         XCTAssertEqual(results.count, 0)
     }
+
+    func testStringLocalized() throws {
+
+        let content = """
+String(localized: "abc")
+String(localized: "def", defaultValue: "DEF")
+String(localized: "ghi", table: "AnotherTable")
+String(localized: "jkl", comment: "mmm")
+"""
+
+        let file = try self.createTempFile("test1.swift", with: content)
+
+        let parser = SwiftParser(macros: [], customRegex: nil, swiftUIImplicitEnabled: false)
+
+        let results = try parser.parse(file: file)
+
+        XCTAssertEqual(results.count, 4)
+
+        XCTAssertEqual(results[0].key, "abc")
+        XCTAssertEqual(results[0].value, nil)
+        XCTAssertEqual(results[0].table, "Localizable")
+        XCTAssertEqual(results[0].locale, .none)
+        XCTAssertEqual(results[0].location, Location(file: file, line: 1))
+
+        XCTAssertEqual(results[1].key, "def")
+        XCTAssertEqual(results[1].table, "Localizable")
+        XCTAssertEqual(results[1].value, "DEF")
+        XCTAssertEqual(results[1].locale, .none)
+        XCTAssertEqual(results[1].location, Location(file: file, line: 2))
+
+        XCTAssertEqual(results[2].key, "ghi")
+        XCTAssertEqual(results[2].value, nil)
+        XCTAssertEqual(results[2].table, "AnotherTable")
+        XCTAssertEqual(results[2].locale, .none)
+        XCTAssertEqual(results[2].location, Location(file: file, line: 3))
+
+        XCTAssertEqual(results[3].key, "jkl")
+        XCTAssertEqual(results[3].value, nil)
+        XCTAssertEqual(results[3].table, "Localizable")
+        XCTAssertEqual(results[3].locale, .none)
+        XCTAssertEqual(results[3].location, Location(file: file, line: 4))
+    }
 }

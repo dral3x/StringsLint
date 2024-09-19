@@ -14,6 +14,7 @@ public struct SwiftParser: LocalizableParser {
     }
     
     let foundationPattern: String
+    let stringPattern: String
     let swiftUIImplicitPattern: String
     let swiftUIImplicitEnabled: Bool
     let swiftUIExplicitPattern: String
@@ -40,6 +41,7 @@ public struct SwiftParser: LocalizableParser {
     
     public init(macros: [String], customRegex: CustomRegex?, swiftUIImplicitEnabled: Bool) {
         self.foundationPattern = "(\(macros.joined(separator: "|")))\\(\"(?<key>[^\"]+)\", (tableName: \"(?<table>[^\"]+)\", )?(value: \"(?<value>[^\"]+)\", )?(comment: \"([^\"]*)\")\\)"
+        self.stringPattern = "String\\(localized: \"(?<key>[^\"]+)\"(, defaultValue: \"(?<value>[^\"]+)\")?(, table: \"(?<table>[^\"]+)\")?(, comment: \"([^\"]*)\")?\\)"
         self.swiftUIExplicitPattern = "Text\\((LocalizedStringKey\\()?\"([^\"]+)\"\\)?, tableName: \"([^\"]+)\"(, comment: \"([^\"]*)\")?\\)"
         self.swiftUIImplicitPattern = "(Text|Button|LocalizedStringKey)\\(\"([^\"]+)\"\\)"
         self.ignoreThisPattern = "//stringslint:ignore"
@@ -79,7 +81,7 @@ public struct SwiftParser: LocalizableParser {
         var strings = [LocalizedString]()
         
         // Foundation
-        
+
         do {
             let regex = try NSRegularExpression(pattern: self.foundationPattern)
             let results = regex.matches(in: text, options: [ .reportCompletion ], range: NSRange(text.startIndex..., in: text))
@@ -106,6 +108,36 @@ public struct SwiftParser: LocalizableParser {
                 
                 strings.append(LocalizedString(key: key, table: table, value: value, locale: .none, location: location))
 
+            }
+        } catch let error {
+            print("invalid regex: \(error.localizedDescription)")
+        }
+
+        do {
+            let regex = try NSRegularExpression(pattern: self.stringPattern)
+            let results = regex.matches(in: text, options: [ .reportCompletion ], range: NSRange(text.startIndex..., in: text))
+            for result in results {
+
+                let keyRange = result.range(withName: "key")
+                let tableRange = result.range(withName: "table")
+                let valueRange = result.range(withName: "value")
+
+                var key = ""
+                if keyRange.location != NSNotFound {
+                    key = String(text[Range(keyRange, in: text)!])
+                }
+
+                var table = "Localizable"
+                if tableRange.location != NSNotFound {
+                    table = String(text[Range(tableRange, in: text)!])
+                }
+
+                var value: String? = nil
+                if valueRange.location != NSNotFound {
+                    value = String(text[Range(valueRange, in: text)!])
+                }
+
+                strings.append(LocalizedString(key: key, table: table, value: value, locale: .none, location: location))
             }
         } catch let error {
             print("invalid regex: \(error.localizedDescription)")
