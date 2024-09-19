@@ -8,6 +8,7 @@
 public struct LocalizedString: CustomStringConvertible, Hashable {
     let key: String
     let table: String
+    let value: String?
     let locale: Locale
     let location: Location
     var comment: String? = nil
@@ -16,6 +17,7 @@ public struct LocalizedString: CustomStringConvertible, Hashable {
         return [
             "table: \(self.table)",
             "key: \(self.key)",
+            "value: \(self.value ?? "nil")",
             "locale: \(self.locale)",
         ].joined(separator: ", ")
     }

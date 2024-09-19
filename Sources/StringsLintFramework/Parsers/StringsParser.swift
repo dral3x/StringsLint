@@ -42,7 +42,7 @@ public struct StringsParser: LocalizableParser {
                 let previousLine = (index > 0) ? file.lines[index - 1] : ""
                 let commentForLocalizedString = previousLine.extractComment()
 
-                strings.append(LocalizedString(key: key, table: tableName, locale: locale, location: Location(file: file, line: index+1), comment: commentForLocalizedString))
+                strings.append(LocalizedString(key: key, table: tableName, value: nil, locale: locale, location: Location(file: file, line: index+1), comment: commentForLocalizedString))
             }
         }
 
