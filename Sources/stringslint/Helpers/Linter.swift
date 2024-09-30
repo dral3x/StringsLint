@@ -7,8 +7,6 @@
 
 import Foundation
 import Dispatch
-import Commandant
-import Result
 import StringsLintFramework
 
 struct Linter {
@@ -23,8 +21,8 @@ struct Linter {
         self.lintableExtentions = supportedFilesExtentions()
     }
     
-    func lintFiles(_ files: [String]) -> Result<[Violation], CommandantError<()>> {
-        
+    func lintFiles(_ files: [String]) -> Result<[Violation], StringsLintError> {
+
         var violations = [Violation]()
         
         let apply = { (file: File) in

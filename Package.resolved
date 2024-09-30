@@ -2,39 +2,12 @@
   "object": {
     "pins": [
       {
-        "package": "Commandant",
-        "repositoryURL": "https://github.com/Carthage/Commandant.git",
+        "package": "swift-argument-parser",
+        "repositoryURL": "https://github.com/apple/swift-argument-parser.git",
         "state": {
           "branch": null,
-          "revision": "07cad52573bad19d95844035bf0b25acddf6b0f6",
-          "version": "0.15.0"
-        }
-      },
-      {
-        "package": "Nimble",
-        "repositoryURL": "https://github.com/Quick/Nimble.git",
-        "state": {
-          "branch": null,
-          "revision": "7c61d8e7e830dd37f7161ce2b894be178532163c",
-          "version": "7.3.0"
-        }
-      },
-      {
-        "package": "Quick",
-        "repositoryURL": "https://github.com/Quick/Quick.git",
-        "state": {
-          "branch": null,
-          "revision": "b060679e70d13c3c7dcd124201b5b1b34ce6f340",
-          "version": "1.3.1"
-        }
-      },
-      {
-        "package": "Result",
-        "repositoryURL": "https://github.com/antitypical/Result.git",
-        "state": {
-          "branch": null,
-          "revision": "8fc088dcf72802801efeecba76ea8fb041fb773d",
-          "version": "4.0.0"
+          "revision": "41982a3656a71c768319979febd796c6fd111d5c",
+          "version": "1.5.0"
         }
       },
       {
@@ -42,8 +15,8 @@
         "repositoryURL": "https://github.com/jpsim/Yams.git",
         "state": {
           "branch": null,
-          "revision": "26ab35f50ea891e8edefcc9d975db2f6b67e1d68",
-          "version": "1.0.1"
+          "revision": "3036ba9d69cf1fd04d433527bc339dc0dc75433d",
+          "version": "5.1.3"
         }
       }
     ]
