@@ -1,4 +1,4 @@
-// swift-tools-version:4.0
+// swift-tools-version:5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -10,28 +10,25 @@ let package = Package(
         .library(name: "StringsLintFramework", targets: ["StringsLintFramework"])
     ],
     dependencies: [
-        .package(url: "https://github.com/Carthage/Commandant.git", from: "0.15.0"),
-        .package(url: "https://github.com/jpsim/Yams.git", from: "1.0.0"),
+        .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.2.1"),
+        .package(url: "https://github.com/jpsim/Yams.git", from: "5.0.6"),
     ],
     targets: [
-        .target(
+        .executableTarget(
             name: "stringslint",
             dependencies: [
-                "Commandant",
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 "StringsLintFramework",
             ]),
         .target(
             name: "StringsLintFramework",
             dependencies: [
-                "Yams",
+                .product(name: "Yams", package: "Yams"),
             ]),
         .testTarget(
             name: "StringsLintFrameworkTests",
             dependencies: [
                 "StringsLintFramework"
-            ],
-            exclude: [
-                "Resources",
             ]
         )
     ]
