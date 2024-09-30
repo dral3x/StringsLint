@@ -80,11 +80,19 @@ Alternatively, if you've installed StringsLint via CocoaPods the script should l
 
 ```
 $ stringslint help
-Available commands:
+OVERVIEW: A tool to enforce Swift style and conventions.
 
-help            Display general or command-specific help
-lint            Print lint warnings and errors (default command)
-version         Display the current version of StringsLint
+USAGE: stringslint <subcommand>
+
+OPTIONS:
+  --version               Show the version.
+  -h, --help              Show help information.
+
+SUBCOMMANDS:
+  lint (default)          Print lint warnings and errors (default command)
+  version                 Display the current version of StringsLint
+
+  See 'stringslint help <subcommand>' for detailed help.
 ```
 
 Run `stringslint` in the directory containing the files to lint.

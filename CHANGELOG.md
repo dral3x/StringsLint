@@ -1,3 +1,19 @@
+## 0.1.8: Modernize command line
+
+#### Breaking
+
+- None.
+
+#### Experimental
+
+- None.
+
+#### Enhancements
+
+- Replace Commandant with swift argument parser
+  [Alessandro Calzavara](https://github.com/dral3x).
+  [#38](https://github.com/dral3x/StringsLint/pull/38).
+
 ## 0.1.7: Support more stuff
 
 #### Breaking
