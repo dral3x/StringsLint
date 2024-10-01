@@ -10,8 +10,8 @@ let package = Package(
         .library(name: "StringsLintFramework", targets: ["StringsLintFramework"])
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.2.1"),
-        .package(url: "https://github.com/jpsim/Yams.git", from: "5.0.6"),
+        .package(url: "https://github.com/apple/swift-argument-parser.git", exact: "1.5.0"),
+        .package(url: "https://github.com/jpsim/Yams.git", exact: "5.0.6"),
     ],
     targets: [
         .executableTarget(
