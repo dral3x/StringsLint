@@ -1,3 +1,23 @@
+## 0.1.9: Fix Lint command exit value
+
+#### Breaking
+
+- None.
+
+#### Experimental
+
+- None.
+
+#### Enhancements
+
+- None.
+
+#### Bug Fixes
+
+- Fix Lint command exit code
+  [Alessandro Calzavara](https://github.com/dral3x).
+  [#39](https://github.com/dral3x/StringsLint/pull/39).
+
 ## 0.1.8: Modernize command line
 
 #### Breaking
