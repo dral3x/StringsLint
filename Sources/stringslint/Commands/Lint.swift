@@ -32,6 +32,15 @@ extension StringsLint {
             }
             let options = LintOptions(paths: allPaths, configurationFile: config)
 
+            switch try execute(with: options) {
+            case .success:
+                throw ExitCode.success
+            case .failure:
+                throw ExitCode(2)
+            }
+        }
+
+        private func execute(with options: LintOptions) throws -> Result<[Violation], StringsLintError> {
             // Setup
             let configuration = Configuration(options: options)
             let files = configuration.lintableFiles(options: options)
@@ -39,32 +48,22 @@ extension StringsLint {
             // Process all files
             let result = linterFrom(configuration: configuration).lintFiles(files)
                 .map { $0.filter { $0.severity != .none } }
-                .map { violations -> [Violation] in
-
-                    // Report violations
-                    let reporter = reporterFrom(identifier: XcodeReporter.identifier)
-                    reporter.report(violations: violations)
-
-                    return violations
-                }
-                .map { violations -> Result<[Violation], StringsLintError> in
-
-                    let numberOfSeriousViolations = violations.filter({ $0.severity == .error }).count
-
-                    printStatus(violations: violations, files: files, serious: numberOfSeriousViolations)
-
-                    if numberOfSeriousViolations > 0 {
-                        return .failure(StringsLintError.usageError(description: "A serious violation has been found"))
-                    }
-                    return .success(violations)
+            if case .failure(let error) = result {
+                return .failure(error)
             }
 
-            switch result {
-            case .success:
-                return
-            case .failure(let error):
-                throw error
-            }
+            let violations = try result.get()
+
+            // Report violations
+            let reporter = reporterFrom(identifier: XcodeReporter.identifier)
+            reporter.report(violations: violations)
+
+            // Report exit code
+            let numberOfSeriousViolations = violations.filter { $0.severity == .error }.count
+
+            printStatus(violations: violations, files: files, serious: numberOfSeriousViolations)
+
+            return numberOfSeriousViolations == 0 ? .success(violations) : .failure(StringsLintError.usageError(description: "A serious violation has been found"))
         }
 
         private func printStatus(violations: [Violation], files: [String], serious: Int) {
