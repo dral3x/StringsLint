@@ -1,3 +1,23 @@
+## 0.1.10: Improved keys matching
+
+#### Breaking
+
+- None.
+
+#### Experimental
+
+- None.
+
+#### Enhancements
+
+- Improved keys matching
+  [Davide](https://github.com/nutsmuggler).
+  [#40](https://github.com/dral3x/StringsLint/pull/40)
+
+#### Bug Fixes
+
+- None.
+
 ## 0.1.9: Fix Lint command exit value
 
 #### Breaking
