@@ -4,7 +4,7 @@ A tool to ensure localized strings are complete and never unused.
 
 StringsLint hooks into your source files, specifically it scans:
 
-- .`strings` and .`stringsdict`
+- .`strings`, .`stringsdict` and .`xcstrings`
 - .`swift` and .`m`
 - .`xib` and `.storyboard`
 
@@ -113,6 +113,7 @@ on:
       - '**/*.swift'
       - '**/*.strings'
       - '**/*.stringsdict'
+      - '**/*.xcstrings'
 
 jobs:
   StringsLint:

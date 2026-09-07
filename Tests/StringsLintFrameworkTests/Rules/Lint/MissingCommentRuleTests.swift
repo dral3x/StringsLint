@@ -36,4 +36,23 @@ class MissingCommentRuleTests: XCTestCase {
         XCTAssertEqual(rule.violations[0].severity, .warning)
     }
 
+    func testStringCatalogWithoutComment() {
+        let content = XCStringsFixture.catalog(key: "abc")
+        let catalog = File(name: "Localizable.xcstrings", content: content)
+
+        let rule = MissingCommentRule()
+        rule.processFile(catalog)
+
+        XCTAssertEqual(rule.violations.map { $0.reason }, [ "Comment for Localized string \"abc\" is missing" ])
+    }
+
+    func testStringCatalogWithComment() {
+        let content = XCStringsFixture.catalog(key: "abc", comment: "A comment")
+        let catalog = File(name: "Localizable.xcstrings", content: content)
+
+        let rule = MissingCommentRule()
+        rule.processFile(catalog)
+
+        XCTAssertEqual(rule.violations.count, 0)
+    }
 }

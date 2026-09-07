@@ -40,4 +40,28 @@ final class MissingRuleTests: XCTestCase {
 
         XCTAssertEqual(rule.violations.count, 0)
     }
+
+    func testStringCatalogDeclarationSatisfiesUsage() {
+        let content = XCStringsFixture.catalog(key: "abc")
+        let catalog = File(name: "Localizable.xcstrings", content: content)
+        let code = File(name: "main.swift", content: "NSLocalizedString(\"abc\", comment: \"\")")
+
+        let rule = MissingRule()
+        rule.processFile(catalog)
+        rule.processFile(code)
+
+        XCTAssertEqual(rule.violations.count, 0)
+    }
+
+    func testUsageMissingFromStringCatalog() {
+        let content = XCStringsFixture.catalog(key: "abc")
+        let catalog = File(name: "Localizable.xcstrings", content: content)
+        let code = File(name: "main.swift", content: "NSLocalizedString(\"def\", comment: \"\")")
+
+        let rule = MissingRule()
+        rule.processFile(catalog)
+        rule.processFile(code)
+
+        XCTAssertEqual(rule.violations.map { $0.reason }, [ "Localized string \"def\" is missing" ])
+    }
 }
