@@ -25,7 +25,7 @@ public class UnusedRule: LintRule {
     
     public required convenience init() {
         let config = UnusedRuleConfiguration()
-        self.init(declareParser: ComposedParser(parsers: [ StringsParser(), StringsdictParser() ]),
+        self.init(declareParser: ComposedParser(parsers: [ StringsParser(), StringsdictParser(), XCStringsParser() ]),
                   usageParser: ComposedParser(parsers: [ SwiftParser(), ObjcParser(), XibParser() ]),
                   ignoredStrings: config.ignored,
                   severity: config.severity)
@@ -39,7 +39,8 @@ public class UnusedRule: LintRule {
         
         self.init(declareParser: ComposedParser(parsers: [
             try StringsParser.self.init(configuration: configuration),
-            try StringsdictParser.self.init(configuration: configuration)
+            try StringsdictParser.self.init(configuration: configuration),
+            try XCStringsParser.self.init(configuration: configuration)
             ]),
                   usageParser: ComposedParser(parsers: [
                     try SwiftParser.self.init(configuration: configuration),

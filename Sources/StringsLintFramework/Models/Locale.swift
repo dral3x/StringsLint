@@ -31,17 +31,20 @@ extension Locale {
     
     init(url: URL?) {
         if let localeComponent = url?.pathComponents.dropLast().last , localeComponent.hasSuffix(".lproj") {
-            let lang = localeComponent.replacingOccurrences(of: ".lproj", with: "")
-            
-            if lang == "Base" {
-                self = .base
-            }
-            else {
-                self = .language(lang)
-            }
+            let languageCode = localeComponent.replacingOccurrences(of: ".lproj", with: "")
+            self.init(languageCode: languageCode)
         }
         else {
             self = .none
+        }
+    }
+    
+    init(languageCode: String) {
+        if languageCode == "Base" {
+            self = .base
+        }
+        else {
+            self = .language(languageCode)
         }
     }
     

@@ -30,7 +30,8 @@ public class MissingRule: LintRule {
         
         self.init(declareParser: ComposedParser(parsers: [
                     try StringsParser.self.init(configuration: configuration),
-                    try StringsdictParser.self.init(configuration: configuration)
+                    try StringsdictParser.self.init(configuration: configuration),
+                    try XCStringsParser.self.init(configuration: configuration)
                     ]),
                   usageParser: ComposedParser(parsers: [
                     try SwiftParser.self.init(configuration: configuration),
@@ -44,7 +45,7 @@ public class MissingRule: LintRule {
     public required convenience init() {
         let config = MissingRuleConfiguration()
 
-        self.init(declareParser: StringsParser(),
+        self.init(declareParser: ComposedParser(parsers: [ StringsParser(), XCStringsParser() ]),
                   usageParser: ComposedParser(parsers: [ SwiftParser(), ObjcParser(), XibParser() ]),
                   ignoredStrings: config.ignored,
                   severity: config.severity)
@@ -53,7 +54,7 @@ public class MissingRule: LintRule {
         var config = MissingRuleConfiguration()
         config.ignored = ignored
 
-        self.init(declareParser: StringsParser(),
+        self.init(declareParser: ComposedParser(parsers: [ StringsParser(), XCStringsParser() ]),
                   usageParser: ComposedParser(parsers: [ SwiftParser(), ObjcParser(), XibParser() ]),
                   ignoredStrings: config.ignored,
                   severity: config.severity)

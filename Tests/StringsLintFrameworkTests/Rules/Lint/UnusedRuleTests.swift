@@ -42,4 +42,28 @@ class UnusedRuleTests: XCTestCase {
         XCTAssertEqual(rule.violations.count, 1)
         XCTAssertEqual(rule.violations[0].severity, .error)
     }
+
+    func testStringCatalogDeclarationIsUnused() {
+        let content = XCStringsFixture.catalog(key: "abc")
+        let catalog = File(name: "Localizable.xcstrings", content: content)
+        let code = File(name: "main.swift", content: "NSLocalizedString(\"def\", comment: \"\")")
+
+        let rule = UnusedRule()
+        rule.processFile(catalog)
+        rule.processFile(code)
+
+        XCTAssertEqual(rule.violations.map { $0.reason }, [ "Localized string \"abc\" is unused" ])
+    }
+
+    func testStringCatalogDeclarationIsUsed() {
+        let content = XCStringsFixture.catalog(key: "abc")
+        let catalog = File(name: "Localizable.xcstrings", content: content)
+        let code = File(name: "main.swift", content: "NSLocalizedString(\"abc\", comment: \"\")")
+
+        let rule = UnusedRule()
+        rule.processFile(catalog)
+        rule.processFile(code)
+
+        XCTAssertEqual(rule.violations.count, 0)
+    }
 }

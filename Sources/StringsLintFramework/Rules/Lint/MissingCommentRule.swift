@@ -26,7 +26,8 @@ public class MissingCommentRule: LintRule {
         } catch {}
 
         self.init(declareParser: ComposedParser(parsers: [
-                    try StringsParser.self.init(configuration: configuration)
+                    try StringsParser.self.init(configuration: configuration),
+                    try XCStringsParser.self.init(configuration: configuration)
                     ]),
                   usageParser: ComposedParser(parsers: []),
                   severity: config.severity
@@ -35,7 +36,7 @@ public class MissingCommentRule: LintRule {
     public required convenience init() {
         let config = MissingRuleConfiguration()
 
-        self.init(declareParser: StringsParser(),
+        self.init(declareParser: ComposedParser(parsers: [ StringsParser(), XCStringsParser() ]),
                   usageParser: ComposedParser(parsers: []),
                   severity: config.severity)
     }

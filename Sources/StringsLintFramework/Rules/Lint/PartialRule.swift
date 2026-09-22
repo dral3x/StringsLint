@@ -22,8 +22,16 @@ public class PartialRule: LintRule {
     
     public required convenience init() {
         let config = PartialRuleConfiguration()
-        self.init(parser: ComposedParser(parsers: [ StringsParser(), StringsdictParser() ]),
-                  severity: config.severity)
+        self.init(
+            parser: ComposedParser(
+                parsers: [
+                    StringsParser(),
+                    StringsdictParser(),
+                    XCStringsParser()
+                ]
+            ),
+            severity: config.severity
+        )
     }
     
     public required convenience init(configuration: Any) throws {
@@ -34,7 +42,8 @@ public class PartialRule: LintRule {
         
         self.init(parser: ComposedParser(parsers: [
             try StringsParser.self.init(configuration: configuration),
-            try StringsdictParser.self.init(configuration: configuration)
+            try StringsdictParser.self.init(configuration: configuration),
+            try XCStringsParser.self.init(configuration: configuration)
             ]), severity: config.severity)
     }
 
@@ -49,16 +58,20 @@ public class PartialRule: LintRule {
             return
         }
         
-        let locale = Locale(url: file.url)
-        if !self.locales.contains(locale) {
+        let strings = self.processDeclarationFile(file)
+        
+        var localesInFile = strings.map { $0.locale }
+        if localesInFile.isEmpty {
+            let fileLocale = Locale(url: file.url)
+            localesInFile = fileLocale.isNone ? [] : [ fileLocale ]
+        }
+        
+        for locale in localesInFile where !self.locales.contains(locale) {
             self.locales.append(locale)
         }
         
-        let strings = self.processDeclarationFile(file)
-        if let knownStrings = self.declaredStrings[locale] {
-            self.declaredStrings[locale] = (knownStrings + strings)
-        } else {
-            self.declaredStrings[locale] = strings
+        for string in strings {
+            self.declaredStrings[string.locale, default: []].append(string)
         }
     }
     
