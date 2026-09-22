@@ -1,3 +1,21 @@
+## 0.1.11: Support for XCStrings
+#### Breaking
+
+- None.
+
+#### Experimental
+
+- None.
+
+#### Enhancements
+
+- add support for xcstrings file
+  [jalalawqati](https://github.com/jalalawqati).
+  [#41](https://github.com/dral3x/StringsLint/pull/41)
+
+#### Bug Fixes
+
+- None.
 ## 0.1.10: Improved keys matching
 
 #### Breaking
